@@ -1,0 +1,45 @@
+[2026-06-20 15:49:28] === INICIO completar_producto.php ===
+[2026-06-20 15:49:28] ID recibido: 22
+[2026-06-20 15:49:28] Producto encontrado: ID 22, URL: https://www.alibaba.com/product-detail/Roc-Deep-Lip-JDM-EVO-Wheels_1601717958554.html?spm=a2700.product_home_fy25.just_for_you.9.2ce21061hn2JoB&priceId=1e211d5c40b34af29ec2201a911f6316
+[2026-06-20 15:49:28] Intento 1 de 3
+[2026-06-20 15:49:28] === INICIO completar_producto.php ===
+[2026-06-20 15:49:28] ID recibido: 22
+[2026-06-20 15:49:28] Producto encontrado: ID 22, URL: https://www.alibaba.com/product-detail/Roc-Deep-Lip-JDM-EVO-Wheels_1601717958554.html?spm=a2700.product_home_fy25.just_for_you.9.2ce21061hn2JoB&priceId=1e211d5c40b34af29ec2201a911f6316
+[2026-06-20 15:49:28] Intento 1 de 3
+[2026-06-20 15:49:30] Extracción completada en 1.67s
+[2026-06-20 15:49:30] Resultado - Imagen: OK, Precio: OK
+[2026-06-20 15:49:30] ✅ Producto 22 actualizado exitosamente
+[2026-06-20 15:49:30] === FIN completar_producto.php ===
+
+[2026-06-20 15:49:30] Extracción completada en 1.78s
+[2026-06-20 15:49:30] Resultado - Imagen: OK, Precio: OK
+[2026-06-20 15:49:30] ✅ Producto 22 actualizado exitosamente
+[2026-06-20 15:49:30] === FIN completar_producto.php ===
+
+[2026-06-20 15:51:21] === INICIO completar_producto.php ===
+[2026-06-20 15:51:21] ID recibido: 23
+[2026-06-20 15:51:21] Producto encontrado: ID 23, URL: https://www.alibaba.com/product-detail/200W-1200W-Portable-Solar-Power-Station_1601396499914.html?spm=a2700.product_home_fy25.just_for_you.10.2ce21061hn2JoB&priceId=1e211d5c40b34af29ec2201a911f6316
+[2026-06-20 15:51:21] Intento 1 de 3
+[2026-06-20 15:51:21] === INICIO completar_producto.php ===
+[2026-06-20 15:51:21] ID recibido: 23
+[2026-06-20 15:51:21] Producto encontrado: ID 23, URL: https://www.alibaba.com/product-detail/200W-1200W-Portable-Solar-Power-Station_1601396499914.html?spm=a2700.product_home_fy25.just_for_you.10.2ce21061hn2JoB&priceId=1e211d5c40b34af29ec2201a911f6316
+[2026-06-20 15:51:21] Intento 1 de 3
+[2026-06-20 15:51:24] Extracción completada en 3.04s
+[2026-06-20 15:51:24] Resultado - Imagen: OK, Precio: OK
+[2026-06-20 15:51:24] ✅ Producto 23 actualizado exitosamente
+[2026-06-20 15:51:24] === FIN completar_producto.php ===
+
+[2026-06-20 15:51:24] Extracción completada en 3.09s
+[2026-06-20 15:51:24] Resultado - Imagen: OK, Precio: OK
+[2026-06-20 15:51:24] ✅ Producto 23 actualizado exitosamente
+[2026-06-20 15:51:24] === FIN completar_producto.php ===
+
+[2026-06-20 18:00:04] === INICIO completar_producto.php ===
+[2026-06-20 18:00:04] ID recibido: 20
+[2026-06-20 18:00:04] Producto encontrado: ID 20, URL: https://www.alibaba.com/product-detail/200W-1200W-Portable-Solar-Power-Station_1601396499914.html?spm=a2700.product_home_fy25.just_for_you.10.2ce21061hn2JoB&priceId=1e211d5c40b34af29ec2201a911f6316
+[2026-06-20 18:00:04] Intento 1 de 3
+[2026-06-20 18:00:05] Extracción completada en 1.49s
+[2026-06-20 18:00:05] Resultado - Imagen: OK, Precio: OK
+[2026-06-20 18:00:05] ✅ Producto 20 actualizado exitosamente
+[2026-06-20 18:00:05] === FIN completar_producto.php ===
+

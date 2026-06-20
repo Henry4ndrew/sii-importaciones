@@ -1,0 +1,10 @@
+[20-Jun-2026 15:03:21 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "CPANEL" in /home7/morelia/app.sii-importaciones.net/config/config.php:14
+Stack trace:
+#0 /home7/morelia/app.sii-importaciones.net/public/verificar_config.php(2): require()
+#1 {main}
+  thrown in /home7/morelia/app.sii-importaciones.net/config/config.php on line 14
+[20-Jun-2026 15:03:24 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "CPANEL" in /home7/morelia/app.sii-importaciones.net/config/config.php:14
+Stack trace:
+#0 /home7/morelia/app.sii-importaciones.net/public/verificar_config.php(2): require()
+#1 {main}
+  thrown in /home7/morelia/app.sii-importaciones.net/config/config.php on line 14
