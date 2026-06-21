@@ -3,7 +3,7 @@
 class Producto
 {
     private const SELECT_BASE = '
-        SELECT p.*, u.nombre AS publicado_por,
+        SELECT p.*, u.email AS publicado_por,
                (SELECT COUNT(*) FROM votos v WHERE v.producto_id = p.id) AS total_votos
         FROM productos p
         JOIN usuarios u ON u.id = p.usuario_id';

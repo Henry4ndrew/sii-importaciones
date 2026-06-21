@@ -43,3 +43,12 @@
 [2026-06-20 18:00:05] ✅ Producto 20 actualizado exitosamente
 [2026-06-20 18:00:05] === FIN completar_producto.php ===
 
+[2026-06-21 15:39:08] === INICIO completar_producto.php ===
+[2026-06-21 15:39:08] ID recibido: 21
+[2026-06-21 15:39:08] Producto encontrado: ID 21, URL: https://www.alibaba.com/product-detail/Hot-Sale-New-Energy-Vehicles-No_1601651293444.html?spm=a2700.product_home_fy25.just_for_you.3.2ce21061YSp4k1&priceId=0b3bdff67cb34f32857f58c5aba11a33
+[2026-06-21 15:39:08] Intento 1 de 3
+[2026-06-21 15:39:09] Extracción completada en 1.11s
+[2026-06-21 15:39:09] Resultado - Imagen: OK, Precio: OK
+[2026-06-21 15:39:09] ✅ Producto 21 actualizado exitosamente
+[2026-06-21 15:39:09] === FIN completar_producto.php ===
+

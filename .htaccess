@@ -1,4 +1,23 @@
-# Redirigir todo a la carpeta public (permite entrar a http://localhost/sistema-votacion/)
-RewriteEngine On
-RewriteRule ^$ public/ [L]
-RewriteRule (.*) public/$1 [L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    Options -Indexes
+    
+    # Si el archivo o directorio existe, servirlo directamente
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+    
+    # Todas las rutas van al router correspondiente
+    # Si es la raíz, usar index.php
+    RewriteRule ^$ index.php [L]
+    
+    # Cualquier otra ruta va a dashboard/index.php
+    RewriteRule ^(.*)$ dashboard/index.php [QSA,L]
+    
+</IfModule>
+
+# Proteger archivos sensibles
+<FilesMatch "(config\.php|database\.php|\.env)">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

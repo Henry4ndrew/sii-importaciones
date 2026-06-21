@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../Helpers/Extractor.php'; 
+
 
 class ProductoController
 {

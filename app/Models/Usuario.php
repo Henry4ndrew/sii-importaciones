@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../config/database.php';
 
 class Usuario
 {
@@ -10,10 +11,10 @@ class Usuario
         return $usuario ?: null;
     }
 
-    public static function crear(string $nombre, string $email, string $password): int
+    public static function crear(string $email): int
     {
-        $stmt = db()->prepare('INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)');
-        $stmt->execute([$nombre, $email, password_hash($password, PASSWORD_DEFAULT)]);
+        $stmt = db()->prepare('INSERT INTO usuarios (email) VALUES (?)');
+        $stmt->execute([$email]);
         return (int) db()->lastInsertId();
     }
 }

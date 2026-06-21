@@ -1,0 +1,50 @@
+/sii-importaciones
+│── .htaccess
+│── index.php
+
+├── /app
+│   ├── /controllers
+│   │     ├── AuthController.php
+│   │     ├── ProductoController.php
+│   │     └── VotoController.php
+│   │
+│   ├── /Models
+│   │     ├── Usuario.php
+│   │     ├── Producto.php
+│   │     └── Voto.php
+│   │
+│   └── /Helpers
+│         ├── Extractor.php
+│         └── functions.php
+│
+├── /config
+│     ├── config.php
+│     └── database.php
+│
+├── /public
+│   ├── .htaccess
+│   └──  index.php 
+│
+├── /resources
+│    └── /views        
+│           ├──/productos     
+│           │      ├── _tarjeta.php
+│           │      ├── crear.php
+│           │      ├── index.php
+│           │      └── ranking.php
+│           │ 
+│           ├── errro404.php
+│           └── layout.php //AQUI ESTÁ EL HEADER
+├── /routes
+│      └── web.php
+│
+├── / scripts
+│     ├── completar_producto.php
+│     └── completar_productos.php
+│ 
+├── .htaccess
+│  
+├── README.md
+│ 
+└── index.php //ESTE ES UN NUEVO ARCHIVO CREADO DONDE QUIERO AGREGAR EL FORMULARIO DE INICIO DE SESIÓN
+

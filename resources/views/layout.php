@@ -25,10 +25,10 @@
 
                 <?php if (auth()): ?>
                     <a href="<?= url('productos/crear') ?>" class="px-3 py-2 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400">+ Publicar</a>
-                    <span class="hidden sm:inline text-slate-300 px-2"><?= e(auth()['nombre']) ?></span>
+                    <span class="hidden sm:inline text-slate-300 px-2 text-xs"><?= e(auth()['email']) ?></span>
                     <a href="<?= url('logout') ?>" class="px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600">Salir</a>
                 <?php else: ?>
-                    <a href="<?= url('login') ?>" class="px-3 py-2 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400">Acceder al Sistema</a>
+                    <a href="<?= url('/') ?>" class="px-3 py-2 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400">Acceder al Sistema</a>
                 <?php endif; ?>
             </div>
         </div>

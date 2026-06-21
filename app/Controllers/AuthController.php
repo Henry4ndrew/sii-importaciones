@@ -8,57 +8,47 @@ class AuthController
     }
 
     public function login(): void
-    {
+    {        
         $email = trim($_POST['email'] ?? '');
-        $password = $_POST['password'] ?? '';
 
-        $usuario = Usuario::buscarPorEmail($email);
-
-        if (!$usuario || !password_verify($password, $usuario['password'])) {
-            flash('error', 'Correo o contraseña incorrectos.');
-            redirect('login');
+        // Validar email
+        if (empty($email)) {
+            flash('error', 'Por favor, ingresa tu correo electrónico.');
+            header('Location: ' . url('login'));
+            exit;
         }
 
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            flash('error', 'Por favor, ingresa un correo electrónico válido.');
+            header('Location: ' . url('login'));
+            exit;
+        }
+
+        // Buscar usuario
+        $usuario = Usuario::buscarPorEmail($email);
+
+        // Si no existe, crear usuario automáticamente
+        if (!$usuario) {
+            $id = Usuario::crear($email);
+            $usuario = Usuario::buscarPorEmail($email);
+            flash('exito', '¡Bienvenido! Tu cuenta ha sido creada automáticamente.');
+        }
+
+        // Iniciar sesión
         $_SESSION['usuario'] = [
             'id' => $usuario['id'],
-            'nombre' => $usuario['nombre'],
             'email' => $usuario['email'],
         ];
 
-        redirect('/');
-    }
-
-    public function showRegister(): void
-    {
-        view('auth.register', ['titulo' => 'Crear Cuenta']);
-    }
-
-    public function register(): void
-    {
-        $nombre = trim($_POST['nombre'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $password = $_POST['password'] ?? '';
-
-        if ($nombre === '' || !filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 6) {
-            flash('error', 'Completa todos los campos (la contraseña debe tener al menos 6 caracteres).');
-            redirect('register');
-        }
-
-        if (Usuario::buscarPorEmail($email)) {
-            flash('error', 'Ese correo ya está registrado.');
-            redirect('register');
-        }
-
-        $id = Usuario::crear($nombre, $email, $password);
-        $_SESSION['usuario'] = ['id' => $id, 'nombre' => $nombre, 'email' => $email];
-
-        flash('exito', '¡Bienvenido, ' . $nombre . '! Tu cuenta fue creada.');
-        redirect('/');
+        // Redirigir al dashboard
+        header('Location: ' . url('/'));
+        exit;
     }
 
     public function logout(): void
     {
         session_destroy();
-        redirect('/');
+        header('Location: ' . url('/'));
+        exit;
     }
 }
