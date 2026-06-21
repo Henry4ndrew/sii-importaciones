@@ -7,6 +7,7 @@ require_once __DIR__ . '/../app/Models/Usuario.php';
 require_once __DIR__ . '/../app/Models/Producto.php';
 require_once __DIR__ . '/../app/Models/Voto.php';
 require_once __DIR__ . '/../app/controllers/AuthController.php';
+require_once __DIR__ . '/../app/controllers/HomeController.php';
 require_once __DIR__ . '/../app/controllers/ProductoController.php';
 require_once __DIR__ . '/../app/controllers/VotoController.php';
 
@@ -14,18 +15,8 @@ require_once __DIR__ . '/../app/controllers/VotoController.php';
 session_start();
 
 // ============================================
-// VERIFICAR AUTENTICACIÓN
+// OBTENER LA RUTA SOLICITADA
 // ============================================
-if (!auth()) {
-    header('Location: ' . BASE_URL . '/');
-    exit;
-}
-
-// ============================================
-// ROUTER
-// ============================================
-
-// Obtener la URL
 $requestUri = $_SERVER['REQUEST_URI'] ?? '/';
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
@@ -36,15 +27,38 @@ if (defined('BASE_URL') && BASE_URL !== '') {
 }
 $path = trim($path, '/');
 
+// ============================================
+// RUTAS PÚBLICAS - Redirigir al index.php raíz
+// ============================================
+$publicRoutes = ['', 'conocenos', 'servicios', 'contactos', 'login'];
+
+if (in_array($path, $publicRoutes)) {
+    // Redirigir al index.php raíz para manejar estas rutas
+    header('Location: ' . BASE_URL . '/' . ($path ? $path : ''));
+    exit;
+}
+
+// ============================================
+// VERIFICAR AUTENTICACIÓN PARA RUTAS PROTEGIDAS
+// ============================================
+if (!auth()) {
+    header('Location: ' . BASE_URL . '/');
+    exit;
+}
+
+// ============================================
+// ROUTER PARA RUTAS PROTEGIDAS
+// ============================================
+
 // Construir la clave de ruta
 $routePath = $path === '' ? '/' : '/' . $path;
 $routeKey = $method . ' ' . $routePath;
 
-// Mapeo directo de rutas (sin registro)
+// Mapeo directo de rutas
 $handler = null;
 
 switch ($routeKey) {
-    case 'GET /':
+    // Rutas del dashboard (ProductoController)
     case 'GET /dashboard':
         $handler = ['ProductoController', 'index'];
         break;
@@ -63,12 +77,8 @@ switch ($routeKey) {
     case 'POST /votar':
         $handler = ['VotoController', 'votar'];
         break;
-    case 'GET /login':
-        $handler = ['AuthController', 'showLogin'];
-        break;
-    case 'POST /login':
-        $handler = ['AuthController', 'login'];
-        break;
+    
+    // Rutas de autenticación
     case 'GET /logout':
         $handler = ['AuthController', 'logout'];
         break;

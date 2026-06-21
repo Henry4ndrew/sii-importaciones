@@ -7,11 +7,28 @@
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
     
-    # Todas las rutas van al router correspondiente
-    # Si es la raíz, usar index.php
+    # ============================================
+    # RUTAS PÚBLICAS (van a index.php raíz)
+    # ============================================
     RewriteRule ^$ index.php [L]
+    RewriteRule ^conocenos$ index.php [L]
+    RewriteRule ^servicios$ index.php [L]
+    RewriteRule ^contactos$ index.php [L]
+    RewriteRule ^login$ index.php [L]
     
-    # Cualquier otra ruta va a dashboard/index.php
+    # ============================================
+    # RUTAS DEL DASHBOARD (van a dashboard/index.php)
+    # ============================================
+    # Nota: Para rutas con parámetros, usamos (.*)
+    RewriteRule ^dashboard$ dashboard/index.php [L]
+    RewriteRule ^ranking$ dashboard/index.php [L]
+    RewriteRule ^productos/(.*)$ dashboard/index.php [L]
+    RewriteRule ^votar$ dashboard/index.php [L]
+    RewriteRule ^logout$ dashboard/index.php [L]
+    
+    # ============================================
+    # CUALQUIER OTRA RUTA (fallback)
+    # ============================================
     RewriteRule ^(.*)$ dashboard/index.php [QSA,L]
     
 </IfModule>
