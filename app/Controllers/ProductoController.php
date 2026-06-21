@@ -50,7 +50,7 @@ class ProductoController
 
         if ($existente && $existente['imagen'] !== null) {
             flash('error', 'Ese producto ya está publicado.');
-            redirect('/');
+            redirect('dashboard'); // <-- CAMBIADO
         }
 
         if ($existente) {
@@ -65,7 +65,7 @@ class ProductoController
 
         // Ejecutar en segundo plano con método mejorado
         self::completarEnSegundoPlano($id);
-        redirect('/');
+        redirect('dashboard'); // <-- CAMBIADO
     }
 
     // Método mejorado para ejecutar en segundo plano
@@ -158,6 +158,6 @@ class ProductoController
             flash('exito', '¡Producto capturado y publicado con todos sus detalles!');
         }
 
-        redirect('/');
+        redirect('dashboard'); // <-- CAMBIADO
     }
 }

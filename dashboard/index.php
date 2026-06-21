@@ -7,12 +7,19 @@ require_once __DIR__ . '/../app/Models/Usuario.php';
 require_once __DIR__ . '/../app/Models/Producto.php';
 require_once __DIR__ . '/../app/Models/Voto.php';
 require_once __DIR__ . '/../app/controllers/AuthController.php';
-require_once __DIR__ . '/../app/controllers/HomeController.php';
 require_once __DIR__ . '/../app/controllers/ProductoController.php';
 require_once __DIR__ . '/../app/controllers/VotoController.php';
 
 // Iniciar sesión
 session_start();
+
+// ============================================
+// VERIFICAR AUTENTICACIÓN
+// ============================================
+if (!auth()) {
+    header('Location: ' . BASE_URL . '/');
+    exit;
+}
 
 // ============================================
 // OBTENER LA RUTA SOLICITADA
@@ -25,63 +32,46 @@ $path = parse_url($requestUri, PHP_URL_PATH);
 if (defined('BASE_URL') && BASE_URL !== '') {
     $path = str_replace(BASE_URL, '', $path);
 }
+
+// Eliminar slash al final (excepto si es solo '/')
+if ($path !== '/' && substr($path, -1) === '/') {
+    $path = rtrim($path, '/');
+}
+
+// Si la ruta está vacía o es 'dashboard' o 'dashboard/index.php', mostrar productos
+if ($path === '' || $path === 'dashboard' || $path === 'dashboard/index.php') {
+    $path = '/';
+}
+
 $path = trim($path, '/');
 
 // ============================================
-// RUTAS PÚBLICAS - Redirigir al index.php raíz
+// DEFINIR RUTAS DEL DASHBOARD
 // ============================================
-$publicRoutes = ['', 'conocenos', 'servicios', 'contactos', 'login'];
-
-if (in_array($path, $publicRoutes)) {
-    // Redirigir al index.php raíz para manejar estas rutas
-    header('Location: ' . BASE_URL . '/' . ($path ? $path : ''));
-    exit;
-}
-
-// ============================================
-// VERIFICAR AUTENTICACIÓN PARA RUTAS PROTEGIDAS
-// ============================================
-if (!auth()) {
-    header('Location: ' . BASE_URL . '/');
-    exit;
-}
+$routes = [
+    'GET /' => ['ProductoController', 'index'],
+    'GET /dashboard' => ['ProductoController', 'index'],
+    'GET /ranking' => ['ProductoController', 'ranking'],
+    'GET /productos/crear' => ['ProductoController', 'crear'],
+    'POST /productos' => ['ProductoController', 'store'],
+    'GET /productos/capturar' => ['ProductoController', 'capturar'],
+    'POST /votar' => ['VotoController', 'votar'],
+    'GET /logout' => ['AuthController', 'logout'],
+];
 
 // ============================================
-// ROUTER PARA RUTAS PROTEGIDAS
+// BUSCAR LA RUTA
 // ============================================
-
-// Construir la clave de ruta
 $routePath = $path === '' ? '/' : '/' . $path;
 $routeKey = $method . ' ' . $routePath;
-
-// Mapeo directo de rutas
 $handler = null;
 
-switch ($routeKey) {
-    // Rutas del dashboard (ProductoController)
-    case 'GET /dashboard':
-        $handler = ['ProductoController', 'index'];
+foreach ($routes as $key => $handlerClass) {
+    $normalizedKey = trim(preg_replace('#/+#', '/', $key));
+    if ($normalizedKey === $routeKey) {
+        $handler = $handlerClass;
         break;
-    case 'GET /ranking':
-        $handler = ['ProductoController', 'ranking'];
-        break;
-    case 'GET /productos/crear':
-        $handler = ['ProductoController', 'crear'];
-        break;
-    case 'POST /productos':
-        $handler = ['ProductoController', 'store'];
-        break;
-    case 'GET /productos/capturar':
-        $handler = ['ProductoController', 'capturar'];
-        break;
-    case 'POST /votar':
-        $handler = ['VotoController', 'votar'];
-        break;
-    
-    // Rutas de autenticación
-    case 'GET /logout':
-        $handler = ['AuthController', 'logout'];
-        break;
+    }
 }
 
 // Si no se encuentra la ruta, mostrar 404

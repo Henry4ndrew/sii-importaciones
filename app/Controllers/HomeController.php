@@ -7,7 +7,7 @@ class HomeController
      */
     public function conocenos(): void
     {
-        view('conocenos', ['titulo' => 'Conócenos - WILLS IMPORT']);
+        view('conocenos', ['titulo' => 'Conócenos - Sii importaciones']);
     }
 
     /**
@@ -15,7 +15,7 @@ class HomeController
      */
     public function servicios(): void
     {
-        view('servicios', ['titulo' => 'Servicios - WILLS IMPORT']);
+        view('servicios', ['titulo' => 'Servicios - Sii importaciones']);
     }
 
     /**
@@ -23,6 +23,6 @@ class HomeController
      */
     public function contactos(): void
     {
-        view('contactos', ['titulo' => 'Contactos - WILLS IMPORT']);
+        view('contactos', ['titulo' => 'Contactos - Sii importaciones']);
     }
 }

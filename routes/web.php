@@ -5,25 +5,25 @@ return [
     // ============================================
     // RUTAS PÚBLICAS (HomeController)
     // ============================================
-    'GET /'                => [HomeController::class, 'index'],
-    'GET /conocenos'       => [HomeController::class, 'conocenos'],
-    'GET /servicios'       => [HomeController::class, 'servicios'],
-    'GET /contactos'       => [HomeController::class, 'contactos'],
+    'GET /conocenos'       => ['HomeController', 'conocenos'],
+    'GET /servicios'       => ['HomeController', 'servicios'],
+    'GET /contactos'       => ['HomeController', 'contactos'],
 
     // ============================================
     // RUTAS DEL DASHBOARD (ProductoController)
     // ============================================
-    'GET /dashboard'       => [ProductoController::class, 'index'],
-    'GET /ranking'         => [ProductoController::class, 'ranking'],
-    'GET /productos/crear' => [ProductoController::class, 'crear'],
-    'POST /productos'      => [ProductoController::class, 'store'],
-    'GET /productos/capturar' => [ProductoController::class, 'capturar'],
-    'POST /votar'          => [VotoController::class, 'votar'],
+    'GET /dashboard'       => ['ProductoController', 'index'],
+    'GET /dashboard/'      => ['ProductoController', 'index'], // <-- AGREGAR ESTA LÍNEA
+    'GET /ranking'         => ['ProductoController', 'ranking'],
+    'GET /productos/crear' => ['ProductoController', 'crear'],
+    'POST /productos'      => ['ProductoController', 'store'],
+    'GET /productos/capturar' => ['ProductoController', 'capturar'],
+    'POST /votar'          => ['VotoController', 'votar'],
 
     // ============================================
     // RUTAS DE AUTENTICACIÓN (AuthController)
     // ============================================
-    'GET /login'           => [AuthController::class, 'showLogin'],
-    'POST /login'          => [AuthController::class, 'login'],
-    'GET /logout'          => [AuthController::class, 'logout'],
+    'GET /login'           => ['AuthController', 'showLogin'],
+    'POST /login'          => ['AuthController', 'login'],
+    'GET /logout'          => ['AuthController', 'logout'],
 ];

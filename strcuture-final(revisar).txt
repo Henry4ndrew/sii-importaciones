@@ -1,0 +1,49 @@
+/sii-importaciones/
+│
+├── .htaccess                          # Reglas de reescritura (único archivo)
+├── index.php                          # Página de inicio con formulario de login
+├── README.md                          # Documentación del proyecto
+│
+├── /app/
+│   ├── /controllers/
+│   │   ├── AuthController.php         # Controlador de autenticación (login/logout)
+│   │   ├── ProductoController.php     # Controlador de productos (dashboard, ranking, CRUD)
+│   │   └── VotoController.php         # Controlador de votaciones
+│   │
+│   ├── /Models/
+│   │   ├── Usuario.php                # Modelo de usuarios (solo email)
+│   │   ├── Producto.php               # Modelo de productos
+│   │   └── Voto.php                   # Modelo de votos
+│   │
+│   └── /Helpers/
+│       ├── Extractor.php              # Extractor de datos de Alibaba
+│       └── functions.php              # Funciones globales (e, view, url, auth, flash, etc.)
+│
+├── /config/
+│   ├── config.php                     # Configuración general (BASE_URL, API keys)
+│   └── database.php                   # Conexión a base de datos
+│
+├── /dashboard/                        # (antes /public)
+│   └── index.php                      # Router principal (requiere autenticación)
+│
+├── /resources/
+│   └── /views/
+│       ├── layout.php                 # Layout principal (header, footer, mensajes flash)
+│       ├── error404.php               # Página de error 404
+│       │
+│       └── /productos/
+│           ├── index.php              # Listado de productos (dashboard)
+│           ├── ranking.php            # Ranking de productos más votados
+│           ├── crear.php              # Formulario para publicar producto
+│           └── _tarjeta.php           # Componente tarjeta de producto
+│
+├── /routes/
+│   └── web.php                        # Definición de rutas del sistema
+│
+├── /scripts/
+│   ├── completar_producto.php         # Script para completar detalles de producto
+│   └── completar_productos.php        # Script para completar múltiples productos
+│
+└── /logs/                             # (creado automáticamente)
+    ├── background_exec.log            # Log de ejecución en segundo plano
+    └── completar_producto.log         # Log de completado de productos

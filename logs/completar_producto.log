@@ -52,3 +52,21 @@
 [2026-06-21 15:39:09] ✅ Producto 21 actualizado exitosamente
 [2026-06-21 15:39:09] === FIN completar_producto.php ===
 
+[2026-06-22 01:36:54] === INICIO completar_producto.php ===
+[2026-06-22 01:36:54] ID recibido: 22
+[2026-06-22 01:36:54] Producto encontrado: ID 22, URL: https://www.alibaba.com/product-detail/300W-450W-550W-Second-Hand-Solar_1601387634427.html?spm=a2700.product_home_fy25.just_for_you.54.2ce21061rvD3Vl&priceId=f98239ccff934b50b6132e193d20aad9
+[2026-06-22 01:36:54] Intento 1 de 3
+[2026-06-22 01:36:55] Extracción completada en 1.24s
+[2026-06-22 01:36:55] Resultado - Imagen: OK, Precio: OK
+[2026-06-22 01:36:55] ✅ Producto 22 actualizado exitosamente
+[2026-06-22 01:36:55] === FIN completar_producto.php ===
+
+[2026-06-22 01:43:50] === INICIO completar_producto.php ===
+[2026-06-22 01:43:50] ID recibido: 23
+[2026-06-22 01:43:50] Producto encontrado: ID 23, URL: https://www.alibaba.com/product-detail/Outdoor-Portable-Power-Station-300W-3000W_1601552916766.html?spm=a2700.product_home_fy25.just_for_you.173.2ce21061rvD3Vl&priceId=ec7d19fac5b94c5589f9e3a5ffdbcd3a
+[2026-06-22 01:43:50] Intento 1 de 3
+[2026-06-22 01:43:51] Extracción completada en 1.38s
+[2026-06-22 01:43:51] Resultado - Imagen: OK, Precio: OK
+[2026-06-22 01:43:51] ✅ Producto 23 actualizado exitosamente
+[2026-06-22 01:43:51] === FIN completar_producto.php ===
+
