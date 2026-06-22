@@ -3,172 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= e($titulo ?? 'Panel de Administración') ?> | Sii importaciones</title>
+    <title><?= e($titulo ?? 'Panel de Administración') ?> | SII Importaciones</title>
+
+    <!-- Tailwind CSS con paleta de colores SII -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: "#E6EDF5",
+                            100: "#B8CCE3",
+                            200: "#8AAAD1",
+                            300: "#5D89BF",
+                            400: "#3E6FA8",
+                            500: "#2F5A8A",
+                            600: "#25496F",
+                            700: "#1C3956",
+                            800: "#12283D",
+                            900: "#0A1626"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
     <style>
+        /* Solo estilos que Tailwind no puede manejar fácilmente */
         .sidebar {
-            transition: all 0.3s ease;
-            width: 250px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: calc(100vh - 64px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex-shrink: 0;
         }
-        .sidebar-link {
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
         }
-        .sidebar-link:hover {
-            background: #1e293b;
-            border-left-color: #ef4444;
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
         }
-        .sidebar-link.active {
-            background: #1e293b;
-            border-left-color: #ef4444;
-        }
-        .main-content {
-            flex: 1;
-            min-height: calc(100vh - 64px);
-        }
-        .badge-admin {
-            background: #ef4444;
-            color: white;
-            font-size: 10px;
-            padding: 2px 8px;
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #5D89BF;
             border-radius: 10px;
-            margin-left: 8px;
         }
+
+        /* Backdrop */
+        .sidebar-backdrop {
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .sidebar-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+
+     /* ============================================
+        ANIMACIÓN HAMBURGUESA -> CRUZ (CORREGIDA)
+        ============================================ */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 20px;
+            padding: 2px 0;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2.5px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+
+        /* Estado abierto (cruz perfecta) */
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ============================================
+           LOGO - IMAGEN COMPLETA SIN RECORTE
+           ============================================ */
+        .logo-img {
+            object-fit: contain;
+            width: auto;
+            height: 100%;
+            max-height: 42px;
+        }
+
+        .logo-img-sm {
+            object-fit: contain;
+            width: auto;
+            height: 100%;
+            max-height: 34px;
+        }
+
+        /* Contenedor del logo para mantener proporciones */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 42px;
+            width: auto;
+        }
+
+        .logo-wrapper-sm {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 34px;
+            width: auto;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
-                width: 100%;
-                min-height: auto;
-                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1000;
+                width: 280px;
+                transform: translateX(-100%);
+                box-shadow: 4px 0 30px rgba(0,0,0,0.3);
+                min-height: 100vh;
             }
             .sidebar.mobile-open {
-                display: block;
+                transform: translateX(0);
             }
-            .sidebar-toggle {
-                display: block !important;
+            .sidebar-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+                backdrop-filter: blur(4px);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .sidebar-backdrop {
+                display: none !important;
             }
         }
     </style>
 </head>
-<body class="bg-slate-100">
+<body>
 
-    <!-- Barra de navegación superior -->
-    <nav class="bg-slate-900 text-white shadow-lg border-b-4 border-red-600 sticky top-0 z-50">
-        <div class="px-4 py-3">
+    <!-- ============================================ -->
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR                   -->
+    <!-- ============================================ -->
+    <nav x-data="{ mobileOpen: false }"
+         class="bg-primary-900 text-white shadow-lg border-b border-primary-700/50 sticky top-0 z-[1001]">
+
+        <div class="px-3 sm:px-6 py-2.5">
             <div class="flex items-center justify-between">
-                <!-- Logo y toggle sidebar (móvil) -->
+
+                <!-- IZQUIERDA: Hamburguesa (móvil) + Logo -->
                 <div class="flex items-center gap-3">
-                    <button onclick="toggleSidebar()" class="sidebar-toggle hidden md:hidden text-white hover:text-red-400 text-xl">
-                        <i class="fas fa-bars"></i>
+
+                    <!-- Botón hamburguesa (solo móvil) -->
+                    <button @click="mobileOpen = !mobileOpen; document.getElementById('sidebar').classList.toggle('mobile-open'); document.getElementById('backdrop').classList.toggle('active')"
+                            class="md:hidden hamburger"
+                            :class="{ 'open': mobileOpen }"
+                            aria-label="Toggle sidebar">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
-                    <a href="<?= url('admin/dashboard') ?>" class="flex items-center gap-2">
-                        <span class="bg-red-600 text-white font-black rounded-lg px-2 py-1 text-lg">WI</span>
+
+                    <!-- Logo (escritorio) -->
+                    <a href="<?= url('admin/dashboard') ?>" class="hidden md:flex items-center gap-3 group">
+                        <div class="logo-wrapper">
+                            <img src="<?= url('public/img/logo-SII.avif') ?>"
+                                 alt="SII Importaciones"
+                                 class="logo-img group-hover:opacity-80 transition-opacity">
+                        </div>
                         <div>
-                            <span class="font-bold text-lg tracking-wide">WILLS IMPORT</span>
-                            <p class="text-xs text-red-400 -mt-1">Panel de Administración</p>
+                            <span class="font-bold text-lg tracking-wide text-white group-hover:text-primary-200 transition-colors">IMPORTACIONES</span>
+                            <p class="text-[10px] text-primary-300 -mt-0.5 tracking-wider uppercase">Panel de Administración</p>
+                        </div>
+                    </a>
+
+                    <!-- Logo (móvil) -->
+                    <a href="<?= url('admin/dashboard') ?>" class="md:hidden">
+                        <div class="logo-wrapper-sm">
+                            <img src="<?= url('public/img/logo-SII.avif') ?>"
+                                 alt="SII Importaciones"
+                                 class="logo-img-sm">
                         </div>
                     </a>
                 </div>
 
-                <!-- Información del administrador -->
-                <div class="flex items-center gap-4">
-                    <span class="hidden sm:inline text-sm text-slate-300">
-                        <i class="fas fa-user-shield mr-1 text-red-400"></i>
-                        <?= e($admin['nombre'] ?? 'Administrador') ?>
-                    </span>
-                    <div class="relative group">
-                        <button class="flex items-center gap-2 text-sm hover:text-red-400 transition">
-                            <span class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white font-bold">
-                                <?= substr(e($admin['nombre'] ?? 'A'), 0, 1) ?>
-                            </span>
-                            <i class="fas fa-chevron-down text-xs"></i>
-                        </button>
-                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 hidden group-hover:block">
-                            <a href="<?= url('admin/dashboard') ?>" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
-                                <i class="fas fa-chart-pie mr-2"></i> Dashboard
-                            </a>
-                            <hr class="my-1">
-                            <a href="<?= url('auth/logout') ?>" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                                <i class="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
-                            </a>
-                        </div>
+                <!-- DERECHA: Perfil + Cerrar Sesión -->
+                <div class="flex items-center gap-2 sm:gap-3">
+
+                    <!-- Avatar -->
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                        <?= substr(e($admin['nombre'] ?? 'A'), 0, 1) ?>
                     </div>
+
+                    <!-- Email (solo escritorio) -->
+                    <span class="hidden sm:block text-sm text-primary-200 font-medium">
+                        <?= e($admin['email'] ?? 'admin@correo.com') ?>
+                    </span>
+
+                    <!-- Botón Cerrar Sesión -->
+                    <a href="<?= url('auth/logout') ?>"
+                       class="px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200
+                              bg-red-500/20 text-red-300 hover:bg-red-500/30 hover:text-white border border-red-500/20 hover:border-red-400/40
+                              flex items-center gap-1.5 whitespace-nowrap">
+                        <i class="fas fa-sign-out-alt text-xs"></i>
+                        <span>Salir</span>
+                    </a>
+
                 </div>
+
             </div>
         </div>
     </nav>
 
-    <!-- Contenedor principal con sidebar -->
-    <div class="flex">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="sidebar bg-slate-800 text-white flex-shrink-0 overflow-y-auto">
+    <!-- ============================================ -->
+    <!-- BACKDROP (móvil)                              -->
+    <!-- ============================================ -->
+    <div id="backdrop"
+         class="sidebar-backdrop"
+         @click="mobileOpen = false; document.getElementById('sidebar').classList.remove('mobile-open'); document.getElementById('backdrop').classList.remove('active')">
+    </div>
+
+    <!-- ============================================ -->
+    <!-- CONTENEDOR PRINCIPAL                         -->
+    <!-- ============================================ -->
+    <div class="flex overflow-x-hidden">
+
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar bg-gradient-to-b from-primary-900 via-primary-800 to-primary-900 text-white shadow-2xl">
+
+            <!-- Logo en sidebar (solo móvil) -->
+            <div class="md:hidden flex items-center gap-3 px-4 py-4 border-b border-primary-700/30">
+                <div class="logo-wrapper-sm">
+                    <img src="<?= url('public/img/logo-SII.avif') ?>"
+                         alt="SII Importaciones"
+                         class="logo-img-sm">
+                </div>
+                <span class="font-bold text-sm tracking-wide text-white">SII IMPORTACIONES</span>
+            </div>
+
+            <!-- Menú -->
             <nav class="p-4">
-                <div class="mb-6 pb-4 border-b border-slate-700">
-                    <p class="text-xs text-slate-400 uppercase tracking-wider">Menú Principal</p>
+
+                <div class="mb-5 pb-3 border-b border-primary-700/30">
+                    <p class="text-[10px] text-primary-300 uppercase tracking-[0.15em] font-semibold">
+                        <i class="fas fa-th-large mr-2"></i> Menú Principal
+                    </p>
                 </div>
 
                 <!-- Dashboard -->
-                <a href="<?= url('admin/dashboard') ?>" class="sidebar-link <?= $activePage === 'dashboard' ? 'active' : '' ?> flex items-center gap-3 px-4 py-3 rounded-r-lg text-sm font-medium transition">
-                    <i class="fas fa-chart-pie w-5 text-red-400"></i>
+                <a href="<?= url('admin/dashboard') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                          <?= $activePage === 'dashboard' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
+                    <i class="fas fa-chart-pie w-5 text-primary-400"></i>
                     <span>Dashboard</span>
-                    <span class="badge-admin">Admin</span>
+                    <span class="ml-auto text-[9px] font-bold uppercase bg-primary-500 text-primary-900 px-2 py-0.5 rounded-full">Admin</span>
                 </a>
 
                 <!-- Productos -->
-                <a href="<?= url('dashboard') ?>" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-r-lg text-sm font-medium transition hover:bg-slate-700">
-                    <i class="fas fa-box w-5 text-blue-400"></i>
+                <a href="<?= url('dashboard') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
+                    <i class="fas fa-box w-5 text-primary-300"></i>
                     <span>Productos</span>
                 </a>
 
                 <!-- Ranking -->
-                <a href="<?= url('ranking') ?>" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-r-lg text-sm font-medium transition hover:bg-slate-700">
-                    <i class="fas fa-trophy w-5 text-yellow-400"></i>
+                <a href="<?= url('ranking') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
+                    <i class="fas fa-trophy w-5 text-amber-400"></i>
                     <span>Ranking</span>
                 </a>
 
                 <!-- Usuarios -->
-                <a href="<?= url('admin/usuarios') ?>" class="sidebar-link <?= $activePage === 'usuarios' ? 'active' : '' ?> flex items-center gap-3 px-4 py-3 rounded-r-lg text-sm font-medium transition hover:bg-slate-700">
-                    <i class="fas fa-users w-5 text-green-400"></i>
+                <a href="<?= url('admin/usuarios') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                          <?= $activePage === 'usuarios' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
+                    <i class="fas fa-users w-5 text-emerald-400"></i>
                     <span>Usuarios</span>
                     <?php if (isset($totalUsuarios)): ?>
-                        <span class="ml-auto bg-slate-700 text-xs px-2 py-0.5 rounded-full"><?= $totalUsuarios ?></span>
+                        <span class="ml-auto bg-primary-700/50 text-primary-200 text-[10px] px-2.5 py-0.5 rounded-full"><?= $totalUsuarios ?></span>
                     <?php endif; ?>
                 </a>
 
                 <!-- Votos -->
-                <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-r-lg text-sm font-medium transition hover:bg-slate-700">
+                <a href="#"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
                     <i class="fas fa-star w-5 text-amber-400"></i>
                     <span>Votos</span>
                     <?php if (isset($totalVotos)): ?>
-                        <span class="ml-auto bg-slate-700 text-xs px-2 py-0.5 rounded-full"><?= $totalVotos ?></span>
+                        <span class="ml-auto bg-primary-700/50 text-primary-200 text-[10px] px-2.5 py-0.5 rounded-full"><?= $totalVotos ?></span>
                     <?php endif; ?>
                 </a>
 
-                <div class="mt-6 pt-4 border-t border-slate-700">
-                    <p class="text-xs text-slate-400 uppercase tracking-wider">Sistema</p>
+                <div class="my-5 pt-3 border-t border-primary-700/30">
+                    <p class="text-[10px] text-primary-400 uppercase tracking-[0.15em] font-semibold">
+                        <i class="fas fa-cog mr-2"></i> Sistema
+                    </p>
                 </div>
 
                 <!-- Ir al sitio -->
-                <a href="<?= url('/') ?>" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-r-lg text-sm font-medium transition hover:bg-slate-700">
+                <a href="<?= url('/') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
                     <i class="fas fa-globe w-5 text-purple-400"></i>
                     <span>Ir al Sitio</span>
                 </a>
 
-                <!-- Cerrar Sesión -->
-                <a href="<?= url('auth/logout') ?>" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-r-lg text-sm font-medium transition hover:bg-red-900/50 text-red-300">
+                <!-- Cerrar Sesión (móvil) -->
+                <a href="<?= url('auth/logout') ?>"
+                   class="md:hidden flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-red-300 hover:bg-red-900/30 hover:text-red-200">
                     <i class="fas fa-sign-out-alt w-5 text-red-400"></i>
                     <span>Cerrar Sesión</span>
                 </a>
+
             </nav>
         </aside>
 
-        <!-- Contenido principal -->
-        <main class="main-content bg-slate-100">
+        <!-- ============================================ -->
+        <!-- CONTENIDO PRINCIPAL                          -->
+        <!-- ============================================ -->
+        <main class="flex-1 min-h-[calc(100vh-64px)] bg-slate-100 overflow-x-hidden">
+
             <!-- Mensaje flash -->
             <?php if ($flash = getFlash()): ?>
-                <div class="max-w-full mx-4 mt-4">
-                    <div class="rounded-lg px-4 py-3 text-sm font-semibold <?= $flash['tipo'] === 'exito' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' ?>">
+                <div class="max-w-full mx-3 sm:mx-4 mt-3 sm:mt-4">
+                    <div class="rounded-xl px-4 sm:px-5 py-3 sm:py-3.5 text-sm font-semibold shadow-sm
+                                <?= $flash['tipo'] === 'exito'
+                                    ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                                    : 'bg-red-50 text-red-800 border border-red-200' ?>">
                         <i class="fas <?= $flash['tipo'] === 'exito' ? 'fa-check-circle' : 'fa-exclamation-circle' ?> mr-2"></i>
                         <?= e($flash['mensaje']) ?>
                     </div>
@@ -176,27 +374,30 @@
             <?php endif; ?>
 
             <!-- Contenido de la vista -->
-            <div class="p-6">
+            <div class="p-3 sm:p-6">
                 <?= $contenido ?>
             </div>
+
         </main>
+
     </div>
 
+    <!-- ============================================ -->
+    <!-- SCRIPTS                                       -->
+    <!-- ============================================ -->
     <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('mobile-open');
-        }
-
-        document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('sidebar');
-            const toggleBtn = document.querySelector('.sidebar-toggle');
-            if (window.innerWidth <= 768) {
-                if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+        // Cerrar sidebar con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const sidebar = document.getElementById('sidebar');
+                const backdrop = document.getElementById('backdrop');
+                if (sidebar && sidebar.classList.contains('mobile-open')) {
                     sidebar.classList.remove('mobile-open');
+                    if (backdrop) backdrop.classList.remove('active');
                 }
             }
         });
     </script>
+
 </body>
 </html>
