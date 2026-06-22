@@ -14,7 +14,29 @@ function view(string $vista, array $datos = []): void
     require $rutaVista;
     $contenido = ob_get_clean();
 
+    // Usar layout.php (el original)
     require __DIR__ . '/../../resources/views/layout.php';
+}
+
+/**
+ * Renderizar una vista con el layout de administrador
+ */
+function adminView(string $vista, array $datos = []): void
+{
+    extract($datos);
+    $rutaVista = __DIR__ . '/../../resources/views/' . str_replace('.', '/', $vista) . '.php';
+
+    // Asegurar que el admin está disponible en la vista
+    if (!isset($admin) && isset($_SESSION['administrador'])) {
+        $admin = $_SESSION['administrador'];
+    }
+
+    ob_start();
+    require $rutaVista;
+    $contenido = ob_get_clean();
+
+    // Usar admin_layout.php (con sidebar)
+    require __DIR__ . '/../../resources/views/layouts/admin_layout.php';
 }
 
 function redirect(string $ruta): void
@@ -40,7 +62,6 @@ function auth(): ?array
     return $_SESSION['usuario'] ?? null;
 }
 
-// Función para obtener solo el email del usuario autenticado
 function authEmail(): ?string
 {
     return $_SESSION['usuario']['email'] ?? null;

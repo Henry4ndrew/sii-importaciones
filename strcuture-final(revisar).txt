@@ -13,12 +13,14 @@
 │   │   ├── AuthController.php         # Autenticación (login/logout)
 │   │   ├── HomeController.php         # Páginas públicas (conócenos, servicios, contactos)
 │   │   ├── ProductoController.php     # Productos (dashboard, ranking, CRUD)
-│   │   └── VotoController.php         # Votaciones
+│   │   ├── VotoController.php         # Votaciones
+│   │   └── AdministradorController.php 
 │   │
 │   ├── /Models/                       # Modelos (acceso a base de datos)
 │   │   ├── Usuario.php                # Usuarios (solo email)
 │   │   ├── Producto.php               # Productos
-│   │   └── Voto.php                   # Votos
+│   │   ├── Voto.php                   # Votos
+│   │   └── Administrador.php 
 │   │
 │   └── /Helpers/                      # Utilidades y funciones auxiliares
 │       ├── Extractor.php              # Extractor de datos de Alibaba

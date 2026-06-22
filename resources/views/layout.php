@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= e($titulo ?? 'Sistema de Votación') ?> | WILLS IMPORT</title>
+    <title><?= e($titulo ?? 'Sistema de Votación') ?> | Sii importaciones</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-100 min-h-screen flex flex-col">
@@ -31,15 +31,32 @@
                 </div>
 
                 <!-- Acciones de usuario -->
+                <!-- En el header, la sección de acciones de usuario -->
                 <div class="flex items-center gap-2 text-sm">
-                    <?php if (auth()): ?>
+                    <?php 
+                    // Verificar si es administrador
+                    $admin = $_SESSION['administrador'] ?? null;
+                    ?>
+                    
+                    <?php if ($admin): ?>
+                        <!-- Administrador logueado -->
+                        <span class="hidden sm:inline text-red-300 px-2 text-xs truncate max-w-[150px]">
+                            👑 <?= e($admin['nombre']) ?>
+                        </span>
+                        <a href="<?= url('auth/logout') ?>" class="px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold">
+                            Cerrar Sesión Admin
+                        </a>
+                    <?php elseif (auth()): ?>
+                        <!-- Usuario normal logueado -->
                         <span class="hidden sm:inline text-slate-300 px-2 text-xs truncate max-w-[150px]"><?= e(auth()['email']) ?></span>
                         <a href="<?= url('logout') ?>" class="px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold">Cerrar Sesión</a>
                     <?php else: ?>
-                        <!-- Enlace a la raíz con ancla al formulario -->
+                        <!-- Usuario no logueado -->
                         <a href="<?= url('/') ?>#acceso" class="px-3 py-2 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400">Iniciar Sesión</a>
                     <?php endif; ?>
                 </div>
+
+
             </div>
 
             <!-- Fila 2: Menú secundario (Productos, Ranking, Publicar) -->

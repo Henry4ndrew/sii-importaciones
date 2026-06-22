@@ -17,8 +17,17 @@ class VotoController
             flash('error', 'Ya habías votado por este producto.');
         }
 
-        // Volver a la página desde donde se votó
-        $volverA = $_POST['volver_a'] ?? '/';
-        redirect($volverA === 'ranking' ? 'ranking' : '/');
+        // ============================================
+        // REDIRIGIR AL DASHBOARD (listado de productos)
+        // ============================================
+        // Si viene de ranking, volver a ranking, sino al dashboard
+        $volverA = $_POST['volver_a'] ?? 'dashboard';
+        
+        if ($volverA === 'ranking') {
+            redirect('ranking');
+        } else {
+            // Redirigir al dashboard (listado de productos)
+            redirect('dashboard');
+        }
     }
 }

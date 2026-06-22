@@ -34,20 +34,41 @@ class AuthController
             flash('exito', '¡Bienvenido! Tu cuenta ha sido creada automáticamente.');
         }
 
-        // Iniciar sesión
+        // ============================================
+        // CERRAR SESIÓN DE ADMINISTRADOR SI EXISTE
+        // ============================================
+        if (isset($_SESSION['administrador'])) {
+            unset($_SESSION['administrador']);
+        }
+
+        // ============================================
+        // INICIAR SESIÓN COMO USUARIO NORMAL
+        // ============================================
         $_SESSION['usuario'] = [
             'id' => $usuario['id'],
             'email' => $usuario['email'],
         ];
 
         // Redirigir al dashboard
-        header('Location: ' . url('/'));
+        header('Location: ' . url('dashboard'));
         exit;
     }
 
     public function logout(): void
     {
+        // Cerrar sesión de usuario normal
+        if (isset($_SESSION['usuario'])) {
+            unset($_SESSION['usuario']);
+        }
+        
+        // Cerrar sesión de administrador si existe
+        if (isset($_SESSION['administrador'])) {
+            unset($_SESSION['administrador']);
+        }
+        
+        // Destruir la sesión completamente
         session_destroy();
+        
         header('Location: ' . url('/'));
         exit;
     }

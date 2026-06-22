@@ -14,17 +14,25 @@
     RewriteRule ^conocenos$ index.php [L]
     RewriteRule ^servicios$ index.php [L]
     RewriteRule ^contactos$ index.php [L]
-    RewriteRule ^login$ index.php [L]
+    
+    # ============================================
+    # RUTAS DE ADMINISTRADOR (van a index.php raíz)
+    # ============================================
+    RewriteRule ^auth/login$ index.php [L]
+    RewriteRule ^auth/logout$ index.php [L]
+    RewriteRule ^admin/dashboard$ index.php [L]
+    RewriteRule ^admin/usuarios$ index.php [L]
     
     # ============================================
     # RUTAS DEL DASHBOARD (van a dashboard/index.php)
     # ============================================
-    # Nota: Para rutas con parámetros, usamos (.*)
     RewriteRule ^dashboard$ dashboard/index.php [L]
+    RewriteRule ^dashboard/$ dashboard/index.php [L]
     RewriteRule ^ranking$ dashboard/index.php [L]
     RewriteRule ^productos/(.*)$ dashboard/index.php [L]
     RewriteRule ^votar$ dashboard/index.php [L]
     RewriteRule ^logout$ dashboard/index.php [L]
+    RewriteRule ^login$ dashboard/index.php [L]
     
     # ============================================
     # CUALQUIER OTRA RUTA (fallback)

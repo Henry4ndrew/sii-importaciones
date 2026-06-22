@@ -26,4 +26,15 @@ return [
     'GET /login'           => ['AuthController', 'showLogin'],
     'POST /login'          => ['AuthController', 'login'],
     'GET /logout'          => ['AuthController', 'logout'],
+
+
+
+    // ============================================
+    // RUTAS DE ADMINISTRADOR (AdministradorController)
+    // ============================================
+    'GET /login'           => ['AuthController', 'showLogin'],
+    'POST /login'          => ['AuthController', 'login'],
+    'GET /logout'          => ['AuthController', 'logout'],
+    'GET /admin/dashboard' => ['AdministradorController', 'dashboard'],
+    'GET /admin/usuarios'  => ['AdministradorController', 'usuarios'],
 ];

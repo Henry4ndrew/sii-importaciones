@@ -50,7 +50,7 @@ class ProductoController
 
         if ($existente && $existente['imagen'] !== null) {
             flash('error', 'Ese producto ya está publicado.');
-            redirect('dashboard'); // <-- CAMBIADO
+            redirect('dashboard'); 
         }
 
         if ($existente) {
@@ -158,6 +158,6 @@ class ProductoController
             flash('exito', '¡Producto capturado y publicado con todos sus detalles!');
         }
 
-        redirect('dashboard'); // <-- CAMBIADO
+        redirect('dashboard'); 
     }
 }

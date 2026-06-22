@@ -44,13 +44,16 @@ require_once __DIR__ . '/config/config.php';
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/app/Helpers/functions.php';
 require_once __DIR__ . '/app/Models/Usuario.php';
-
-use App\Core\Router;
+require_once __DIR__ . '/app/Models/Administrador.php';
+require_once __DIR__ . '/app/controllers/AdministradorController.php';
 
 // ============================================
-// PROCESAR LOGIN (si es POST)
+// PROCESAR LOGIN DE USUARIO NORMAL (si es POST)
 // ============================================
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
+// ============================================
+// PROCESAR LOGIN DE USUARIO NORMAL (si es POST)
+// ============================================
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && !isset($_POST['password'])) {
     $email = trim($_POST['email'] ?? '');
     
     // Validar email
@@ -76,7 +79,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
         flash('exito', '¡Bienvenido! Tu cuenta ha sido creada automáticamente.');
     }
     
-    // Iniciar sesión
+    // ============================================
+    // CERRAR SESIÓN DE ADMINISTRADOR SI EXISTE
+    // ============================================
+    if (isset($_SESSION['administrador'])) {
+        unset($_SESSION['administrador']);
+    }
+    
+    // Iniciar sesión como usuario normal
     $_SESSION['usuario'] = [
         'id' => $usuario['id'],
         'email' => $usuario['email'],
@@ -88,28 +98,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
 }
 
 // ============================================
-// CONFIGURAR ROUTER
+// PROCESAR LOGIN DE ADMINISTRADOR (si es POST con password)
 // ============================================
-$router = new Router();
-
-// Cargar las rutas desde web.php
-$routes = require __DIR__ . '/routes/web.php';
-foreach ($routes as $routeKey => $handler) {
-    list($method, $path) = explode(' ', $routeKey, 2);
-    $router->add($method, $path, $handler);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
+    $adminController = new AdministradorController();
+    $adminController->login();
+    exit;
 }
 
 // ============================================
-// MANEJAR LA RUTA SOLICITADA
+// OBTENER LA RUTA SOLICITADA
 // ============================================
 $uri = $_SERVER['REQUEST_URI'] ?? '/';
-$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-
-// Obtener el path limpio para verificar si es la raíz
 $uriPath = parse_url($uri, PHP_URL_PATH);
 $cleanPath = trim(str_replace(BASE_URL, '', $uriPath), '/');
 
-// Si es la raíz, mostrar la página de inicio
+// ============================================
+// RUTAS DE ADMINISTRADOR
+// ============================================
+if ($cleanPath === 'auth/login') {
+    $adminController = new AdministradorController();
+    $adminController->showLogin();
+    exit;
+}
+
+if ($cleanPath === 'auth/logout') {
+    $adminController = new AdministradorController();
+    $adminController->logout();
+    exit;
+}
+
+if ($cleanPath === 'admin/dashboard') {
+    $adminController = new AdministradorController();
+    $adminController->dashboard();
+    exit;
+}
+
+if ($cleanPath === 'admin/usuarios') {
+    $adminController = new AdministradorController();
+    $adminController->usuarios();
+    exit;
+}
+
+// ============================================
+// SI ES LA RAÍZ, MOSTRAR LA PÁGINA DE INICIO
+// ============================================
 if ($cleanPath === '' || $cleanPath === 'index.php') {
     $titulo = 'Inicio - WILLS IMPORT';
     
@@ -145,8 +178,9 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
             </div>
         </div>
 
-        <!-- Sección de acceso (login o dashboard) -->
+        <!-- Sección de acceso -->
         <?php if (auth()): ?>
+            <!-- Usuario autenticado -->
             <div id="acceso" class="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
                 <h2 class="text-2xl font-bold text-slate-800 mb-2">Explora los productos</h2>
                 <p class="text-slate-600 mb-4">Descubre y vota por los mejores productos de Alibaba.</p>
@@ -160,6 +194,7 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
                 </div>
             </div>
         <?php else: ?>
+            <!-- Usuario no autenticado - Mostrar formulario de login -->
             <div id="acceso" class="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center scroll-mt-20">
                 <h2 class="text-2xl font-bold text-slate-800 mb-2">Accede al Sistema</h2>
                 <p class="text-slate-600 mb-4">Ingresa tu correo electrónico para comenzar a votar y publicar productos.</p>
@@ -180,8 +215,15 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
                         Acceder
                     </button>
                 </form>
+                
                 <div class="mt-4 text-xs text-slate-400">
                     <p>💡 Al ingresar tu correo, se creará automáticamente tu cuenta si no existe</p>
+                </div>
+                
+                <div class="mt-6 pt-4 border-t border-amber-200">
+                    <a href="<?= url('auth/login') ?>" class="text-sm text-red-600 hover:text-red-800 hover:underline font-semibold">
+                        🔐 ¿Eres administrador? Inicia sesión aquí
+                    </a>
                 </div>
             </div>
         <?php endif; ?>
@@ -192,5 +234,40 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
     exit;
 }
 
-// Si no es la raíz, usar el router
+// ============================================
+// RUTAS PÚBLICAS (conocenos, servicios, contactos)
+// ============================================
+$publicPages = ['conocenos', 'servicios', 'contactos'];
+if (in_array($cleanPath, $publicPages)) {
+    require_once __DIR__ . '/app/controllers/HomeController.php';
+    $homeController = new HomeController();
+    
+    switch ($cleanPath) {
+        case 'conocenos':
+            $homeController->conocenos();
+            break;
+        case 'servicios':
+            $homeController->servicios();
+            break;
+        case 'contactos':
+            $homeController->contactos();
+            break;
+    }
+    exit;
+}
+
+// ============================================
+// RUTAS DEL DASHBOARD (usar el router)
+// ============================================
+use App\Core\Router;
+$router = new Router();
+
+// Cargar las rutas desde web.php
+$routes = require __DIR__ . '/routes/web.php';
+foreach ($routes as $routeKey => $handler) {
+    list($method, $path) = explode(' ', $routeKey, 2);
+    $router->add($method, $path, $handler);
+}
+
+$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $router->dispatch($uri, $method);
