@@ -1,3 +1,4 @@
+
 <?php
 
 function e(?string $valor): string
@@ -111,9 +112,6 @@ function getFlash(): ?array
 }
 
 
-
-
-
 /**
  * Cerrar todas las sesiones activas (usuario y administrador)
  */
@@ -161,4 +159,58 @@ function urlFull(string $ruta): string
     }
     
     return $base . '/' . $ruta;
+}
+
+
+/**
+ * Obtener la URL de una imagen de producto
+ */
+function obtenerImagenProducto(?string $imagen): string
+{
+    if (empty($imagen)) {
+        return ''; // Retorna vacío para mostrar el ícono por defecto
+    }
+    
+    // Limpiar la URL
+    $imagen = trim($imagen);
+    
+    // Si ya es una URL completa (http:// o https://)
+    if (filter_var($imagen, FILTER_VALIDATE_URL)) {
+        // Verificar si es una URL de Alibaba (sc04.alicdn.com)
+        if (strpos($imagen, 'sc04.alicdn.com') !== false) {
+            // A veces las imágenes de Alibaba necesitan un parámetro adicional
+            // o podemos usar un proxy si es necesario
+            return $imagen;
+        }
+        return $imagen;
+    }
+    
+    // Si es una ruta local, agregar la URL base
+    if (strpos($imagen, 'productos/') === 0 || strpos($imagen, 'portadas/') === 0) {
+        return url('public/img/' . $imagen);
+    }
+    
+    // Si no tiene carpeta, asumir que está en public/img/
+    return url('public/img/' . $imagen);
+}
+
+
+/**
+ * Verificar si una imagen es válida (existe y es accesible)
+ */
+function imagenValida(?string $url): bool
+{
+    if (empty($url)) {
+        return false;
+    }
+    
+    // Si es una URL local, verificar si el archivo existe
+    if (strpos($url, $_SERVER['HTTP_HOST']) !== false) {
+        $path = str_replace(['http://', 'https://', $_SERVER['HTTP_HOST']], '', $url);
+        $fullPath = $_SERVER['DOCUMENT_ROOT'] . $path;
+        return file_exists($fullPath);
+    }
+    
+    // Para URLs externas, asumir que son válidas (se manejará con onerror)
+    return true;
 }

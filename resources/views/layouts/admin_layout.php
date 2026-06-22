@@ -299,8 +299,9 @@
 
                 <!-- Publicaciones -->
                 <a href="<?= url('admin/publicaciones') ?>"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                    <i class="fas fa-newspaper w-5 text-primary-300"></i>
+                class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                        <?= $activePage === 'publicaciones' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
+                    <i class="fas fa-newspaper w-5 text-blue-400"></i>
                     <span>Publicaciones</span>
                 </a>
 
@@ -342,10 +343,11 @@
                     <i class="fas fa-images w-5 text-purple-400"></i>
                     <span>Portadas</span>
                 </a>
-                <!-- Votos -->
+                <!-- Conócenos -->
                 <a href="<?= url('admin/conocenos') ?>"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                    <i class="fas fa-users w-5 text-emerald-400"></i>
+                class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                        <?= $activePage === 'conocenos' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
+                    <i class="fas fa-info-circle w-5 text-cyan-400"></i>
                     <span>Conócenos</span>
                 </a>
 

@@ -153,6 +153,42 @@ $adminRoutes = [
         'controller' => 'ServicioController',
         'action' => 'toggle',
     ],
+
+    //PUBLICACIONES
+    'admin/publicaciones' => [
+        'controller' => 'PublicacionController',
+        'action' => 'index',
+    ],
+    'admin/publicaciones/ver' => [
+        'controller' => 'PublicacionController',
+        'action' => 'ver',
+    ],
+    'admin/publicaciones/eliminar' => [
+        'controller' => 'PublicacionController',
+        'action' => 'delete',
+    ],
+
+    // CONÓCENOS
+    'admin/conocenos' => [
+        'controller' => 'ConocenosController',
+        'action' => 'index',
+    ],
+    'admin/conocenos/actualizar' => [
+        'controller' => 'ConocenosController',
+        'action' => 'update',
+    ],
+    'admin/conocenos/equipo/guardar' => [
+        'controller' => 'ConocenosController',
+        'action' => 'equipoStore',
+    ],
+    'admin/conocenos/equipo/actualizar' => [
+        'controller' => 'ConocenosController',
+        'action' => 'equipoUpdate',
+    ],
+    'admin/conocenos/equipo/eliminar' => [
+        'controller' => 'ConocenosController',
+        'action' => 'equipoDelete',
+    ],
 ];
 
 return $adminRoutes;

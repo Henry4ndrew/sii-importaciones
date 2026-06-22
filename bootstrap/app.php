@@ -45,6 +45,11 @@ function detectarTipoPost(): ?string
     if (isset($_POST['titulo']) && isset($_POST['subsecciones']) && !isset($_POST['password']) && !isset($_POST['nombre']) && !isset($_POST['ciudad'])) {
         return 'crud_servicio';
     }
+    //CONÓCENOS
+    if (isset($_POST['encabezado_titulo']) || isset($_POST['mision_texto'])) {
+        return 'crud_conocenos';
+    }
+
         
     return null;
 }
@@ -127,8 +132,16 @@ function procesarPost(string $tipo): void
                 $controller->update();
             }
             break;
-    //
-
+        //CONÓCENOS
+        case 'crud_conocenos':
+            $cleanPath = obtenerCleanPath();
+            require_once __DIR__ . '/../app/controllers/ConocenosController.php';
+            $controller = new ConocenosController();
+            if (strpos($cleanPath, 'actualizar') !== false) {
+                $controller->update();
+            }
+            break;
+        //
     }
     
     exit;
@@ -219,6 +232,16 @@ function esRutaAdmin(string $path): bool
         'admin/servicios/guardar',
         'admin/servicios/actualizar',
         'admin/servicios/toggle',
+        //PUBLICACIONES
+        'admin/publicaciones',
+        'admin/publicaciones/ver',
+        'admin/publicaciones/eliminar',
+        //CONÓCENOS
+        'admin/conocenos',
+        'admin/conocenos/actualizar',
+        'admin/conocenos/equipo/guardar',
+        'admin/conocenos/equipo/actualizar',
+        'admin/conocenos/equipo/eliminar',
     ];
     
     return in_array($path, $adminRoutes);
