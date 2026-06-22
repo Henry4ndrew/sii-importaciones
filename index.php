@@ -1,29 +1,36 @@
 <?php
 session_start();
 
-// Cargar autoload de Composer
+// ============================================
+// 1. CARGAR AUTOLOADER DE COMPOSER
+// ============================================
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
 // ============================================
-// AUTOLOADER PARA LAS CLASES
+// 2. AUTOLOADER PARA CLASES DEL PROYECTO
 // ============================================
 spl_autoload_register(function ($class) {
+    // Clases con namespace App\
     if (strpos($class, 'App\\') === 0) {
-        $prefix = 'App\\';
-        $base_dir = __DIR__ . '/app/';
-        $len = strlen($prefix);
-        $relative_class = substr($class, $len);
-        $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
+        $file = __DIR__ . '/app/' . str_replace('\\', '/', substr($class, 4)) . '.php';
     } else {
-        $file = __DIR__ . '/app/controllers/' . $class . '.php';
-        if (!file_exists($file)) {
-            $file = __DIR__ . '/app/Models/' . $class . '.php';
+        // Clases sin namespace
+        $paths = [
+            __DIR__ . '/app/controllers/',
+            __DIR__ . '/app/Models/',
+            __DIR__ . '/app/Helpers/',
+        ];
+        
+        foreach ($paths as $path) {
+            $file = $path . $class . '.php';
+            if (file_exists($file)) {
+                require $file;
+                return true;
+            }
         }
-        if (!file_exists($file)) {
-            $file = __DIR__ . '/app/Helpers/' . $class . '.php';
-        }
+        return false;
     }
     
     if (file_exists($file)) {
@@ -34,7 +41,7 @@ spl_autoload_register(function ($class) {
 });
 
 // ============================================
-// CARGAR CONFIGURACIÓN Y FUNCIONES
+// 3. CARGAR CONFIGURACIÓN Y FUNCIONES
 // ============================================
 require_once __DIR__ . '/config/config.php';
 require_once __DIR__ . '/config/database.php';
@@ -43,204 +50,90 @@ require_once __DIR__ . '/app/Models/Usuario.php';
 require_once __DIR__ . '/app/Models/Administrador.php';
 
 // ============================================
-// DETECTAR TIPO DE PETICIÓN POST
+// 4. CARGAR BOOTSTRAP DE LA APLICACIÓN
 // ============================================
-// IMPORTANTE: El orden de las condiciones importa
-// 1. Recuperación (tiene 'recuperar')
-// 2. Restablecer (tiene 'token' y 'password')
-// 3. CRUD de administradores (tiene 'nombre' + 'email' + 'password' + 'password_confirm')
-// 4. Login de admin (tiene 'email' + 'password' SIN 'nombre')
-// 5. Login de usuario (solo 'email')
-
-$isRecuperacion = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recuperar']));
-$isRestablecer = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token']) && isset($_POST['password']));
-$isCrudAdmin = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_confirm']));
-$isLoginAdmin = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password']) && !isset($_POST['nombre']) && !isset($_POST['recuperar']) && !isset($_POST['token']));
-$isLoginUsuario = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && !isset($_POST['password']) && !isset($_POST['recuperar']) && !isset($_POST['token']));
+require_once __DIR__ . '/bootstrap/app.php';
 
 // ============================================
-// PROCESAR RECUPERACIÓN DE CONTRASEÑA
+// 5. PROCESAR PETICIONES POST
 // ============================================
-if ($isRecuperacion) {
-    require_once __DIR__ . '/app/controllers/RecuperacionController.php';
-    $recuperacionController = new RecuperacionController();
-    $recuperacionController->solicitar();
-    exit;
-}
-
-if ($isRestablecer) {
-    require_once __DIR__ . '/app/controllers/RecuperacionController.php';
-    $recuperacionController = new RecuperacionController();
-    $recuperacionController->restablecer();
+$tipoPost = detectarTipoPost();
+if ($tipoPost) {
+    procesarPost($tipoPost);
     exit;
 }
 
 // ============================================
-// PROCESAR CRUD DE ADMINISTRADORES
+// 6. OBTENER LA RUTA SOLICITADA
 // ============================================
-if ($isCrudAdmin) {
-    // Obtener el cleanPath para saber si es guardar o actualizar
-    $uri = $_SERVER['REQUEST_URI'] ?? '/';
-    $uriPath = parse_url($uri, PHP_URL_PATH);
-    $cleanPath = trim(str_replace(BASE_URL, '', $uriPath), '/');
+$cleanPath = obtenerCleanPath();
+
+// ============================================
+// 7. RUTAS DE ADMINISTRADOR (Panel Admin)
+// ============================================
+if (esRutaAdmin($cleanPath)) {
+    // Cargar rutas admin
+    $adminRoutes = require __DIR__ . '/app/Routes/admin.php';
     
-    require_once __DIR__ . '/app/controllers/AdminController.php';
-    $adminController = new AdminController();
-    
-    if (strpos($cleanPath, 'guardar') !== false) {
-        $adminController->store();
-    } elseif (strpos($cleanPath, 'actualizar') !== false) {
-        $adminController->update();
-    } else {
-        flash('error', 'Acción no válida.');
-        header('Location: ' . url('admin/administradores'));
+    // Buscar la ruta directamente
+    if (isset($adminRoutes[$cleanPath])) {
+        $routeConfig = $adminRoutes[$cleanPath];
+        $controllerClass = $routeConfig['controller'];
+        $action = $routeConfig['action'];
+        
+        $controllerFile = __DIR__ . '/app/controllers/' . $controllerClass . '.php';
+        if (file_exists($controllerFile)) {
+            require_once $controllerFile;
+            
+            if (class_exists($controllerClass)) {
+                $controller = new $controllerClass();
+                if (method_exists($controller, $action)) {
+                    $controller->$action();
+                    exit;
+                }
+            }
+        }
     }
+    
+    // Si llegamos aquí, mostrar 404
+    http_response_code(404);
+    view('error404', ['titulo' => 'Página no encontrada']);
     exit;
 }
 
 // ============================================
-// PROCESAR LOGIN DE ADMINISTRADOR
-// ============================================
-if ($isLoginAdmin) {
-    require_once __DIR__ . '/app/controllers/AdministradorController.php';
-    $adminController = new AdministradorController();
-    $adminController->login();
-    exit;
-}
-
-// ============================================
-// PROCESAR LOGIN DE USUARIO NORMAL
-// ============================================
-if ($isLoginUsuario) {
-    $email = trim($_POST['email'] ?? '');
-    
-    if (empty($email)) {
-        flash('error', 'Por favor, ingresa tu correo electrónico.');
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit;
-    }
-    
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        flash('error', 'Por favor, ingresa un correo electrónico válido.');
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit;
-    }
-    
-    $usuario = Usuario::buscarPorEmail($email);
-    
-    if (!$usuario) {
-        $id = Usuario::crear($email);
-        $usuario = Usuario::buscarPorEmail($email);
-        flash('exito', '¡Bienvenido! Tu cuenta ha sido creada automáticamente.');
-    }
-    
-    if (isset($_SESSION['administrador'])) {
-        unset($_SESSION['administrador']);
-    }
-    
-    $_SESSION['usuario'] = [
-        'id' => $usuario['id'],
-        'email' => $usuario['email'],
-    ];
-    
-    header('Location: ' . BASE_URL . '/dashboard');
-    exit;
-}
-
-// ============================================
-// OBTENER LA RUTA SOLICITADA
-// ============================================
-$uri = $_SERVER['REQUEST_URI'] ?? '/';
-$uriPath = parse_url($uri, PHP_URL_PATH);
-$cleanPath = trim(str_replace(BASE_URL, '', $uriPath), '/');
-
-// ============================================
-// RUTAS DE ADMINISTRADOR
+// 8. RUTAS DE AUTENTICACIÓN
 // ============================================
 if ($cleanPath === 'auth/login') {
     require_once __DIR__ . '/app/controllers/AdministradorController.php';
-    $adminController = new AdministradorController();
-    $adminController->showLogin();
+    $controller = new AdministradorController();
+    $controller->showLogin();
     exit;
 }
 
 if ($cleanPath === 'auth/logout') {
     require_once __DIR__ . '/app/controllers/AdministradorController.php';
-    $adminController = new AdministradorController();
-    $adminController->logout();
+    $controller = new AdministradorController();
+    $controller->logout();
     exit;
 }
 
 if ($cleanPath === 'auth/recuperar') {
     require_once __DIR__ . '/app/controllers/RecuperacionController.php';
-    $recuperacionController = new RecuperacionController();
-    $recuperacionController->showSolicitar();
+    $controller = new RecuperacionController();
+    $controller->showSolicitar();
     exit;
 }
 
 if ($cleanPath === 'auth/restablecer') {
     require_once __DIR__ . '/app/controllers/RecuperacionController.php';
-    $recuperacionController = new RecuperacionController();
-    $recuperacionController->showRestablecer();
-    exit;
-}
-
-if ($cleanPath === 'admin/dashboard') {
-    require_once __DIR__ . '/app/controllers/AdministradorController.php';
-    $adminController = new AdministradorController();
-    $adminController->dashboard();
-    exit;
-}
-
-if ($cleanPath === 'admin/usuarios') {
-    require_once __DIR__ . '/app/controllers/AdministradorController.php';
-    $adminController = new AdministradorController();
-    $adminController->usuarios();
+    $controller = new RecuperacionController();
+    $controller->showRestablecer();
     exit;
 }
 
 // ============================================
-// RUTAS DE ADMINISTRADORES (CRUD)
-// ============================================
-if (strpos($cleanPath, 'admin/administradores') === 0) {
-    require_once __DIR__ . '/app/controllers/AdminController.php';
-    $adminController = new AdminController();
-    
-    // Si es POST, verificar qué acción
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (strpos($cleanPath, 'guardar') !== false) {
-            $adminController->store();
-            exit;
-        } elseif (strpos($cleanPath, 'actualizar') !== false) {
-            $adminController->update();
-            exit;
-        } else {
-            header('Location: ' . url('admin/administradores'));
-            exit;
-        }
-    }
-    
-    // Si es GET
-    if ($cleanPath === 'admin/administradores') {
-        $adminController->index();
-        exit;
-    } elseif ($cleanPath === 'admin/administradores/crear') {
-        $adminController->crear();
-        exit;
-    } elseif (strpos($cleanPath, 'editar') !== false) {
-        $adminController->editar();
-        exit;
-    } elseif (strpos($cleanPath, 'eliminar') !== false) {
-        $adminController->delete();
-        exit;
-    }
-    
-    header('Location: ' . url('admin/administradores'));
-    exit;
-}
-
-// ============================================
-// SI ES LA RAÍZ, MOSTRAR LA PÁGINA DE INICIO
+// 9. PÁGINA DE INICIO (RAÍZ)
 // ============================================
 if ($cleanPath === '' || $cleanPath === 'index.php') {
     $titulo = 'Inicio - SII Importaciones';
@@ -333,7 +226,7 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
 }
 
 // ============================================
-// RUTAS PÚBLICAS (conocenos, servicios, contactos)
+// 10. RUTAS PÚBLICAS
 // ============================================
 $publicPages = ['conocenos', 'servicios', 'contactos'];
 if (in_array($cleanPath, $publicPages)) {
@@ -355,7 +248,7 @@ if (in_array($cleanPath, $publicPages)) {
 }
 
 // ============================================
-// RUTAS DEL DASHBOARD (usar el router)
+// 11. RUTAS DEL DASHBOARD (usar el router)
 // ============================================
 use App\Core\Router;
 $router = new Router();
@@ -367,4 +260,4 @@ foreach ($routes as $routeKey => $handler) {
 }
 
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
-$router->dispatch($uri, $method);
+$router->dispatch($uri ?? '/', $method);

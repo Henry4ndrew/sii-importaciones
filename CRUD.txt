@@ -1,0 +1,24 @@
+📁 tu-proyecto/
+│
+├── 📁 app/
+│   ├── 📁 controllers/
+│   │   └── 📄 NuevoController.php          # 1. CREAR - Controlador con CRUD
+│   │
+│   ├── 📁 Models/
+│   │   └── 📄 NuevoModel.php               # 2. CREAR - Modelo (si usa BD)
+│   │
+│   └── 📁 Routes/
+│       └── 📄 admin.php                    # 3. MODIFICAR - Agregar rutas
+│
+├── 📁 resources/
+│   └── 📁 views/
+│       └── 📁 admin/
+│           └── 📁 nuevo/                   # 4. CREAR - Vistas del CRUD
+│               ├── 📄 index.php            # Listado
+│               ├── 📄 crear.php            # Formulario crear
+│               └── 📄 editar.php           # Formulario editar
+│
+├── 📁 bootstrap/
+│   └── 📄 app.php                          # 5. MODIFICAR - Agregar detección POST
+│
+└── 📄 index.php                            # 6. MODIFICAR (opcional)

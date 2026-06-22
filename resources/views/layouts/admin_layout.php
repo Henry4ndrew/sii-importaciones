@@ -337,11 +337,11 @@
 
                 <!-- Portadas -->
                 <a href="<?= url('admin/portadas') ?>"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                    <i class="fas fa-image w-5 text-emerald-400"></i>
+                class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                        <?= $activePage === 'portadas' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
+                    <i class="fas fa-images w-5 text-purple-400"></i>
                     <span>Portadas</span>
                 </a>
-
                 <!-- Votos -->
                 <a href="<?= url('admin/conocenos') ?>"
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">

@@ -8,32 +8,28 @@
     RewriteRule ^ - [L]
     
     # ============================================
-    # RUTAS PÚBLICAS (van a index.php raíz)
+    # RUTAS PÚBLICAS
     # ============================================
     RewriteRule ^$ index.php [L]
     RewriteRule ^conocenos$ index.php [L]
     RewriteRule ^servicios$ index.php [L]
     RewriteRule ^contactos$ index.php [L]
     
-# ============================================
-# RUTAS DE ADMINISTRADOR (van a index.php raíz)
-# ============================================
-RewriteRule ^auth/login$ index.php [L]
-RewriteRule ^auth/logout$ index.php [L]
-RewriteRule ^auth/recuperar$ index.php [L]
-RewriteRule ^auth/restablecer$ index.php [L]
-RewriteRule ^admin/dashboard$ index.php [L]
-RewriteRule ^admin/usuarios$ index.php [L]
-
-RewriteRule ^admin/administradores/guardar$ index.php [L]
-RewriteRule ^admin/administradores/actualizar$ index.php [L]
-RewriteRule ^admin/administradores/crear$ index.php [L]
-RewriteRule ^admin/administradores/editar$ index.php [L]
-RewriteRule ^admin/administradores/eliminar$ index.php [L]
-RewriteRule ^admin/administradores$ index.php [L]
+    # ============================================
+    # RUTAS DE AUTENTICACIÓN
+    # ============================================
+    RewriteRule ^auth/login$ index.php [L]
+    RewriteRule ^auth/logout$ index.php [L]
+    RewriteRule ^auth/recuperar$ index.php [L]
+    RewriteRule ^auth/restablecer$ index.php [L]
     
     # ============================================
-    # RUTAS DEL DASHBOARD (van a dashboard/index.php)
+    # RUTAS DEL PANEL ADMINISTRATIVO
+    # ============================================
+    RewriteRule ^admin/(.*)$ index.php [L]
+    
+    # ============================================
+    # RUTAS DEL DASHBOARD
     # ============================================
     RewriteRule ^dashboard$ dashboard/index.php [L]
     RewriteRule ^dashboard/$ dashboard/index.php [L]
@@ -42,12 +38,6 @@ RewriteRule ^admin/administradores$ index.php [L]
     RewriteRule ^votar$ dashboard/index.php [L]
     RewriteRule ^logout$ dashboard/index.php [L]
     RewriteRule ^login$ dashboard/index.php [L]
-    
-    # ============================================
-    # CUALQUIER OTRA RUTA - SOLO PARA LO QUE NO COINCIDA
-    # ============================================
-    # Eliminamos esta línea porque está capturando todo
-    # RewriteRule ^(.*)$ dashboard/index.php [QSA,L]
     
 </IfModule>
 
