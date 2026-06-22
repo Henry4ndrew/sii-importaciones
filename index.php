@@ -135,6 +135,9 @@ if ($cleanPath === 'auth/restablecer') {
 // ============================================
 // 9. PÁGINA DE INICIO (RAÍZ)
 // ============================================
+// ============================================
+// SI ES LA RAÍZ, MOSTRAR LA PÁGINA DE INICIO
+// ============================================
 if ($cleanPath === '' || $cleanPath === 'index.php') {
     // Obtener portadas activas para el slider
     require_once __DIR__ . '/app/Models/Portada.php';
@@ -161,49 +164,195 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
         ];
     }
     
+    $slidesToShow = $portadas;
+    
     $titulo = 'Inicio - SII Importaciones';
     
     ob_start();
     ?>
-    <div class="max-w-4xl mx-auto">
-        
-        <!-- ============================================ -->
-        <!-- SLIDER DE PORTADAS                           -->
-        <!-- ============================================ -->
-        <div class="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-xl mb-8 shadow-2xl">
-            <div class="relative w-full h-full">
-                <?php foreach($portadas as $index => $portada): 
-                    // Determinar la URL de la imagen
-                    $imgUrl = $portada['ruta_imagen'];
-                    // Si es una ruta local, agregar la URL base
-                    if (!filter_var($imgUrl, FILTER_VALIDATE_URL)) {
-                        $imgUrl = url('public/img/' . $portada['ruta_imagen']);
-                    }
-                ?>
-                <div class="slide absolute inset-0 w-full h-full opacity-0 transition-opacity duration-1000 <?php echo $index === 0 ? 'active' : ''; ?>">
-                    <img src="<?= $imgUrl ?>" 
-                         alt="<?= e($portada['titulo']) ?>" 
-                         class="w-full h-full object-cover">
-                    <div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                        <h1 class="text-2xl md:text-4xl font-bold text-white mb-2"><?= e($portada['titulo']) ?></h1>
-                        <?php if (!empty($portada['descripcion'])): ?>
-                            <p class="text-sm md:text-lg text-primary-200"><?= e($portada['descripcion']) ?></p>
-                        <?php endif; ?>
-                    </div>
+    
+    <!-- ============================================ -->
+    <!-- HERO SLIDER - FULL WIDTH (FUERA DEL CONTENEDOR) -->
+    <!-- ============================================ -->
+    <div class="hero-section-full">
+        <div class="hero-frame">
+            <?php foreach($slidesToShow as $idx => $portada): 
+                $imgUrl = $portada['ruta_imagen'] ?? '';
+                if (!empty($imgUrl) && !filter_var($imgUrl, FILTER_VALIDATE_URL)) {
+                    $imgUrl = url('public/img/' . $imgUrl);
+                }
+            ?>
+            <div class="hero-panel<?php echo $idx === 0 ? ' is-active' : ''; ?>" data-index="<?php echo $idx; ?>">
+                <div class="hero-panel-bg" style="background-image: url('<?php echo htmlspecialchars($imgUrl); ?>');"></div>
+                <div class="hero-panel-shade"></div>
+                <div class="hero-panel-content">
+                    <span class="hero-badge">SII IMPORTACIONES</span>
+                    <h1 class="hero-title"><?php echo htmlspecialchars($portada['titulo'] ?? ''); ?></h1>
+                    <?php if (!empty($portada['descripcion'])): ?>
+                    <p class="hero-subtitle"><?php echo htmlspecialchars($portada['descripcion']); ?></p>
+                    <?php endif; ?>
                 </div>
+            </div>
+            <?php endforeach; ?>
+
+            <div class="hero-progress-track"><div class="hero-progress-fill is-running"></div></div>
+            <button class="hero-nav hero-nav--prev" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"/>
+                </svg>
+            </button>
+            <button class="hero-nav hero-nav--next" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </button>
+            <div class="hero-thumbs">
+                <?php foreach($slidesToShow as $idx => $portada): ?>
+                <button class="hero-thumb<?php echo $idx === 0 ? ' is-on' : ''; ?>" data-index="<?php echo $idx; ?>">
+                    <span class="hero-thumb-pip"></span>
+                    <span class="hero-thumb-label"><?php echo htmlspecialchars($portada['titulo'] ?? ''); ?></span>
+                </button>
                 <?php endforeach; ?>
             </div>
         </div>
-
-        <!-- Contenido de bienvenida -->
-        <div class="bg-white rounded-xl shadow p-8 mb-6" style="border-top: 4px solid #2F5A8A;">
-            <h1 class="text-3xl font-extrabold mb-4" style="color: #12283D;">
-                <?= auth() ? '¡Bienvenido de vuelta!' : 'Bienvenido a SII Importaciones' ?>
-            </h1>
-            <p class="text-slate-600 leading-relaxed text-lg">
-                Sistema de votación para importaciones desde China. Comparte y vota por los mejores productos de Alibaba.
-            </p>
+        <div class="hero-divider">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#0A1626"/>
+            </svg>
         </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- CONTENIDO DE BIENVENIDA (DENTRO DEL CONTENEDOR) -->
+    <!-- ============================================ -->
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow p-8 mb-6" style="border-top: 4px solid #2F5A8A;">
+                <h1 class="text-3xl font-extrabold mb-4" style="color: #12283D;">
+                    <?= auth() ? '¡Bienvenido de vuelta!' : 'Bienvenido a SII Importaciones' ?>
+                </h1>
+                <p class="text-slate-600 leading-relaxed text-lg">
+                    Sistema de votación para importaciones desde China. Comparte y vota por los mejores productos de Alibaba.
+                </p>
+            </div>
+
+            <!-- Tarjetas de características -->
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
+                    <div class="text-4xl mb-4">📦</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Importación</h3>
+                    <p class="text-slate-600">Productos de alta calidad desde China con los mejores precios del mercado.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
+                    <div class="text-4xl mb-4">⭐</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Votación</h3>
+                    <p class="text-slate-600">Vota por tus productos favoritos y ayuda a otros a encontrar los mejores.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
+                    <div class="text-4xl mb-4">🤝</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Comunidad</h3>
+                    <p class="text-slate-600">Únete a nuestra comunidad de importadores y comparte tu experiencia.</p>
+                </div>
+            </div>
+
+            <!-- Sección de acceso -->
+            <?php if (auth()): ?>
+                <div id="acceso" class="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Explora los productos</h2>
+                    <p class="text-slate-600 mb-4">Descubre y vota por los mejores productos de Alibaba.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="<?= url('dashboard') ?>" class="inline-block text-white font-bold px-6 py-3 rounded-lg hover:opacity-90 transition" style="background: #2F5A8A;">
+                            📦 Ver Productos
+                        </a>
+                        <a href="<?= url('productos/crear') ?>" class="inline-block bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-lg hover:bg-amber-400 transition">
+                            ➕ Publicar Producto
+                        </a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div id="acceso" class="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center scroll-mt-20">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Accede al Sistema</h2>
+                    <p class="text-slate-600 mb-4">Ingresa tu correo electrónico para comenzar a votar y publicar productos.</p>
+                    
+                    <?php if ($flash = getFlash()): ?>
+                        <div class="mb-4 rounded-lg px-4 py-3 text-sm font-semibold <?= $flash['tipo'] === 'exito' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' ?>">
+                            <?= e($flash['mensaje']) ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="max-w-md mx-auto space-y-4">
+                        <div>
+                            <input type="email" name="email" required
+                                   placeholder="tu@email.com"
+                                   class="w-full border border-slate-300 rounded-lg px-4 py-3 text-center focus:outline-none focus:ring-2 transition" 
+                                   style="border-color: #B8CCE3; outline-color: #2F5A8A;">
+                        </div>
+                        <button class="w-full text-white font-bold py-3 rounded-lg hover:opacity-90 transition" style="background: #2F5A8A;">
+                            Acceder
+                        </button>
+                    </form>
+                    
+                    <div class="mt-4 text-xs text-slate-400">
+                        <p>💡 Al ingresar tu correo, se creará automáticamente tu cuenta si no existe</p>
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-amber-200">
+                        <a href="<?= url('auth/login') ?>" class="text-sm font-semibold hover:underline" style="color: #2F5A8A;">
+                            🔐 ¿Eres administrador? Inicia sesión aquí
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <script>
+    (function(){
+        var frame = document.querySelector('.hero-frame');
+        var panels = document.querySelectorAll('.hero-panel');
+        var thumbs = document.querySelectorAll('.hero-thumb');
+        var prevBtn = document.querySelector('.hero-nav--prev');
+        var nextBtn = document.querySelector('.hero-nav--next');
+        var bar = document.querySelector('.hero-progress-fill');
+        if (!panels.length) return;
+        var DURATION = 5000, current = 0, total = panels.length, timer = null, locked = false;
+        function goTo(idx) {
+            if (locked || idx === current || idx < 0 || idx >= total) return;
+            locked = true;
+            panels[current].classList.remove('is-active');
+            thumbs[current].classList.remove('is-on');
+            current = idx;
+            panels[current].classList.add('is-active');
+            thumbs[current].classList.add('is-on');
+            bar.classList.remove('is-running');
+            void bar.offsetWidth;
+            setTimeout(function(){ bar.classList.add('is-running'); locked = false; }, 60);
+        }
+        function next() { goTo((current + 1) % total); }
+        function prev() { goTo((current - 1 + total) % total); }
+        function autoStart() { stopAuto(); bar.classList.add('is-running'); timer = setTimeout(function(){ next(); autoStart(); }, DURATION); }
+        function stopAuto() { clearTimeout(timer); bar.classList.remove('is-running'); }
+        if (nextBtn) nextBtn.addEventListener('click', function(){ next(); autoStart(); });
+        if (prevBtn) prevBtn.addEventListener('click', function(){ prev(); autoStart(); });
+        thumbs.forEach(function(t){ t.addEventListener('click', function(){ goTo(parseInt(this.getAttribute('data-index'))); autoStart(); }); });
+        if (frame) {
+            frame.addEventListener('mouseenter', stopAuto);
+            frame.addEventListener('mouseleave', autoStart);
+        }
+        document.addEventListener('keydown', function(e){ if (e.key === 'ArrowLeft') { prev(); autoStart(); } if (e.key === 'ArrowRight') { next(); autoStart(); } });
+        var touchX = 0;
+        if (frame) {
+            frame.addEventListener('touchstart', function(e){ touchX = e.touches[0].clientX; }, {passive: true});
+            frame.addEventListener('touchend', function(e){ var diff = touchX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); autoStart(); } });
+        }
+        autoStart();
+    })();
+    </script>
+
+    <?php
+        $contenido = ob_get_clean();
+        require_once __DIR__ . '/resources/views/layout.php';
+        exit;
+    ?>
 
         <!-- Tarjetas de características -->
         <div class="grid md:grid-cols-3 gap-6 mb-8">
@@ -231,10 +380,12 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
                 <p class="text-slate-600 mb-4">Descubre y vota por los mejores productos de Alibaba.</p>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="<?= url('dashboard') ?>" class="inline-block text-white font-bold px-6 py-3 rounded-lg hover:opacity-90 transition" style="background: #2F5A8A;">
-                        📦 Ver Productos
+                        <i class="fas fa-box text-xs">
+                        </i><span class="ml-1"> Ver Productos</span>
                     </a>
                     <a href="<?= url('productos/crear') ?>" class="inline-block bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-lg hover:bg-amber-400 transition">
-                        ➕ Publicar Producto
+                        <i class="fas fa-plus-circle text-xs"></i>
+                        <span class="ml-1"> Publicar Producto</span>
                     </a>
                 </div>
             </div>
