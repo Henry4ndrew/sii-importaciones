@@ -46,17 +46,20 @@ require_once __DIR__ . '/app/Models/Administrador.php';
 // DETECTAR TIPO DE PETICIÓN POST
 // ============================================
 // IMPORTANTE: El orden de las condiciones importa
-// Primero verificamos si es recuperación (tiene 'recuperar')
-// Luego si es login de admin (tiene 'password')
-// Finalmente si es login de usuario (solo 'email')
+// 1. Recuperación (tiene 'recuperar')
+// 2. Restablecer (tiene 'token' y 'password')
+// 3. CRUD de administradores (tiene 'nombre' + 'email' + 'password' + 'password_confirm')
+// 4. Login de admin (tiene 'email' + 'password' SIN 'nombre')
+// 5. Login de usuario (solo 'email')
 
 $isRecuperacion = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['recuperar']));
 $isRestablecer = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token']) && isset($_POST['password']));
-$isLoginAdmin = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password']) && !isset($_POST['recuperar']));
+$isCrudAdmin = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nombre']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_confirm']));
+$isLoginAdmin = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password']) && !isset($_POST['nombre']) && !isset($_POST['recuperar']) && !isset($_POST['token']));
 $isLoginUsuario = ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && !isset($_POST['password']) && !isset($_POST['recuperar']) && !isset($_POST['token']));
 
 // ============================================
-// PROCESAR RECUPERACIÓN DE CONTRASEÑA (PRIMERO)
+// PROCESAR RECUPERACIÓN DE CONTRASEÑA
 // ============================================
 if ($isRecuperacion) {
     require_once __DIR__ . '/app/controllers/RecuperacionController.php';
@@ -73,6 +76,29 @@ if ($isRestablecer) {
 }
 
 // ============================================
+// PROCESAR CRUD DE ADMINISTRADORES
+// ============================================
+if ($isCrudAdmin) {
+    // Obtener el cleanPath para saber si es guardar o actualizar
+    $uri = $_SERVER['REQUEST_URI'] ?? '/';
+    $uriPath = parse_url($uri, PHP_URL_PATH);
+    $cleanPath = trim(str_replace(BASE_URL, '', $uriPath), '/');
+    
+    require_once __DIR__ . '/app/controllers/AdminController.php';
+    $adminController = new AdminController();
+    
+    if (strpos($cleanPath, 'guardar') !== false) {
+        $adminController->store();
+    } elseif (strpos($cleanPath, 'actualizar') !== false) {
+        $adminController->update();
+    } else {
+        flash('error', 'Acción no válida.');
+        header('Location: ' . url('admin/administradores'));
+    }
+    exit;
+}
+
+// ============================================
 // PROCESAR LOGIN DE ADMINISTRADOR
 // ============================================
 if ($isLoginAdmin) {
@@ -83,7 +109,7 @@ if ($isLoginAdmin) {
 }
 
 // ============================================
-// PROCESAR LOGIN DE USUARIO NORMAL (SOLO SI NO ES NINGUNA DE LAS ANTERIORES)
+// PROCESAR LOGIN DE USUARIO NORMAL
 // ============================================
 if ($isLoginUsuario) {
     $email = trim($_POST['email'] ?? '');
@@ -174,6 +200,46 @@ if ($cleanPath === 'admin/usuarios') {
 }
 
 // ============================================
+// RUTAS DE ADMINISTRADORES (CRUD)
+// ============================================
+if (strpos($cleanPath, 'admin/administradores') === 0) {
+    require_once __DIR__ . '/app/controllers/AdminController.php';
+    $adminController = new AdminController();
+    
+    // Si es POST, verificar qué acción
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (strpos($cleanPath, 'guardar') !== false) {
+            $adminController->store();
+            exit;
+        } elseif (strpos($cleanPath, 'actualizar') !== false) {
+            $adminController->update();
+            exit;
+        } else {
+            header('Location: ' . url('admin/administradores'));
+            exit;
+        }
+    }
+    
+    // Si es GET
+    if ($cleanPath === 'admin/administradores') {
+        $adminController->index();
+        exit;
+    } elseif ($cleanPath === 'admin/administradores/crear') {
+        $adminController->crear();
+        exit;
+    } elseif (strpos($cleanPath, 'editar') !== false) {
+        $adminController->editar();
+        exit;
+    } elseif (strpos($cleanPath, 'eliminar') !== false) {
+        $adminController->delete();
+        exit;
+    }
+    
+    header('Location: ' . url('admin/administradores'));
+    exit;
+}
+
+// ============================================
 // SI ES LA RAÍZ, MOSTRAR LA PÁGINA DE INICIO
 // ============================================
 if ($cleanPath === '' || $cleanPath === 'index.php') {
@@ -213,7 +279,6 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
 
         <!-- Sección de acceso -->
         <?php if (auth()): ?>
-            <!-- Usuario autenticado -->
             <div id="acceso" class="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
                 <h2 class="text-2xl font-bold text-slate-800 mb-2">Explora los productos</h2>
                 <p class="text-slate-600 mb-4">Descubre y vota por los mejores productos de Alibaba.</p>
@@ -227,7 +292,6 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
                 </div>
             </div>
         <?php else: ?>
-            <!-- Usuario no autenticado - Mostrar formulario de login -->
             <div id="acceso" class="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center scroll-mt-20">
                 <h2 class="text-2xl font-bold text-slate-800 mb-2">Accede al Sistema</h2>
                 <p class="text-slate-600 mb-4">Ingresa tu correo electrónico para comenzar a votar y publicar productos.</p>

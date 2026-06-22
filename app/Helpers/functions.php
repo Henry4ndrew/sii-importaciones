@@ -26,16 +26,47 @@ function adminView(string $vista, array $datos = []): void
     extract($datos);
     $rutaVista = __DIR__ . '/../../resources/views/' . str_replace('.', '/', $vista) . '.php';
 
-    // Asegurar que el admin está disponible en la vista
     if (!isset($admin) && isset($_SESSION['administrador'])) {
         $admin = $_SESSION['administrador'];
+    }
+
+    // Calcular total de administradores si no está presente
+    if (!isset($totalAdministradores)) {
+        try {
+            $stmt = db()->query('SELECT COUNT(*) as total FROM administradores');
+            $result = $stmt->fetch();
+            $totalAdministradores = (int) $result['total'];
+        } catch (Exception $e) {
+            $totalAdministradores = 0;
+        }
+    }
+
+    // Calcular total de usuarios si no está presente
+    if (!isset($totalUsuarios)) {
+        try {
+            $stmt = db()->query('SELECT COUNT(*) as total FROM usuarios');
+            $result = $stmt->fetch();
+            $totalUsuarios = (int) $result['total'];
+        } catch (Exception $e) {
+            $totalUsuarios = 0;
+        }
+    }
+
+    // Calcular total de votos si no está presente
+    if (!isset($totalVotos)) {
+        try {
+            $stmt = db()->query('SELECT COUNT(*) as total FROM votos');
+            $result = $stmt->fetch();
+            $totalVotos = (int) $result['total'];
+        } catch (Exception $e) {
+            $totalVotos = 0;
+        }
     }
 
     ob_start();
     require $rutaVista;
     $contenido = ob_get_clean();
 
-    // Usar admin_layout.php (con sidebar)
     require __DIR__ . '/../../resources/views/layouts/admin_layout.php';
 }
 

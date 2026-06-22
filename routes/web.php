@@ -26,18 +26,7 @@ return [
     'GET /login'           => ['AuthController', 'showLogin'],
     'POST /login'          => ['AuthController', 'login'],
     'GET /logout'          => ['AuthController', 'logout'],
-
-
-
-    // ============================================
-    // RUTAS DE ADMINISTRADOR (AdministradorController)
-    // ============================================
-    'GET /login'           => ['AuthController', 'showLogin'],
-    'POST /login'          => ['AuthController', 'login'],
-    'GET /logout'          => ['AuthController', 'logout'],
-    'GET /admin/dashboard' => ['AdministradorController', 'dashboard'],
-    'GET /admin/usuarios'  => ['AdministradorController', 'usuarios'],
-        
+    
     // ============================================
     // RUTAS DE RECUPERACIÓN DE CONTRASEÑA
     // ============================================
@@ -45,4 +34,22 @@ return [
     'POST /auth/recuperar' => ['RecuperacionController', 'solicitar'],
     'GET /auth/restablecer' => ['RecuperacionController', 'showRestablecer'],
     'POST /auth/restablecer' => ['RecuperacionController', 'restablecer'],
+
+    // ============================================
+    // RUTAS DE ADMINISTRADOR (AdministradorController)
+    // ============================================
+    'GET /admin/dashboard' => ['AdministradorController', 'dashboard'],
+    'GET /admin/usuarios'  => ['AdministradorController', 'usuarios'],
+
+    // ============================================
+    // RUTAS DE ADMINISTRADORES (AdminController - CRUD)
+    // ============================================
+    'GET /admin/administradores'        => ['AdminController', 'index'],
+    'GET /admin/administradores/crear'  => ['AdminController', 'crear'],
+    'POST /admin/administradores/guardar' => ['AdminController', 'store'],
+    'GET /admin/administradores/editar' => ['AdminController', 'editar'],
+    'POST /admin/administradores/actualizar' => ['AdminController', 'update'],
+    'GET /admin/administradores/eliminar' => ['AdminController', 'delete'],
+
+ 
 ];

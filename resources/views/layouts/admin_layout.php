@@ -284,7 +284,7 @@
 
                 <div class="mb-5 pb-3 border-b border-primary-700/30">
                     <p class="text-[10px] text-primary-300 uppercase tracking-[0.15em] font-semibold">
-                        <i class="fas fa-th-large mr-2"></i> Menú Principal
+                         <i class="fas fa-cog mr-2"></i> Sistema
                     </p>
                 </div>
 
@@ -297,59 +297,85 @@
                     <span class="ml-auto text-[9px] font-bold uppercase bg-primary-500 text-primary-900 px-2 py-0.5 rounded-full">Admin</span>
                 </a>
 
-                <!-- Productos -->
-                <a href="<?= url('dashboard') ?>"
+                <!-- Publicaciones -->
+                <a href="<?= url('admin/publicaciones') ?>"
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                    <i class="fas fa-box w-5 text-primary-300"></i>
-                    <span>Productos</span>
-                </a>
-
-                <!-- Ranking -->
-                <a href="<?= url('ranking') ?>"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                    <i class="fas fa-trophy w-5 text-amber-400"></i>
-                    <span>Ranking</span>
+                    <i class="fas fa-newspaper w-5 text-primary-300"></i>
+                    <span>Publicaciones</span>
                 </a>
 
                 <!-- Usuarios -->
                 <a href="<?= url('admin/usuarios') ?>"
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
                           <?= $activePage === 'usuarios' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
-                    <i class="fas fa-users w-5 text-emerald-400"></i>
+                    <i class="fas fa-users w-5 text-primary-300"></i>
                     <span>Usuarios</span>
                     <?php if (isset($totalUsuarios)): ?>
                         <span class="ml-auto bg-primary-700/50 text-primary-200 text-[10px] px-2.5 py-0.5 rounded-full"><?= $totalUsuarios ?></span>
                     <?php endif; ?>
                 </a>
 
-                <!-- Votos -->
-                <a href="#"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                    <i class="fas fa-star w-5 text-amber-400"></i>
-                    <span>Votos</span>
-                    <?php if (isset($totalVotos)): ?>
-                        <span class="ml-auto bg-primary-700/50 text-primary-200 text-[10px] px-2.5 py-0.5 rounded-full"><?= $totalVotos ?></span>
-                    <?php endif; ?>
+                <!-- Administradores -->
+                <a href="<?= url('admin/administradores') ?>"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                        <?= $activePage === 'administradores' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
+                    <i class="fas fa-user-shield w-5 text-primary-300"></i>
+                    <span>Administradores</span>
+                    <?php
+                    // Obtener el total de administradores desde la sesión o calcularlo
+                    $totalAdmins = $totalAdministradores ?? 0;
+                    ?>
+                    <span class="ml-auto bg-primary-700/50 text-primary-200 text-[10px] px-2.5 py-0.5 rounded-full"><?= $totalAdmins ?></span>
                 </a>
+
 
                 <div class="my-5 pt-3 border-t border-primary-700/30">
                     <p class="text-[10px] text-primary-400 uppercase tracking-[0.15em] font-semibold">
-                        <i class="fas fa-cog mr-2"></i> Sistema
+                       <i class="fas fa-globe mr-2"></i> Página Web
                     </p>
                 </div>
 
-                <!-- Ir al sitio -->
-                <a href="<?= url('/') ?>"
+                <!-- Portadas -->
+                <a href="<?= url('admin/portadas') ?>"
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                    <i class="fas fa-globe w-5 text-purple-400"></i>
-                    <span>Ir al Sitio</span>
+                    <i class="fas fa-image w-5 text-emerald-400"></i>
+                    <span>Portadas</span>
                 </a>
+
+                <!-- Votos -->
+                <a href="<?= url('admin/conocenos') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
+                    <i class="fas fa-users w-5 text-emerald-400"></i>
+                    <span>Conócenos</span>
+                </a>
+
+                <!-- Votos -->
+                <a href="<?= url('admin/contactos') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
+                    <i class="fas fa-address-book w-5 text-emerald-400"></i>
+                    <span>Contactos</span>
+                </a>
+
+                <!-- Votos -->
+                <a href="<?= url('admin/servicios') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
+                    <i class="fas fa-concierge-bell w-5 text-emerald-400"></i>
+                    <span>Servicios</span>
+                </a>
+
+                <!-- Votos -->
+                <a href="<?= url('admin/empresa') ?>"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
+                   <i class="fas fa-building w-5 text-emerald-400"></i>
+                    <span>Empresa</span>
+                </a>
+
 
                 <!-- Cerrar Sesión (móvil) -->
                 <a href="<?= url('auth/logout') ?>"
                    class="md:hidden flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-red-300 hover:bg-red-900/30 hover:text-red-200">
                     <i class="fas fa-sign-out-alt w-5 text-red-400"></i>
-                    <span>Cerrar Sesión</span>
+                    <span>Salir</span>
                 </a>
 
             </nav>

@@ -53,9 +53,6 @@ class AdministradorController
             exit;
         }
 
-        // ============================================
-        // CERRAR SESIÓN DE USUARIO NORMAL SI EXISTE
-        // ============================================
         if (isset($_SESSION['usuario'])) {
             unset($_SESSION['usuario']);
         }
@@ -94,22 +91,26 @@ class AdministradorController
         exit;
     }
 
+
+
+
+
+
+
+
+
+
+
     /**
      * Dashboard del administrador
      */
     public function dashboard(): void
     {
-        error_log("=== AdministradorController::dashboard() ejecutado ===");
-        error_log("SESSION: " . print_r($_SESSION, true));
-        
         // Verificar que sea administrador
         if (!isset($_SESSION['administrador'])) {
-            error_log("=== No hay sesión de administrador, redirigiendo a login ===");
             header('Location: ' . url('auth/login'));
             exit;
         }
-
-        // Si existe sesión de usuario normal, cerrarla
         if (isset($_SESSION['usuario'])) {
             unset($_SESSION['usuario']);
         }
@@ -140,8 +141,6 @@ class AdministradorController
             header('Location: ' . url('auth/login'));
             exit;
         }
-
-        // Si existe sesión de usuario normal, cerrarla
         if (isset($_SESSION['usuario'])) {
             unset($_SESSION['usuario']);
         }
@@ -150,7 +149,7 @@ class AdministradorController
         $totalUsuarios = $this->getTotalUsuarios();
         $totalVotos = $this->getTotalVotos();
 
-        adminView('admin/usuarios', [
+         adminView('admin/usuarios/index', [
             'titulo' => 'Gestión de Usuarios',
             'admin' => $_SESSION['administrador'],
             'usuarios' => $usuarios,

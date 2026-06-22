@@ -15,15 +15,22 @@
     RewriteRule ^servicios$ index.php [L]
     RewriteRule ^contactos$ index.php [L]
     
-    # ============================================
-    # RUTAS DE ADMINISTRADOR Y RECUPERACIÓN (van a index.php raíz)
-    # ============================================
-    RewriteRule ^auth/login$ index.php [L]
-    RewriteRule ^auth/logout$ index.php [L]
-    RewriteRule ^auth/recuperar$ index.php [L]
-    RewriteRule ^auth/restablecer$ index.php [L]
-    RewriteRule ^admin/dashboard$ index.php [L]
-    RewriteRule ^admin/usuarios$ index.php [L]
+# ============================================
+# RUTAS DE ADMINISTRADOR (van a index.php raíz)
+# ============================================
+RewriteRule ^auth/login$ index.php [L]
+RewriteRule ^auth/logout$ index.php [L]
+RewriteRule ^auth/recuperar$ index.php [L]
+RewriteRule ^auth/restablecer$ index.php [L]
+RewriteRule ^admin/dashboard$ index.php [L]
+RewriteRule ^admin/usuarios$ index.php [L]
+
+RewriteRule ^admin/administradores/guardar$ index.php [L]
+RewriteRule ^admin/administradores/actualizar$ index.php [L]
+RewriteRule ^admin/administradores/crear$ index.php [L]
+RewriteRule ^admin/administradores/editar$ index.php [L]
+RewriteRule ^admin/administradores/eliminar$ index.php [L]
+RewriteRule ^admin/administradores$ index.php [L]
     
     # ============================================
     # RUTAS DEL DASHBOARD (van a dashboard/index.php)
