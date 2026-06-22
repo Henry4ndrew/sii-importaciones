@@ -28,31 +28,105 @@ Hecho en **PHP puro con estructura tipo Laravel**, **MySQL (phpMyAdmin)** y **Ta
 
 ## Instalación (XAMPP)
 
-1. Copiar la carpeta `sistema-votacion` en `C:\xampp\htdocs\` (ya está ahí).
+1. Copiar la carpeta `sii-importaciones` en `C:\xampp\htdocs\`.
 2. Iniciar **Apache** y **MySQL** desde el Panel de Control de XAMPP.
 3. Abrir phpMyAdmin (http://localhost/phpmyadmin) → pestaña **Importar** →
    seleccionar `database.sql` → Continuar. (Crea la BD `sistema_votacion` con sus 3 tablas.)
-4. Entrar a **http://localhost/sistema-votacion/**
+4. Entrar a **http://localhost/sii-importaciones/**
 
-## Estructura del proyecto (estilo Laravel)
 
-```
-sistema-votacion/
-├── public/index.php        ← punto de entrada único (front controller + router)
-├── routes/web.php          ← definición de rutas
-├── config/database.php     ← conexión PDO a MySQL
-├── app/
-│   ├── Controllers/        ← AuthController, ProductoController, VotoController
-│   ├── Models/             ← Usuario, Producto, Voto (consultas con PDO preparado)
-│   └── Helpers/            ← funciones view(), url(), auth() + Extractor de URLs
-├── resources/views/        ← vistas PHP con Tailwind (layout + parciales)
-└── database.sql            ← script para importar en phpMyAdmin
-```
+
 
 ## Base de datos
+Ruta: config/database.php
+<?php
 
-| Tabla     | Campos clave                                                        |
-|-----------|---------------------------------------------------------------------|
-| usuarios  | id, nombre, email (UNIQUE), password (hash), created_at             |
-| productos | id, usuario_id (FK), nombre, url, imagen, precio, precio_original, oferta, created_at |
-| votos     | id, usuario_id (FK), producto_id (FK), UNIQUE(usuario_id, producto_id) |
+function db(): PDO
+{
+    static $pdo = null;
+
+    if ($pdo === null) {
+        try {
+            $pdo = new PDO(
+                'mysql:host=localhost;dbname=sistema_votacion;charset=utf8mb4',
+                'root',
+                '',
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::ATTR_EMULATE_PREPARES => false,
+                ]
+            );
+        } catch (PDOException $e) {
+            die('Error de conexión a la base de datos. Por favor, verifica la configuración.');
+        }
+    }
+
+    return $pdo;
+}
+?>
+
+## Datos globales
+Ruta: config/config.php
+<?php
+
+// ============================================
+// DEFINIR BASE_URL - DEBE IR ANTES DEL RETURN
+// ============================================
+
+// Cambia según entorno:
+// Local:   define('BASE_URL', '/sii-importaciones');
+// Producción: define('BASE_URL', '');
+if (!defined('BASE_URL')) {
+    define('BASE_URL', '/sii-importaciones');
+}
+
+// ============================================
+// DEFINIR BASE_URL_FULL - PARA URLs ABSOLUTAS (EMAILS)
+// ============================================
+
+// Detectar el host automáticamente
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+
+// Para producción (dominio real)
+if (strpos($host, 'dominio.com') !== false) {
+    define('BASE_URL_FULL', 'https://dominio.com');
+} else {
+    // Para local (localhost)
+    define('BASE_URL_FULL', 'http://localhost' . BASE_URL);
+}
+
+// ============================================
+// CONFIGURACIÓN DE CORREO (SMTP)
+// ============================================
+define('SMTP_HOST', 'mail.dominio.com');
+define('SMTP_USERNAME', 'usuario@dominio.com');
+define('SMTP_PASSWORD', 'contrasenaEmailDelDominio');
+define('SMTP_PORT', 3DigitosDeCpanel);
+define('SMTP_SECURE', 'ssl');
+define('SMTP_FROM_EMAIL', 'usuario@dominio.com');
+define('SMTP_FROM_NAME', 'Dominio Nombre');
+
+
+
+// Configuración general del sistema (Extraer productos de Alibaba)
+return [
+    // Clave de ScraperAPI
+    'scraper_api_key' => 'tuClaveScrapperAPI',
+
+    // Ruta del PHP de línea de comandos
+    'php_cli' => 'C:\\xampp\\php\\php.exe', 
+    // 'php_cli' => '/opt/cpanel/ea-php82/root/usr/bin/php', // CPANEL PHP 8.2
+
+    // Configuración de correo
+    'mail' => [
+        'host' => SMTP_HOST,
+        'username' => SMTP_USERNAME,
+        'password' => SMTP_PASSWORD,
+        'port' => SMTP_PORT,
+        'secure' => SMTP_SECURE,
+        'from_email' => SMTP_FROM_EMAIL,
+        'from_name' => SMTP_FROM_NAME,
+    ],
+];
