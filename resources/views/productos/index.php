@@ -1,9 +1,56 @@
-<div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-extrabold text-slate-800">Productos Recientes</h1>
-    <?php if (auth()): ?>
-        <a href="<?= url('productos/crear') ?>" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-900 font-bold hover:bg-amber-400">Publicar Nuevo Producto</a>
+<!-- ============================================ -->
+<!-- PORTADA DECORATIVA - FULL WIDTH              -->
+<!-- ============================================ -->
+<div class="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-56 md:h-72 overflow-hidden shadow-xl mb-6 bg-primary-900" style="margin-top: -30px;">
+    <?php 
+    // Intentar usar la imagen de producción
+    $imgUrl = 'https://sii-importaciones.net/img/img_67aa0b186724a4.06741642.webp';
+    
+    // Fallback: si no carga, usar una imagen local
+    $fallbackUrl = url('public/img/portada1.jpg');
+    ?>
+    <img src="<?php echo htmlspecialchars($imgUrl); ?>" 
+         alt="Portada SII Importaciones" 
+         class="w-full h-full object-cover"
+         onerror="this.src='<?php echo htmlspecialchars($fallbackUrl); ?>'">
+    
+    <!-- Gradiente sutil de abajo hacia arriba -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+    
+    <!-- Contenido -->
+    <div class="absolute bottom-6 left-6 md:left-10 right-6 md:right-10 max-w-2xl">
+        <h1 class="text-2xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">Sii-importaciones.net</h1>
+        <p class="text-sm md:text-base text-gray-200 drop-shadow-md">Sistema de votación para importaciones desde China</p>
+    </div>
+</div>>
+
+
+<!-- ============================================ -->
+<!-- LISTADO DE PRODUCTOS                         -->
+<!-- ============================================ -->
+<?php if (empty($productos)): ?>
+    <div class="bg-white rounded-xl shadow p-10 text-center text-slate-500">
+        <p class="text-5xl mb-3">🛒</p>
+        <p class="font-semibold">Aún no hay productos publicados.</p>
+        <p class="text-sm mt-1">¡Sé el primero en compartir un producto de Alibaba!</p>
+    </div>
+<?php else: ?>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <?php foreach ($productos as $producto): ?>
+            <?php $vista = '/'; include __DIR__ . '/_tarjeta.php'; ?>
+        <?php endforeach; ?>
+    </div>
+
+    <?php $hayIncompletos = array_filter($productos, static fn ($p) => empty($p['imagen'])); ?>
+    <?php if ($hayIncompletos): ?>
+        <script>setTimeout(function () { location.reload(); }, 7000);</script>
     <?php endif; ?>
-</div>
+<?php endif; ?>
+
+
+
+
+
 
 <?php if (empty($productos)): ?>
     <div class="bg-white rounded-xl shadow p-10 text-center text-slate-500">

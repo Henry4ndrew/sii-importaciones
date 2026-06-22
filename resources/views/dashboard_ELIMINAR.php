@@ -1,3 +1,4 @@
+
 <div class="max-w-full">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-3xl font-extrabold text-slate-800">Panel de Administrador</h1>
