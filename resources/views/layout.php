@@ -29,7 +29,7 @@
     </script>
 
 </head>
-<body class="bg-slate-100 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-primary-800">
 
     <!-- Barra de navegación -->
     <nav class="bg-slate-900 text-white shadow-lg">

@@ -18,11 +18,19 @@ class HomeController
         view('servicios', ['titulo' => 'Servicios - Sii importaciones']);
     }
 
+
     /**
      * Página "Contactos"
      */
     public function contactos(): void
     {
-        view('contactos', ['titulo' => 'Contactos - Sii importaciones']);
+        // Obtener contactos activos desde la base de datos
+        require_once __DIR__ . '/../Models/Contacto.php';
+        $contactos = Contacto::getActivos();
+        
+        view('contactos', [
+            'titulo' => 'Contactos - Sii importaciones',
+            'contactos' => $contactos
+        ]);
     }
 }

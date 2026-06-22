@@ -136,11 +136,65 @@ if ($cleanPath === 'auth/restablecer') {
 // 9. PÁGINA DE INICIO (RAÍZ)
 // ============================================
 if ($cleanPath === '' || $cleanPath === 'index.php') {
+    // Obtener portadas activas para el slider
+    require_once __DIR__ . '/app/Models/Portada.php';
+    $portadas = Portada::getActivas();
+    
+    // Si no hay portadas, usar imágenes de respaldo
+    if (empty($portadas)) {
+        $portadas = [
+            [
+                'titulo' => 'Bienvenido a SII Importaciones',
+                'descripcion' => 'Sistema de votación para importaciones desde China',
+                'ruta_imagen' => 'https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1600'
+            ],
+            [
+                'titulo' => 'Vota por los Mejores Productos',
+                'descripcion' => 'Descubre productos innovadores importados desde Alibaba',
+                'ruta_imagen' => 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1600'
+            ],
+            [
+                'titulo' => 'Importaciones Inteligentes',
+                'descripcion' => 'La comunidad decide qué productos destacan',
+                'ruta_imagen' => 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1600'
+            ]
+        ];
+    }
+    
     $titulo = 'Inicio - SII Importaciones';
     
     ob_start();
     ?>
     <div class="max-w-4xl mx-auto">
+        
+        <!-- ============================================ -->
+        <!-- SLIDER DE PORTADAS                           -->
+        <!-- ============================================ -->
+        <div class="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-xl mb-8 shadow-2xl">
+            <div class="relative w-full h-full">
+                <?php foreach($portadas as $index => $portada): 
+                    // Determinar la URL de la imagen
+                    $imgUrl = $portada['ruta_imagen'];
+                    // Si es una ruta local, agregar la URL base
+                    if (!filter_var($imgUrl, FILTER_VALIDATE_URL)) {
+                        $imgUrl = url('public/img/' . $portada['ruta_imagen']);
+                    }
+                ?>
+                <div class="slide absolute inset-0 w-full h-full opacity-0 transition-opacity duration-1000 <?php echo $index === 0 ? 'active' : ''; ?>">
+                    <img src="<?= $imgUrl ?>" 
+                         alt="<?= e($portada['titulo']) ?>" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                        <h1 class="text-2xl md:text-4xl font-bold text-white mb-2"><?= e($portada['titulo']) ?></h1>
+                        <?php if (!empty($portada['descripcion'])): ?>
+                            <p class="text-sm md:text-lg text-primary-200"><?= e($portada['descripcion']) ?></p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
         <!-- Contenido de bienvenida -->
         <div class="bg-white rounded-xl shadow p-8 mb-6" style="border-top: 4px solid #2F5A8A;">
             <h1 class="text-3xl font-extrabold mb-4" style="color: #12283D;">
@@ -219,6 +273,46 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
             </div>
         <?php endif; ?>
     </div>
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS PARA EL SLIDER                        -->
+    <!-- ============================================ -->
+    <style>
+        /* Hero Slider */
+        .slide {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        
+        /* Animación fadeIn */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.4s ease;
+        }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hero Slider
+        const slides = document.querySelectorAll('.slide');
+        let current = 0;
+        
+        if (slides.length > 1) {
+            setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 5000);
+        }
+    });
+    </script>
+
     <?php
     $contenido = ob_get_clean();
     require_once __DIR__ . '/resources/views/layout.php';

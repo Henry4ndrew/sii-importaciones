@@ -81,6 +81,44 @@ $adminRoutes = [
         'action' => 'toggle',
     ],
 
+
+    // CRUD de Contactos
+    'admin/contactos' => [
+        'controller' => 'ContactoController',
+        'action' => 'index',
+    ],
+    'admin/contactos/ver' => [
+        'controller' => 'ContactoController',
+        'action' => 'ver',
+    ],
+    'admin/contactos/crear' => [
+        'controller' => 'ContactoController',
+        'action' => 'crear',
+    ],
+    'admin/contactos/editar' => [
+        'controller' => 'ContactoController',
+        'action' => 'editar',
+    ],
+    'admin/contactos/eliminar' => [
+        'controller' => 'ContactoController',
+        'action' => 'delete',
+    ],
+    'admin/contactos/guardar' => [
+        'controller' => 'ContactoController',
+        'action' => 'store',
+    ],
+    'admin/contactos/actualizar' => [
+        'controller' => 'ContactoController',
+        'action' => 'update',
+    ],
+    'admin/contactos/toggle' => [
+        'controller' => 'ContactoController',
+        'action' => 'toggle',
+    ],
+    'admin/contactos/verificar-orden' => [
+        'controller' => 'ContactoController',
+        'action' => 'verificarOrden',
+    ],
 ];
 
 return $adminRoutes;

@@ -1,34 +1,34 @@
 <?php
 require_once __DIR__ . '/../../config/database.php';
 
-class Portada
+class Contacto
 {
     /**
-     * Obtener todas las portadas
+     * Obtener todos los contactos
      */
     public static function getAll(): array
     {
-        $stmt = db()->query('SELECT * FROM portadas ORDER BY orden ASC, created_at DESC');
+        $stmt = db()->query('SELECT * FROM contactos ORDER BY orden ASC, created_at DESC');
         return $stmt->fetchAll();
     }
 
     /**
-     * Obtener portada por ID
+     * Obtener contacto por ID
      */
     public static function getById(int $id): ?array
     {
-        $stmt = db()->prepare('SELECT * FROM portadas WHERE id = ?');
+        $stmt = db()->prepare('SELECT * FROM contactos WHERE id = ?');
         $stmt->execute([$id]);
         $result = $stmt->fetch();
         return $result ?: null;
     }
 
     /**
-     * Obtener portadas activas para el slider
+     * Obtener contactos activos
      */
-    public static function getActivas(): array
+    public static function getActivos(): array
     {
-        $stmt = db()->query('SELECT * FROM portadas WHERE activo = 1 ORDER BY orden ASC');
+        $stmt = db()->query('SELECT * FROM contactos WHERE activo = 1 ORDER BY orden ASC');
         return $stmt->fetchAll();
     }
 
@@ -37,7 +37,7 @@ class Portada
      */
     public static function getUltimoOrden(): int
     {
-        $stmt = db()->query('SELECT MAX(orden) as max_orden FROM portadas');
+        $stmt = db()->query('SELECT MAX(orden) as max_orden FROM contactos');
         $result = $stmt->fetch();
         return (int) ($result['max_orden'] ?? 0) + 1;
     }
@@ -47,7 +47,7 @@ class Portada
      */
     public static function ordenExiste(int $orden, ?int $excluirId = null): bool
     {
-        $sql = 'SELECT COUNT(*) as total FROM portadas WHERE orden = ?';
+        $sql = 'SELECT COUNT(*) as total FROM contactos WHERE orden = ?';
         $params = [$orden];
         
         if ($excluirId !== null) {
@@ -62,23 +62,23 @@ class Portada
     }
 
     /**
-     * Reordenar portadas (para mantener orden consecutivo)
+     * Reordenar contactos
      */
     public static function reordenar(): void
     {
-        $stmt = db()->query('SELECT id FROM portadas ORDER BY orden ASC, created_at ASC');
-        $portadas = $stmt->fetchAll();
+        $stmt = db()->query('SELECT id FROM contactos ORDER BY orden ASC, created_at ASC');
+        $contactos = $stmt->fetchAll();
         
         $nuevoOrden = 1;
-        foreach ($portadas as $portada) {
-            $update = db()->prepare('UPDATE portadas SET orden = ? WHERE id = ?');
-            $update->execute([$nuevoOrden, $portada['id']]);
+        foreach ($contactos as $contacto) {
+            $update = db()->prepare('UPDATE contactos SET orden = ? WHERE id = ?');
+            $update->execute([$nuevoOrden, $contacto['id']]);
             $nuevoOrden++;
         }
     }
 
     /**
-     * Crear portada
+     * Crear contacto
      */
     public static function create(array $data): int
     {
@@ -87,13 +87,15 @@ class Portada
         }
         
         $stmt = db()->prepare('
-            INSERT INTO portadas (titulo, descripcion, ruta_imagen, orden, activo) 
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO contactos (ciudad, telefono, correo, horarios, imagen, orden, activo) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         ');
         $stmt->execute([
-            $data['titulo'],
-            $data['descripcion'] ?? null,
-            $data['ruta_imagen'],
+            $data['ciudad'],
+            $data['telefono'],
+            $data['correo'],
+            $data['horarios'] ?? null,
+            $data['imagen'] ?? null,
             $data['orden'],
             $data['activo'] ?? 1
         ]);
@@ -101,23 +103,27 @@ class Portada
     }
 
     /**
-     * Actualizar portada
+     * Actualizar contacto
      */
     public static function update(int $id, array $data): bool
     {
         $stmt = db()->prepare('
-            UPDATE portadas SET 
-                titulo = ?, 
-                descripcion = ?, 
-                ruta_imagen = ?, 
+            UPDATE contactos SET 
+                ciudad = ?, 
+                telefono = ?, 
+                correo = ?, 
+                horarios = ?, 
+                imagen = ?, 
                 orden = ?, 
                 activo = ? 
             WHERE id = ?
         ');
         return $stmt->execute([
-            $data['titulo'],
-            $data['descripcion'] ?? null,
-            $data['ruta_imagen'],
+            $data['ciudad'],
+            $data['telefono'],
+            $data['correo'],
+            $data['horarios'] ?? null,
+            $data['imagen'] ?? null,
             $data['orden'] ?? 0,
             $data['activo'] ?? 1,
             $id
@@ -125,11 +131,11 @@ class Portada
     }
 
     /**
-     * Eliminar portada
+     * Eliminar contacto
      */
     public static function delete(int $id): bool
     {
-        $stmt = db()->prepare('DELETE FROM portadas WHERE id = ?');
+        $stmt = db()->prepare('DELETE FROM contactos WHERE id = ?');
         return $stmt->execute([$id]);
     }
 
@@ -138,13 +144,13 @@ class Portada
      */
     public static function toggleEstado(int $id): bool
     {
-        $portada = self::getById($id);
-        if (!$portada) {
+        $contacto = self::getById($id);
+        if (!$contacto) {
             return false;
         }
         
-        $nuevoEstado = $portada['activo'] ? 0 : 1;
-        $stmt = db()->prepare('UPDATE portadas SET activo = ? WHERE id = ?');
+        $nuevoEstado = $contacto['activo'] ? 0 : 1;
+        $stmt = db()->prepare('UPDATE contactos SET activo = ? WHERE id = ?');
         return $stmt->execute([$nuevoEstado, $id]);
     }
 }

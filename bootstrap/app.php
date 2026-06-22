@@ -37,6 +37,10 @@ function detectarTipoPost(): ?string
     if (isset($_POST['titulo']) && isset($_POST['ruta_imagen']) && !isset($_POST['password']) && !isset($_POST['nombre'])) {
         return 'crud_portada';
     }
+    // Contactos
+    if (isset($_POST['ciudad']) && isset($_POST['telefono']) && isset($_POST['correo']) && !isset($_POST['password']) && !isset($_POST['nombre'])) {
+        return 'crud_contacto';
+    }
     
     return null;
 }
@@ -81,10 +85,24 @@ function procesarPost(string $tipo): void
             procesarLoginUsuario();
             break;
         
+        //PORTADA
         case 'crud_portada':
         $cleanPath = obtenerCleanPath();
         require_once __DIR__ . '/../app/controllers/PortadaController.php';
         $controller = new PortadaController();
+        
+        if (strpos($cleanPath, 'guardar') !== false) {
+            $controller->store();
+        } elseif (strpos($cleanPath, 'actualizar') !== false) {
+            $controller->update();
+        }
+        break;
+
+        //CONTACTOS
+        case 'crud_contacto':
+        $cleanPath = obtenerCleanPath();
+        require_once __DIR__ . '/../app/controllers/ContactoController.php';
+        $controller = new ContactoController();
         
         if (strpos($cleanPath, 'guardar') !== false) {
             $controller->store();
@@ -154,8 +172,7 @@ function esRutaAdmin(string $path): bool
         'admin/administradores/eliminar',
         'admin/administradores/guardar',
         'admin/administradores/actualizar',
-
-        // NUEVO: Agregar rutas de portadas
+        //PORTADAS
         'admin/portadas',
         'admin/portadas/ver',
         'admin/portadas/crear',
@@ -165,6 +182,16 @@ function esRutaAdmin(string $path): bool
         'admin/portadas/actualizar',
         'admin/portadas/verificar-orden',
         'admin/portadas/toggle',
+        //CONTACTOS
+        'admin/contactos',
+        'admin/contactos/ver',
+        'admin/contactos/crear',
+        'admin/contactos/editar',
+        'admin/contactos/eliminar',
+        'admin/contactos/guardar',
+        'admin/contactos/actualizar',
+        'admin/contactos/toggle',
+        'admin/contactos/verificar-orden',
     ];
     
     return in_array($path, $adminRoutes);
