@@ -189,6 +189,16 @@ $adminRoutes = [
         'controller' => 'ConocenosController',
         'action' => 'equipoDelete',
     ],
+
+    // Empresa
+    'admin/empresa' => [
+        'controller' => 'EmpresaController',
+        'action' => 'index',
+    ],
+    'admin/empresa/actualizar' => [
+        'controller' => 'EmpresaController',
+        'action' => 'update',
+    ],
 ];
 
 return $adminRoutes;

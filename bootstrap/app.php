@@ -49,7 +49,10 @@ function detectarTipoPost(): ?string
     if (isset($_POST['encabezado_titulo']) || isset($_POST['mision_texto'])) {
         return 'crud_conocenos';
     }
-
+    //EMPRESA
+    if (isset($_POST['descripcion_corporativa']) || isset($_POST['email_principal'])) {
+        return 'crud_empresa';
+    }
         
     return null;
 }
@@ -137,6 +140,15 @@ function procesarPost(string $tipo): void
             $cleanPath = obtenerCleanPath();
             require_once __DIR__ . '/../app/controllers/ConocenosController.php';
             $controller = new ConocenosController();
+            if (strpos($cleanPath, 'actualizar') !== false) {
+                $controller->update();
+            }
+            break;
+        //EMPRESA
+        case 'crud_empresa':
+            $cleanPath = obtenerCleanPath();
+            require_once __DIR__ . '/../app/controllers/EmpresaController.php';
+            $controller = new EmpresaController();
             if (strpos($cleanPath, 'actualizar') !== false) {
                 $controller->update();
             }
@@ -242,6 +254,9 @@ function esRutaAdmin(string $path): bool
         'admin/conocenos/equipo/guardar',
         'admin/conocenos/equipo/actualizar',
         'admin/conocenos/equipo/eliminar',
+        //EMPRESA
+        'admin/empresa',
+        'admin/empresa/actualizar',
     ];
     
     return in_array($path, $adminRoutes);

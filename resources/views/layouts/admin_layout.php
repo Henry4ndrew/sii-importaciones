@@ -366,10 +366,11 @@
                     <span>Servicios</span>
                 </a>
 
-                <!-- Votos -->
+                <!-- Empresa -->
                 <a href="<?= url('admin/empresa') ?>"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                   <i class="fas fa-building w-5 text-emerald-400"></i>
+                class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                        <?= $activePage === 'empresa' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
+                    <i class="fas fa-building w-5 text-slate-400"></i>
                     <span>Empresa</span>
                 </a>
 
