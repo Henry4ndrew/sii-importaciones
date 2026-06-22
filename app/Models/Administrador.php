@@ -14,7 +14,6 @@ class Administrador
             $admin = $stmt->fetch();
             return $admin ?: null;
         } catch (PDOException $e) {
-            // Registrar error en log
             self::logError("Error en buscarPorEmail: " . $e->getMessage());
             return null;
         }
@@ -45,6 +44,21 @@ class Administrador
     }
 
     /**
+     * Actualizar contraseña de administrador
+     */
+    public static function actualizarPassword(int $id, string $nuevaPassword): bool
+    {
+        try {
+            $hash = password_hash($nuevaPassword, PASSWORD_DEFAULT);
+            $stmt = db()->prepare('UPDATE administradores SET password = ? WHERE id = ?');
+            return $stmt->execute([$hash, $id]);
+        } catch (PDOException $e) {
+            self::logError("Error al actualizar password: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
      * Función para registrar errores en un archivo de log
      */
     private static function logError(string $mensaje): void
@@ -52,7 +66,6 @@ class Administrador
         $logFile = __DIR__ . '/../../logs/administrador.log';
         $logDir = dirname($logFile);
         
-        // Crear carpeta logs si no existe
         if (!is_dir($logDir)) {
             mkdir($logDir, 0755, true);
         }

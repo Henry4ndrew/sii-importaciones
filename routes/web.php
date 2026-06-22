@@ -37,4 +37,12 @@ return [
     'GET /logout'          => ['AuthController', 'logout'],
     'GET /admin/dashboard' => ['AdministradorController', 'dashboard'],
     'GET /admin/usuarios'  => ['AdministradorController', 'usuarios'],
+        
+    // ============================================
+    // RUTAS DE RECUPERACIÓN DE CONTRASEÑA
+    // ============================================
+    'GET /auth/recuperar'  => ['RecuperacionController', 'showSolicitar'],
+    'POST /auth/recuperar' => ['RecuperacionController', 'solicitar'],
+    'GET /auth/restablecer' => ['RecuperacionController', 'showRestablecer'],
+    'POST /auth/restablecer' => ['RecuperacionController', 'restablecer'],
 ];

@@ -117,3 +117,17 @@ function getTipoSesion(): ?string
     }
     return null;
 }
+/**
+ * Generar URL absoluta completa (para emails)
+ */
+function urlFull(string $ruta): string
+{
+    $base = defined('BASE_URL_FULL') ? BASE_URL_FULL : '';
+    $ruta = trim($ruta, '/');
+    
+    if ($ruta === '') {
+        return $base . '/';
+    }
+    
+    return $base . '/' . $ruta;
+}

@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($titulo ?? 'Sistema de Votación') ?> | Sii importaciones</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+    theme: {
+        extend: {
+        colors: {
+            primary: {
+            50:  "#E6EDF5",
+            100: "#B8CCE3",
+            200: "#8AAAD1",
+            300: "#5D89BF",
+            400: "#3E6FA8",
+            500: "#2F5A8A",
+            600: "#25496F",
+            700: "#1C3956",
+            800: "#12283D",
+            900: "#0A1626" 
+            }
+        }
+        }
+    }
+    }
+    </script>
+
 </head>
 <body class="bg-slate-100 min-h-screen flex flex-col">
 
@@ -13,14 +36,14 @@
         <div class="max-w-6xl mx-auto px-4 py-3">
             <!-- Fila 1: Logo y menú principal -->
             <div class="flex flex-wrap items-center justify-between gap-3">
-                <!-- Logo -->
-                <a href="<?= url('/') ?>" class="flex items-center gap-2">
-                    <span class="bg-amber-500 text-slate-900 font-black rounded-lg px-2 py-1 text-lg">WI</span>
-                    <div>
-                        <span class="font-bold text-lg tracking-wide">WILLS IMPORT</span>
-                        <p class="text-xs text-slate-400 -mt-1">Sistema de votación para importaciones desde China</p>
-                    </div>
-                </a>
+            <!-- Logo -->
+            <a href="<?= url('/') ?>" class="flex items-center gap-2">
+                <span class="text-white font-black rounded-lg px-2 py-1 text-lg" style="background: #2F5A8A;">SI</span>
+                <div>
+                    <span class="font-bold text-lg tracking-wide" style="color: #12283D;">SII IMPORTACIONES</span>
+                    <p class="text-xs text-slate-400 -mt-1">Sistema de votación para importaciones desde China</p>
+                </div>
+            </a>
 
                 <!-- Menú principal (escritorio) -->
                 <div class="hidden md:flex items-center gap-1 text-sm">

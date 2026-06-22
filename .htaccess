@@ -16,10 +16,12 @@
     RewriteRule ^contactos$ index.php [L]
     
     # ============================================
-    # RUTAS DE ADMINISTRADOR (van a index.php raíz)
+    # RUTAS DE ADMINISTRADOR Y RECUPERACIÓN (van a index.php raíz)
     # ============================================
     RewriteRule ^auth/login$ index.php [L]
     RewriteRule ^auth/logout$ index.php [L]
+    RewriteRule ^auth/recuperar$ index.php [L]
+    RewriteRule ^auth/restablecer$ index.php [L]
     RewriteRule ^admin/dashboard$ index.php [L]
     RewriteRule ^admin/usuarios$ index.php [L]
     
@@ -35,9 +37,10 @@
     RewriteRule ^login$ dashboard/index.php [L]
     
     # ============================================
-    # CUALQUIER OTRA RUTA (fallback)
+    # CUALQUIER OTRA RUTA - SOLO PARA LO QUE NO COINCIDA
     # ============================================
-    RewriteRule ^(.*)$ dashboard/index.php [QSA,L]
+    # Eliminamos esta línea porque está capturando todo
+    # RewriteRule ^(.*)$ dashboard/index.php [QSA,L]
     
 </IfModule>
 
