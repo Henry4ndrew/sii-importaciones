@@ -20,13 +20,7 @@ class AdministradorController
      * Procesar login de administrador
      */
     public function login(): void
-    {
-        // ============================================
-        // DEBUG - Verificar que el método se está ejecutando
-        // ============================================
-        error_log("=== AdministradorController::login() ejecutado ===");
-        error_log("POST: " . print_r($_POST, true));
-        
+    {   
         $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
 
@@ -76,11 +70,6 @@ class AdministradorController
         ];
 
         flash('exito', '¡Bienvenido administrador, ' . $admin['nombre'] . '!');
-        
-        // ============================================
-        // REDIRIGIR AL DASHBOARD DE ADMINISTRADOR
-        // ============================================
-        error_log("=== Redirigiendo a admin/dashboard ===");
         header('Location: ' . url('admin/dashboard'));
         exit;
     }
@@ -91,7 +80,14 @@ class AdministradorController
     public function logout(): void
     {
         // Cerrar sesión de administrador
-        unset($_SESSION['administrador']);
+        if (isset($_SESSION['administrador'])) {
+            unset($_SESSION['administrador']);
+        }
+        
+        // Cerrar sesión de usuario normal si existe
+        if (isset($_SESSION['usuario'])) {
+            unset($_SESSION['usuario']);
+        }
         
         flash('exito', 'Sesión de administrador cerrada correctamente.');
         header('Location: ' . url('auth/login'));

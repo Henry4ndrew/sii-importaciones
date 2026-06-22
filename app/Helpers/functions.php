@@ -78,3 +78,42 @@ function getFlash(): ?array
     unset($_SESSION['flash']);
     return $flash;
 }
+
+
+
+
+
+/**
+ * Cerrar todas las sesiones activas (usuario y administrador)
+ */
+function cerrarTodasLasSesiones(): void
+{
+    if (isset($_SESSION['usuario'])) {
+        unset($_SESSION['usuario']);
+    }
+    if (isset($_SESSION['administrador'])) {
+        unset($_SESSION['administrador']);
+    }
+}
+
+/**
+ * Verificar si hay una sesión activa (usuario o administrador)
+ */
+function haySesionActiva(): bool
+{
+    return isset($_SESSION['usuario']) || isset($_SESSION['administrador']);
+}
+
+/**
+ * Obtener el tipo de sesión activa
+ */
+function getTipoSesion(): ?string
+{
+    if (isset($_SESSION['administrador'])) {
+        return 'administrador';
+    }
+    if (isset($_SESSION['usuario'])) {
+        return 'usuario';
+    }
+    return null;
+}
