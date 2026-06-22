@@ -356,10 +356,11 @@
                     <i class="fas fa-address-book w-5 text-emerald-400"></i>
                     <span>Contactos</span>
                 </a>
-                <!-- Votos -->
+                <!-- Servicios -->
                 <a href="<?= url('admin/servicios') ?>"
-                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-primary-200 hover:bg-primary-800/50 hover:text-white">
-                    <i class="fas fa-concierge-bell w-5 text-emerald-400"></i>
+                class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                        <?= $activePage === 'servicios' ? 'bg-primary-700/50 text-white' : 'text-primary-200 hover:bg-primary-800/50 hover:text-white' ?>">
+                    <i class="fas fa-concierge-bell w-5 text-purple-400"></i>
                     <span>Servicios</span>
                 </a>
 

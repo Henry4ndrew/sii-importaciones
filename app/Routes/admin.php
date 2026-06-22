@@ -119,6 +119,40 @@ $adminRoutes = [
         'controller' => 'ContactoController',
         'action' => 'verificarOrden',
     ],
+
+    // CRUD de Servicios
+    'admin/servicios' => [
+        'controller' => 'ServicioController',
+        'action' => 'index',
+    ],
+    'admin/servicios/ver' => [
+        'controller' => 'ServicioController',
+        'action' => 'ver',
+    ],
+    'admin/servicios/crear' => [
+        'controller' => 'ServicioController',
+        'action' => 'crear',
+    ],
+    'admin/servicios/editar' => [
+        'controller' => 'ServicioController',
+        'action' => 'editar',
+    ],
+    'admin/servicios/eliminar' => [
+        'controller' => 'ServicioController',
+        'action' => 'delete',
+    ],
+    'admin/servicios/guardar' => [
+        'controller' => 'ServicioController',
+        'action' => 'store',
+    ],
+    'admin/servicios/actualizar' => [
+        'controller' => 'ServicioController',
+        'action' => 'update',
+    ],
+    'admin/servicios/toggle' => [
+        'controller' => 'ServicioController',
+        'action' => 'toggle',
+    ],
 ];
 
 return $adminRoutes;

@@ -15,7 +15,14 @@ class HomeController
      */
     public function servicios(): void
     {
-        view('servicios', ['titulo' => 'Servicios - Sii importaciones']);
+        // Obtener servicios activos con sus subsecciones
+        require_once __DIR__ . '/../Models/Servicio.php';
+        $servicios = Servicio::getActivos();
+        
+        view('servicios', [
+            'titulo' => 'Servicios - Sii importaciones',
+            'servicios' => $servicios
+        ]);
     }
 
 

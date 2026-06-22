@@ -41,7 +41,11 @@ function detectarTipoPost(): ?string
     if (isset($_POST['ciudad']) && isset($_POST['telefono']) && isset($_POST['correo']) && !isset($_POST['password']) && !isset($_POST['nombre'])) {
         return 'crud_contacto';
     }
-    
+    //SERVICIOS
+    if (isset($_POST['titulo']) && isset($_POST['subsecciones']) && !isset($_POST['password']) && !isset($_POST['nombre']) && !isset($_POST['ciudad'])) {
+        return 'crud_servicio';
+    }
+        
     return null;
 }
 
@@ -110,6 +114,20 @@ function procesarPost(string $tipo): void
             $controller->update();
         }
         break;
+
+        //SERVICIOS
+        case 'crud_servicio':
+            $cleanPath = obtenerCleanPath();
+            require_once __DIR__ . '/../app/controllers/ServicioController.php';
+            $controller = new ServicioController();
+            
+            if (strpos($cleanPath, 'guardar') !== false) {
+                $controller->store();
+            } elseif (strpos($cleanPath, 'actualizar') !== false) {
+                $controller->update();
+            }
+            break;
+    //
 
     }
     
@@ -192,6 +210,15 @@ function esRutaAdmin(string $path): bool
         'admin/contactos/actualizar',
         'admin/contactos/toggle',
         'admin/contactos/verificar-orden',
+        //SERVICIOS
+        'admin/servicios',
+        'admin/servicios/ver',
+        'admin/servicios/crear',
+        'admin/servicios/editar',
+        'admin/servicios/eliminar',
+        'admin/servicios/guardar',
+        'admin/servicios/actualizar',
+        'admin/servicios/toggle',
     ];
     
     return in_array($path, $adminRoutes);
