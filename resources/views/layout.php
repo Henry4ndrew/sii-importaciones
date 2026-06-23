@@ -339,13 +339,63 @@ if (!empty($empresaData['whatsapp'])) {
 <!-- MENSAJE FLASH                                -->
 <!-- ============================================ -->
 <?php if ($flash = getFlash()): ?>
-    <div class="max-w-6xl mx-auto px-4 mt-4 w-full">
-        <div class="rounded-lg px-4 py-3 text-sm font-semibold <?= $flash['tipo'] === 'exito' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' ?>">
-            <?= e($flash['mensaje']) ?>
+    <div id="flash-message" class="fixed top-24 right-6 z-[9999] max-w-sm w-full px-4 animate-slideInRight">
+        <div class="rounded-2xl px-6 py-4 text-sm font-semibold shadow-2xl backdrop-blur-lg border flex items-center gap-3
+            <?= $flash['tipo'] === 'exito' 
+                ? 'bg-green-500/90 text-white border-green-400/50' 
+                : 'bg-red-500/90 text-white border-red-400/50' ?>">
+            <span class="text-xl flex-shrink-0">
+                <?= $flash['tipo'] === 'exito' ? '✅' : '❌' ?>
+            </span>
+            <span class="flex-1"><?= e($flash['mensaje']) ?></span>
+            <button onclick="this.closest('#flash-message').remove()" class="text-white/70 hover:text-white transition flex-shrink-0">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
     </div>
-<?php endif; ?>
 
+    <style>
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(80px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(80px);
+            }
+        }
+        .animate-slideInRight {
+            animation: slideInRight 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        .animate-slideOutRight {
+            animation: slideOutRight 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+    </style>
+
+    <script>
+        // Auto-cerrar después de 4 segundos
+        setTimeout(function() {
+            const flash = document.getElementById('flash-message');
+            if (flash) {
+                flash.classList.remove('animate-slideInRight');
+                flash.classList.add('animate-slideOutRight');
+                setTimeout(function() {
+                    flash.remove();
+                }, 500);
+            }
+        }, 4000);
+    </script>
 <!-- ============================================ -->
 <!-- CONTENIDO PRINCIPAL                          -->
 <!-- ============================================ -->

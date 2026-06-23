@@ -1,5 +1,5 @@
 <?php /* Tarjeta de producto. Espera: $producto, $votados, $vista ('/' o 'ranking') */ ?>
-<div class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col">
+<div class="bg-primary-700/90 rounded-xl shadow hover:shadow-lg transition overflow-hidden flex flex-col border border-white/20">
     <div class="h-48 bg-slate-200 flex items-center justify-center overflow-hidden relative">
         <?php if (!empty($producto['oferta'])): ?>
             <span class="absolute top-2 right-2 bg-red-600 text-white text-xs font-black rounded-full px-3 py-1 shadow">
@@ -29,22 +29,22 @@
     <?php endif; ?>
 
     <div class="p-4 flex flex-col flex-1">
-        <h3 class="font-bold text-slate-800 leading-snug line-clamp-2"><?= e($producto['nombre']) ?></h3>
+        <h3 class="font-bold text-primary-50 leading-snug line-clamp-2"><?= e($producto['nombre']) ?></h3>
 
         <?php if (!empty($producto['precio'])): ?>
             <p class="mt-1">
-                <span class="text-amber-600 font-extrabold text-lg"><?= e($producto['precio']) ?></span>
+                <span class="text-sky font-extrabold text-lg"><?= e($producto['precio']) ?></span>
                 <?php if (!empty($producto['precio_original'])): ?>
-                    <span class="text-slate-400 text-sm line-through ml-1"><?= e($producto['precio_original']) ?></span>
+                    <span class="text-sky text-sm line-through ml-1"><?= e($producto['precio_original']) ?></span>
                 <?php endif; ?>
             </p>
         <?php endif; ?>
 
         <?php if (!empty($producto['pedido_minimo'])): ?>
-            <p class="text-xs text-slate-600 mt-0.5">Pedido mínimo: <span class="font-semibold"><?= e($producto['pedido_minimo']) ?></span></p>
+            <p class="text-xs text-primary-50 mt-0.5">Pedido mínimo: <span class="font-semibold"><?= e($producto['pedido_minimo']) ?></span></p>
         <?php endif; ?>
 
-        <p class="text-xs text-slate-500 mt-1">
+        <p class="text-xs text-primary-50/50 mt-1">
             Publicado por <?= e($producto['publicado_por']) ?> · <?= e(date('d/m/Y', strtotime($producto['created_at']))) ?>
         </p>
 
@@ -61,7 +61,7 @@
                 <form method="POST" action="<?= url('votar') ?>">
                     <input type="hidden" name="producto_id" value="<?= (int) $producto['id'] ?>">
                     <input type="hidden" name="volver_a" value="<?= e($vista ?? '/') ?>">
-                    <button class="px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-bold hover:bg-amber-500 hover:text-slate-900 transition">
+                    <button class="px-4 py-2 rounded-lg text-white text-sm font-bold bg-gradient-to-r from-[#00eeff] to-primary-500 hover:from-primary-900 hover:to-[#00eeff] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
                         Votar ▲
                     </button>
                 </form>

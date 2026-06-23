@@ -1,7 +1,7 @@
 <!-- ============================================ -->
 <!-- PORTADA DECORATIVA - FULL WIDTH              -->
 <!-- ============================================ -->
-<div class="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-56 md:h-72 overflow-hidden shadow-xl mb-6 bg-primary-900" style="margin-top: -30px;">
+<div class="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-56 md:h-72 overflow-hidden shadow-xl mb-6 bg-primary-900 -mt-10 z-0">
     <?php 
     // Intentar usar la imagen de producción
     $imgUrl = 'https://sii-importaciones.net/img/img_67aa0b186724a4.06741642.webp';
@@ -15,14 +15,13 @@
          onerror="this.src='<?php echo htmlspecialchars($fallbackUrl); ?>'">
     
     <!-- Gradiente sutil de abajo hacia arriba -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-    
+    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10"></div>
     <!-- Contenido -->
     <div class="absolute bottom-6 left-6 md:left-10 right-6 md:right-10 max-w-2xl">
-        <h1 class="text-2xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">Sii-importaciones.net</h1>
-        <p class="text-sm md:text-base text-gray-200 drop-shadow-md">Sistema de votación para importaciones desde China</p>
+        <h1 class="text-2xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">Productos de Alibaba sugeridos</h1>
+        <p class="text-sm md:text-base text-gray-200 drop-shadow-md">Sii-importaciones - Tu voto cuenta, tu opinión nos interesa</p>
     </div>
-</div>>
+</div>
 
 
 <!-- ============================================ -->
