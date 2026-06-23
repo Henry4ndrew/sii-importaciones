@@ -1,104 +1,169 @@
-<div class="max-w-6xl mx-auto">
-    <!-- Hero Header -->
-    <div class="text-center mb-12">
-        <span class="inline-block bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide uppercase border border-primary-200">
-            <i class="fas fa-concierge-bell mr-2"></i> Nuestros Servicios
-        </span>
-        <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-3" style="color: #0A1626;">
-            Soluciones Integrales para tu Negocio
+<?php
+// Mapear campos para el diseño
+$servicios = $servicios ?? [];
+?>
+
+<!-- Hero Section - Full Width -->
+<section class="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] min-h-[60vh] flex items-center overflow-hidden -mt-6">
+    <!-- Background -->
+    <div class="absolute inset-0 z-0 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(0,200,215,0.08),transparent_60%)]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgba(47,90,138,0.1),transparent_60%)]"></div>
+    </div>
+
+    <!-- Animated Particles -->
+    <div class="absolute inset-0 z-0 overflow-hidden opacity-30">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-[#00c8d7]/5 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#00c8d7]/3 rounded-full blur-3xl animate-pulse delay-700"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 py-16 md:py-20 text-center">
+        <div class="inline-flex items-center gap-2 bg-[#00c8d7]/10 border border-[#00c8d7]/30 rounded-full px-5 py-1.5 mb-6">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c8d7] opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00c8d7]"></span>
+            </span>
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#00c8d7]">Nuestros Servicios</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6">
+            Soluciones Integrales<br>
+            <span class="text-[#00c8d7]">para tu Negocio</span>
         </h1>
-        <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+        <p class="text-primary-200/90 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
             Ofrecemos servicios especializados para importaciones desde China, con el respaldo de nuestra experiencia y compromiso.
         </p>
+        <div class="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <div class="flex items-center gap-2 text-primary-300 text-sm">
+                <span class="w-16 h-px bg-gradient-to-r from-transparent to-primary-400"></span>
+                <span class="text-[10px] font-medium uppercase tracking-[0.2em]">Descubre nuestros servicios</span>
+                <span class="w-16 h-px bg-gradient-to-l from-transparent to-primary-400"></span>
+            </div>
+        </div>
     </div>
+</section>
 
-    <?php if (empty($servicios)): ?>
-        <div class="bg-white rounded-xl shadow p-12 text-center border border-slate-200">
-            <i class="fas fa-concierge-bell text-5xl text-slate-300 mb-4"></i>
-            <h3 class="text-xl font-semibold text-slate-600">No hay servicios disponibles</h3>
-            <p class="text-slate-400">Pronto estaremos agregando nuevos servicios para ti.</p>
+<!-- Servicios -->
+<?php if (empty($servicios)): ?>
+<div class="w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] relative overflow-hidden py-20">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+        <div class="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 p-12">
+            <div class="w-20 h-20 rounded-2xl bg-[#00c8d7]/10 border border-[#00c8d7]/20 flex items-center justify-center text-[#00c8d7] text-3xl mx-auto mb-4">
+                <i class="fas fa-concierge-bell"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">No hay servicios disponibles</h3>
+            <p class="text-primary-300">Pronto estaremos agregando nuevos servicios para ti.</p>
         </div>
-    <?php else: ?>
-        <!-- Grid de servicios -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <?php foreach ($servicios as $servicio): 
-                $imgUrl = !empty($servicio['imagen']) ? url('public/img/' . $servicio['imagen']) : 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800';
-            ?>
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-slate-100 group">
-                    <!-- Imagen del servicio -->
-                    <div class="relative h-52 overflow-hidden">
-                        <img src="<?= $imgUrl ?>" 
-                             alt="<?= e($servicio['titulo']) ?>" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 right-4">
-                            <h2 class="text-xl font-bold text-white drop-shadow-lg"><?= e($servicio['titulo']) ?></h2>
-                        </div>
-                        <?php if (!empty($servicio['subsecciones'])): ?>
-                            <span class="absolute top-3 right-3 bg-primary-500/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">
-                                <?= count($servicio['subsecciones']) ?> subsecciones
-                            </span>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Contenido del servicio -->
-                    <div class="p-6">
-                        <!-- Subsecciones -->
-                        <?php if (!empty($servicio['subsecciones'])): ?>
-                            <div class="space-y-3">
-                                <?php foreach ($servicio['subsecciones'] as $sub): ?>
-                                    <div class="flex items-start gap-3 p-3 rounded-lg hover:bg-primary-50 transition-colors border border-transparent hover:border-primary-100">
-                                        <div class="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <i class="fas fa-check text-primary-600 text-sm"></i>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold text-slate-800"><?= e($sub['subtitulo']) ?></h4>
-                                            <p class="text-sm text-slate-500 leading-relaxed"><?= nl2br(e($sub['descripcion'])) ?></p>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php else: ?>
-                            <p class="text-slate-400 text-sm italic">Sin subsecciones disponibles</p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-
-    <!-- CTA Final -->
-    <div class="mt-16 text-center bg-primary-50 rounded-2xl p-8 md:p-12 border border-primary-100">
-        <h2 class="text-2xl md:text-3xl font-bold text-primary-800 mb-3">¿Necesitas un servicio personalizado?</h2>
-        <p class="text-slate-600 mb-6">Contáctanos y te asesoraremos en todo el proceso de importación desde China.</p>
-        <a href="<?= url('contactos') ?>" 
-           class="inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold px-8 py-3 rounded-xl transition-all duration-200 hover:shadow-lg">
-            <i class="fas fa-envelope mr-2"></i> Contáctanos
-        </a>
     </div>
 </div>
+<?php else: ?>
+    <?php foreach ($servicios as $index => $servicio): 
+        $imgUrl = !empty($servicio['imagen']) ? url('public/img/' . $servicio['imagen']) : 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800';
+        $isEven = $index % 2 === 0;
+    ?>
+    <!-- Servicio <?php echo $index + 1; ?> -->
+    <div class="w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] relative overflow-hidden">
+        
+        <!-- Imagen de fondo difuminada -->
+        <div class="absolute inset-0 z-0">
+            <img src="<?php echo htmlspecialchars($imgUrl); ?>" alt="<?php echo e($servicio['titulo']); ?>" class="w-full h-full object-cover blur-sm scale-105">
+            <div class="absolute inset-0 <?php echo $isEven ? 'bg-gradient-to-r' : 'bg-gradient-to-l'; ?> from-primary-900/95 via-primary-900/80 to-primary-900/70"></div>
+        </div>
 
-<style>
-/* Animación de entrada */
-.service-card {
-    animation: fadeInUp 0.6s ease both;
-}
+        <!-- Efectos decorativos -->
+        <div class="absolute inset-0 z-0 overflow-hidden opacity-30">
+            <div class="absolute top-20 <?php echo $isEven ? 'left-10' : 'right-10'; ?> w-64 h-64 bg-[#00c8d7]/5 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 <?php echo $isEven ? 'right-10' : 'left-10'; ?> w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
 
-.service-card:nth-child(1) { animation-delay: 0.1s; }
-.service-card:nth-child(2) { animation-delay: 0.2s; }
-.service-card:nth-child(3) { animation-delay: 0.3s; }
-.service-card:nth-child(4) { animation-delay: 0.4s; }
-.service-card:nth-child(5) { animation-delay: 0.5s; }
-.service-card:nth-child(6) { animation-delay: 0.6s; }
+        <!-- Contenido -->
+        <div class="relative z-10 max-w-6xl mx-auto px-4 py-16 md:py-20">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                
+                <!-- Texto -->
+                <div class="<?php echo $isEven ? 'order-2 md:order-1' : 'order-2 md:order-2'; ?>">
+                    <div class="inline-flex items-center gap-2 bg-[#00c8d7]/10 border border-[#00c8d7]/30 rounded-full px-4 py-1.5 mb-4">
+                        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#00c8d7]">Servicio <?php echo $index + 1; ?></span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
+                        <?php echo e($servicio['titulo']); ?>
+                    </h2>
+                    
+                    <!-- Subsecciones -->
+                    <?php if (!empty($servicio['subsecciones'])): ?>
+                        <div class="space-y-3 mt-4">
+                            <?php foreach ($servicio['subsecciones'] as $sub): ?>
+                            <div class="flex items-start gap-3 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/5 hover:border-[#00c8d7]/30 transition-all duration-300 group hover:bg-white/10">
+                                <div class="w-8 h-8 rounded-full bg-[#00c8d7]/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#00c8d7]/30 transition-colors duration-300">
+                                    <i class="fas fa-check text-[#00c8d7] text-xs"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sky group-hover:text-[#00c8d7] transition-colors duration-300">
+                                        <?php echo e($sub['subtitulo']); ?>
+                                    </h4>
+                                    <p class="text-sm text-primary-50 leading-relaxed">
+                                        <?php echo nl2br(e($sub['descripcion'])); ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <p class="text-primary-300 text-sm italic">Sin subsecciones disponibles</p>
+                    <?php endif; ?>
+                    
+                    <?php if (!empty($servicio['descripcion'])): ?>
+                    <p class="text-primary-200/90 text-base md:text-lg leading-relaxed mt-4">
+                        <?php echo nl2br(e($servicio['descripcion'])); ?>
+                    </p>
+                    <?php endif; ?>
+                </div>
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-</style>
+                <!-- Imagen lateral -->
+                <div class="<?php echo $isEven ? 'order-1 md:order-2' : 'order-1 md:order-1'; ?>">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-[#00c8d7]/5 group">
+                        <img src="<?php echo htmlspecialchars($imgUrl); ?>" alt="<?php echo e($servicio['titulo']); ?>" class="w-full h-72 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="inline-flex items-center gap-2 bg-primary-900/80 backdrop-blur-sm rounded-full px-4 py-1.5 border border-white/10">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c8d7] opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00c8d7]"></span>
+                                </span>
+                                <span class="text-[10px] text-primary-200 font-medium"><?php echo e($servicio['titulo']); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<!-- CTA Final -->
+<div class="w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] relative overflow-hidden">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 py-16">
+        <div class="relative bg-gradient-to-r from-primary-800/80 via-primary-700/50 to-primary-800/80 backdrop-blur-sm rounded-3xl border border-white/10 p-10 md:p-14 text-center overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#00c8d7]/5 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl"></div>
+            
+            <div class="relative z-10">
+                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                    ¿Necesitas un servicio <span class="text-[#00c8d7]">personalizado</span>?
+                </h3>
+                <p class="text-primary-200 max-w-2xl mx-auto mb-6">
+                    Contáctanos y te asesoraremos en todo el proceso de importación desde China.
+                </p>
+                <a href="<?= url('contactos') ?>" 
+                   class="inline-flex items-center gap-2 font-bold px-8 py-3.5 rounded-xl text-white bg-gradient-to-r from-[#00c8d7] to-primary-500 hover:from-primary-900 hover:to-[#00c8d7] transition-all duration-300 ease-in-out shadow-lg shadow-[#00c8d7]/20 hover:shadow-xl hover:shadow-[#00c8d7]/30 hover:-translate-y-1">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    Contáctanos
+                    <i class="fa-solid fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

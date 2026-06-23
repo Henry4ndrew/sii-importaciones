@@ -1,140 +1,205 @@
 <?php
-// Asegurar que el estilo sea consistente con SII Importaciones
-$primaryColor = '#2F5A8A';
-$secondaryColor = '#22d3ee';
+$contactos = $contactos ?? [];
 ?>
 
-<div style="max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
-    
-    <!-- Hero Header -->
-    <div class="contactos-hero" style="text-align: center; margin-bottom: 4rem;">
-        <span style="background: rgba(47, 90, 138, 0.15); color: <?= $secondaryColor ?>; padding: 0.5rem 1.5rem; border-radius: 9999px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid rgba(47, 90, 138, 0.25);">
-            <i class="fas fa-headset mr-2"></i> Atención al Cliente
-        </span>
-        <h1 style="color: #0A1626; font-size: 2.75rem; font-weight: 800; margin: 1rem 0 0.5rem 0; letter-spacing: -0.025em;">
-            Nuestros Contactos y Sucursales
-        </h1>
-        <p style="color: #64748b; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-            Encuentra la sucursal más cercana o contáctanos por teléfono y correo electrónico. Estamos listos para ayudarte.
-        </p>
+<!-- Hero Section - Full Width -->
+<section class="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] min-h-[60vh] flex items-center overflow-hidden -mt-6">
+    <!-- Background -->
+    <div class="absolute inset-0 z-0 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(0,200,215,0.08),transparent_60%)]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgba(47,90,138,0.1),transparent_60%)]"></div>
     </div>
 
-    <!-- Contact Cards Grid -->
-    <?php if(empty($contactos)): ?>
-        <div style="background: rgba(241, 245, 249, 0.6); border-radius: 1rem; border: 1px solid rgba(47, 90, 138, 0.1); padding: 5rem 2rem; text-align: center;">
-            <i class="fas fa-address-book" style="font-size: 3.5rem; color: #94a3b8; margin-bottom: 1.5rem; display: block;"></i>
-            <h3 style="color: #334155; margin: 0 0 0.5rem 0; font-size: 1.3rem; font-weight: 700;">No hay información de contacto registrada</h3>
-            <p style="color: #64748b; margin: 0; font-size: 0.95rem;">Por favor, vuelve más tarde.</p>
+    <!-- Animated Particles -->
+    <div class="absolute inset-0 z-0 overflow-hidden opacity-30">
+        <div class="absolute top-20 left-10 w-64 h-64 bg-[#00c8d7]/5 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#00c8d7]/3 rounded-full blur-3xl animate-pulse delay-700"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 py-16 md:py-20 text-center">
+        <div class="inline-flex items-center gap-2 bg-[#00c8d7]/10 border border-[#00c8d7]/30 rounded-full px-5 py-1.5 mb-6">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c8d7] opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00c8d7]"></span>
+            </span>
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#00c8d7]">Atención al Cliente</span>
         </div>
-    <?php else: ?>
-        <div class="contactos-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2.5rem;">
-            <?php foreach($contactos as $contacto): 
-                // Determinar la URL de la imagen
-                $imgUrl = !empty($contacto['imagen']) ? url('public/img/' . $contacto['imagen']) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800';
-            ?>
-                <div class="contact-card" style="background: #ffffff; border-radius: 1.25rem; border: 1px solid rgba(47, 90, 138, 0.12); overflow: hidden; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08); display: flex; flex-direction: column; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);" 
-                     onmouseover="this.style.borderColor='#2F5A8A'; this.style.transform='translateY(-6px)'; this.style.boxShadow='0 20px 40px -15px rgba(47, 90, 138, 0.2)';" 
-                     onmouseout="this.style.borderColor='rgba(47, 90, 138, 0.12)'; this.style.transform='none'; this.style.boxShadow='0 10px 30px -10px rgba(0, 0, 0, 0.08)';">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] mb-6">
+            Nuestros <span class="text-[#00c8d7]">Contactos</span>
+        </h1>
+        <p class="text-primary-200/90 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            Encuentra la sucursal más cercana o contáctanos por teléfono y correo electrónico. Estamos listos para ayudarte.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <div class="flex items-center gap-2 text-primary-300 text-sm">
+                <span class="w-16 h-px bg-gradient-to-r from-transparent to-primary-400"></span>
+                <span class="text-[10px] font-medium uppercase tracking-[0.2em]">Contáctanos</span>
+                <span class="w-16 h-px bg-gradient-to-l from-transparent to-primary-400"></span>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<!-- Contactos -->
+<?php if (empty($contactos)): ?>
+<div class="w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] relative overflow-hidden py-20">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+        <div class="bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 p-12">
+            <div class="w-20 h-20 rounded-2xl bg-[#00c8d7]/10 border border-[#00c8d7]/20 flex items-center justify-center text-[#00c8d7] text-3xl mx-auto mb-4">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">No hay información de contacto registrada</h3>
+            <p class="text-primary-300">Por favor, vuelve más tarde.</p>
+        </div>
+    </div>
+</div>
+<?php else: ?>
+    <?php foreach ($contactos as $index => $contacto): 
+        $imgUrl = !empty($contacto['imagen']) ? url('public/img/' . $contacto['imagen']) : 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800';
+        $isEven = $index % 2 === 0;
+    ?>
+    <!-- Contacto <?php echo $index + 1; ?> -->
+    <div class="w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] relative overflow-hidden">
+        
+        <!-- Imagen de fondo difuminada -->
+        <div class="absolute inset-0 z-0">
+            <img src="<?php echo htmlspecialchars($imgUrl); ?>" alt="<?php echo e($contacto['ciudad']); ?>" class="w-full h-full object-cover blur-sm scale-105">
+            <div class="absolute inset-0 <?php echo $isEven ? 'bg-gradient-to-r' : 'bg-gradient-to-l'; ?> from-primary-900/95 via-primary-900/80 to-primary-900/70"></div>
+        </div>
+
+        <!-- Efectos decorativos -->
+        <div class="absolute inset-0 z-0 overflow-hidden opacity-30">
+            <div class="absolute top-20 <?php echo $isEven ? 'left-10' : 'right-10'; ?> w-64 h-64 bg-[#00c8d7]/5 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 <?php echo $isEven ? 'right-10' : 'left-10'; ?> w-96 h-96 bg-primary-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="relative z-10 max-w-6xl mx-auto px-4 py-16 md:py-20">
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+                
+                <!-- Texto -->
+                <div class="<?php echo $isEven ? 'order-2 md:order-1' : 'order-2 md:order-2'; ?>">
+                    <div class="inline-flex items-center gap-2 bg-[#00c8d7]/10 border border-[#00c8d7]/30 rounded-full px-4 py-1.5 mb-4">
+                        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#00c8d7]">Sucursal <?php echo $index + 1; ?></span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-black text-white mb-4 flex items-center gap-3">
+                        <i class="fas fa-location-dot text-[#00c8d7]"></i>
+                        <?php echo e($contacto['ciudad']); ?>
+                    </h2>
                     
-                    <!-- Branch Image -->
-                    <div style="width: 100%; height: 220px; overflow: hidden; position: relative;">
-                        <img src="<?= $imgUrl ?>" alt="<?= e($contacto['ciudad']) ?>" 
-                             style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;" 
-                             onmouseover="this.style.transform='scale(1.05)';" 
-                             onmouseout="this.style.transform='none';">
-                        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.95) 100%);"></div>
+                    <!-- Detalles de contacto -->
+                    <div class="space-y-4">
+                        <?php if (!empty($contacto['telefono'])): ?>
+                        <div class="flex items-center gap-4 group hover:bg-white/5 rounded-xl p-3 transition-colors duration-200">
+                            <div class="w-12 h-12 rounded-xl bg-[#00c8d7]/10 border border-[#00c8d7]/20 flex items-center justify-center text-[#00c8d7] text-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-sky">Teléfono</p>
+                                <span class="text-primary-200 group-hover:text-white text-base font-medium transition-colors duration-200">
+                                    <?php echo e($contacto['telefono']); ?>
+                                </span>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if (!empty($contacto['correo'])): ?>
+                        <div class="flex items-center gap-4 group hover:bg-white/5 rounded-xl p-3 transition-colors duration-200">
+                            <div class="w-12 h-12 rounded-xl bg-[#00c8d7]/10 border border-[#00c8d7]/20 flex items-center justify-center text-[#00c8d7] text-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-sky">Correo</p>
+                                <a href="mailto:<?php echo e($contacto['correo']); ?>" class="text-primary-200 hover:text-white text-base font-medium transition-colors duration-200">
+                                    <?php echo e($contacto['correo']); ?>
+                                </a>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <?php if (!empty($contacto['horarios'])): ?>
+                        <div class="flex items-start gap-4 group hover:bg-white/5 rounded-xl p-3 transition-colors duration-200">
+                            <div class="w-12 h-12 rounded-xl bg-[#00c8d7]/10 border border-[#00c8d7]/20 flex items-center justify-center text-[#00c8d7] text-lg flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-sky">Horarios</p>
+                                <span class="text-primary-200 group-hover:text-white text-sm leading-relaxed transition-colors duration-200">
+                                    <?php echo nl2br(e($contacto['horarios'])); ?>
+                                </span>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     </div>
 
-                    <!-- Card Body -->
-                    <div style="padding: 1.75rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div>
-                            <!-- City Name -->
-                            <h2 style="margin: 0 0 1.25rem 0; font-size: 1.5rem; font-weight: 800; color: #0A1626; display: flex; align-items: center; gap: 0.65rem;">
-                                <i class="fas fa-location-dot" style="color: #2F5A8A;"></i>
-                                <?= e($contacto['ciudad']) ?>
-                            </h2>
-
-                            <!-- Contact details -->
-                            <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
-                                <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; color: #334155;">
-                                    <div style="width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(47, 90, 138, 0.08); border: 1px solid rgba(47, 90, 138, 0.12); color: #2F5A8A; flex-shrink: 0;">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Teléfono</div>
-                                        <span style="font-weight: 600; color: #1e293b;"><?= e($contacto['telefono']) ?></span>
-                                    </div>
-                                </div>
-
-                                <div style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; color: #334155;">
-                                    <div style="width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(47, 90, 138, 0.08); border: 1px solid rgba(47, 90, 138, 0.12); color: #2F5A8A; flex-shrink: 0;">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <div>
-                                        <div style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Correo</div>
-                                        <a href="mailto:<?= e($contacto['correo']) ?>" style="color: #2F5A8A; text-decoration: none; font-weight: 600; transition: color 0.2s;" 
-                                           onmouseover="this.style.color='#1C3956'" 
-                                           onmouseout="this.style.color='#2F5A8A'"><?= e($contacto['correo']) ?></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Schedule Panel -->
-                            <?php if (!empty($contacto['horarios'])): ?>
-                            <div style="background: #f8fafc; border-radius: 0.75rem; padding: 1rem 1.25rem; border: 1px solid rgba(47, 90, 138, 0.06);">
-                                <div style="font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.35rem;">
-                                    <i class="fas fa-clock" style="color: #2F5A8A;"></i> Horarios de Atención
-                                </div>
-                                <div style="color: #475569; font-size: 0.9rem; line-height: 1.6; white-space: pre-line;">
-                                    <?= nl2br(e($contacto['horarios'])) ?>
-                                </div>
-                            </div>
-                            <?php endif; ?>
+                    <!-- Badge de contacto -->
+                    <div class="flex items-center gap-3 mt-6 pt-6 border-t border-white/5">
+                        <div class="flex items-center gap-2 bg-[#00c8d7]/10 border border-[#00c8d7]/30 rounded-full px-4 py-1.5">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c8d7] opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00c8d7]"></span>
+                            </span>
+                            <span class="text-[10px] text-[#00c8d7] font-medium uppercase tracking-wider">Disponible</span>
                         </div>
                     </div>
-
                 </div>
-            <?php endforeach; ?>
+
+                <!-- Imagen lateral -->
+                <div class="<?php echo $isEven ? 'order-1 md:order-2' : 'order-1 md:order-1'; ?>">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-[#00c8d7]/5 group">
+                        <img src="<?php echo htmlspecialchars($imgUrl); ?>" alt="<?php echo e($contacto['ciudad']); ?>" class="w-full h-72 md:h-96 object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <div class="inline-flex items-center gap-2 bg-primary-900/80 backdrop-blur-sm rounded-full px-4 py-1.5 border border-white/10">
+                                <span class="relative flex h-2 w-2">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c8d7] opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00c8d7]"></span>
+                                </span>
+                                <span class="text-[10px] text-primary-200 font-medium"><?php echo e($contacto['ciudad']); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    <?php endif; ?>
+    </div>
+    <?php endforeach; ?>
+<?php endif; ?>
 
+<!-- CTA Final -->
+<div class="w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] relative overflow-hidden">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 py-16">
+        <div class="relative bg-gradient-to-r from-primary-800/80 via-primary-700/50 to-primary-800/80 backdrop-blur-sm rounded-3xl border border-white/10 p-10 md:p-14 text-center overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#00c8d7]/5 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl"></div>
+            
+            <div class="relative z-10">
+                <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                    ¿Necesitas <span class="text-[#00c8d7]">asesoría</span> personalizada?
+                </h3>
+                <p class="text-primary-200 max-w-2xl mx-auto mb-6">
+                    Estamos disponibles para atender todas tus consultas y brindarte la mejor solución para tus importaciones.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <?php if (!empty($contactos) && !empty($contactos[0]['telefono'])): ?>
+                    <a href="tel:<?= preg_replace('/[^0-9]/', '', $contactos[0]['telefono']) ?>" 
+                       class="inline-flex items-center gap-2 font-bold px-8 py-3.5 rounded-xl text-white bg-gradient-to-r from-[#00c8d7] to-primary-500 hover:from-primary-900 hover:to-[#00c8d7] transition-all duration-300 ease-in-out shadow-lg shadow-[#00c8d7]/20 hover:shadow-xl hover:shadow-[#00c8d7]/30 hover:-translate-y-1">
+                        <i class="fa-solid fa-phone"></i>
+                        Llamar ahora
+                    </a>
+                    <?php endif; ?>
+                    <a href="mailto:<?= !empty($contactos) && !empty($contactos[0]['correo']) ? e($contactos[0]['correo']) : 'contacto@willsimport.com' ?>" 
+                       class="inline-flex items-center gap-2 font-bold px-8 py-3.5 rounded-xl text-white border border-white/20 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
+                        <i class="fa-solid fa-envelope"></i>
+                        Enviar email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<style>
-@media (max-width: 480px) {
-    .contactos-hero h1 { 
-        font-size: 1.7rem !important; 
-    }
-    .contactos-grid { 
-        grid-template-columns: 1fr !important; 
-        gap: 1.5rem !important; 
-    }
-    .contact-card { 
-        margin: 0 !important; 
-    }
-}
-
-/* Animación suave al cargar */
-.contact-card {
-    animation: fadeInUp 0.6s ease both;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Aplicar delay a cada tarjeta */
-.contact-card:nth-child(1) { animation-delay: 0.1s; }
-.contact-card:nth-child(2) { animation-delay: 0.2s; }
-.contact-card:nth-child(3) { animation-delay: 0.3s; }
-.contact-card:nth-child(4) { animation-delay: 0.4s; }
-.contact-card:nth-child(5) { animation-delay: 0.5s; }
-.contact-card:nth-child(6) { animation-delay: 0.6s; }
-</style>
