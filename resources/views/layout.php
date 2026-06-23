@@ -23,6 +23,9 @@
                             700: "#1C3956",
                             800: "#12283D",
                             900: "#0A1626"
+                        },
+                        sky: {
+                            DEFAULT: "#00eeff",
                         }
                     }
                 }
@@ -96,7 +99,8 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-primary-800">
+<body class="min-h-screen flex flex-col" style="background-color: #12283D; background-image: url('<?= url('public/img/fondo.avif') ?>'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;">
+       <div style="position: fixed; inset: 0; background: rgba(18, 40, 61, 0.75); z-index: 0; pointer-events: none;"></div>
 
 <?php
 // ============================================
@@ -345,7 +349,8 @@ if (!empty($empresaData['whatsapp'])) {
 <!-- ============================================ -->
 <!-- CONTENIDO PRINCIPAL                          -->
 <!-- ============================================ -->
-<main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1">
+ 
+<main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1" style="position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100vh; width: 100%;">
     <?= $contenido ?>
 </main>
 
