@@ -79,3 +79,12 @@
 [2026-06-23 01:57:00] ✅ Producto 24 actualizado exitosamente
 [2026-06-23 01:57:00] === FIN completar_producto.php ===
 
+[2026-06-23 14:21:19] === INICIO completar_producto.php ===
+[2026-06-23 14:21:19] ID recibido: 26
+[2026-06-23 14:21:19] Producto encontrado: ID 26, URL: https://www.alibaba.com/product-detail/Wholesale-Towels-Luxury-Cotton-Bath-Super_60718614065.html?spm=a2700.product_home_fy25.just_for_you.7.6f671061hbp4Dz&priceId=79b546026aab440d9536db47db462db7
+[2026-06-23 14:21:19] Intento 1 de 3
+[2026-06-23 14:21:22] Extracción completada en 3.2s
+[2026-06-23 14:21:22] Resultado - Imagen: OK, Precio: OK
+[2026-06-23 14:21:22] ✅ Producto 26 actualizado exitosamente
+[2026-06-23 14:21:22] === FIN completar_producto.php ===
+

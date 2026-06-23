@@ -188,20 +188,20 @@ if (!empty($empresaData['whatsapp'])) {
 
             <!-- MENÚ DESKTOP -->
             <nav class="hidden md:flex items-center gap-4 lg:gap-6">
-                <a href="<?= url('/') ?>" class="text-white hover:text-primary-200 transition-colors duration-200 font-medium flex items-center gap-2">
-                    <i class="fa-solid fa-house text-sm text-primary-400"></i>
+                <a href="<?= url('/') ?>" class="text-white hover:text-sky transition-colors duration-200 font-medium flex items-center gap-2">
+                    <i class="fa-solid fa-house text-sm text-primary-50 hover:text-sky"></i>
                     <span>Inicio</span>
                 </a>
-                <a href="<?= url('conocenos') ?>" class="text-white hover:text-primary-200 transition-colors duration-200 font-medium flex items-center gap-2">
-                    <i class="fa-solid fa-circle-info text-sm text-primary-400"></i>
+                <a href="<?= url('conocenos') ?>" class="text-white hover:text-sky transition-colors duration-200 font-medium flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-sm text-primary-50 hover:text-sky"></i>
                     <span>Conócenos</span>
                 </a>
-                <a href="<?= url('servicios') ?>" class="text-white hover:text-primary-200 transition-colors duration-200 font-medium flex items-center gap-2">
-                    <i class="fa-solid fa-briefcase text-sm text-primary-400"></i>
+                <a href="<?= url('servicios') ?>" class="text-white hover:text-sky transition-colors duration-200 font-medium flex items-center gap-2">
+                    <i class="fa-solid fa-briefcase text-sm text-primary-50 hover:text-sky"></i>
                     <span>Servicios</span>
                 </a>
-                <a href="<?= url('contactos') ?>" class="text-white hover:text-primary-200 transition-colors duration-200 font-medium flex items-center gap-2">
-                    <i class="fa-solid fa-address-book text-sm text-primary-400"></i>
+                <a href="<?= url('contactos') ?>" class="text-white hover:text-sky transition-colors duration-200 font-medium flex items-center gap-2">
+                    <i class="fa-solid fa-address-book text-sm text-primary-50 hover:text-sky"></i>
                     <span>Contactos</span>
                 </a>
             </nav>
@@ -210,8 +210,8 @@ if (!empty($empresaData['whatsapp'])) {
             <div class="hidden md:flex items-center gap-3">
                 <?php if (auth()): ?>
                     <div class="relative" x-data="{ open: false }">
-                        <button @click="open = !open" class="flex items-center gap-2 text-white hover:text-primary-200 transition-colors duration-200 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
-                            <i class="fas fa-user-circle text-xl"></i>
+                        <button @click="open = !open" class="flex items-center gap-2 text-white hover:text-sky transition-colors duration-200 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+                            <i class="fas fa-user-circle text-xl text-sky"></i>
                             <span class="font-medium text-sm max-w-[120px] truncate"><?= e(auth()['email']) ?></span>
                             <i class="fas fa-chevron-down text-xs"></i>
                         </button>
@@ -254,26 +254,26 @@ if (!empty($empresaData['whatsapp'])) {
                 <?php if (auth()): ?>
                     <div class="mb-4 pb-4 border-b border-primary-800">
                         <div class="flex items-center gap-2 text-primary-300">
-                            <i class="fas fa-user-circle text-2xl"></i>
+                            <i class="fas fa-user-circle text-2xl text-sky"></i>
                             <span class="font-medium text-white text-sm truncate"><?= e(auth()['email']) ?></span>
                         </div>
                     </div>
                 <?php endif; ?>
 
-                <a href="<?= url('/') ?>" class="py-3 text-primary-200 hover:text-white hover:bg-primary-800 px-3 rounded-lg transition-colors flex items-center gap-3">
+                <a href="<?= url('/') ?>" class="py-3 text-primary-200 hover:text-sky hover:bg-primary-800 px-3 rounded-lg transition-colors flex items-center gap-3">
                     <i class="fa-solid fa-house text-sm"></i>
                     <span>Inicio</span>
                 </a>
-                <a href="<?= url('conocenos') ?>" class="py-3 text-primary-200 hover:text-white hover:bg-primary-800 px-3 rounded-lg transition-colors flex items-center gap-3">
-                    <i class="fa-solid fa-circle-info text-sm"></i>
+                <a href="<?= url('conocenos') ?>" class="py-3 text-primary-200 hover:text-sky hover:bg-primary-800 px-3 rounded-lg transition-colors flex items-center gap-3">
+                    <i class="fa-solid fa-circle-info text-sm hover:text-sky"></i>
                     <span>Conócenos</span>
                 </a>
-                <a href="<?= url('servicios') ?>" class="py-3 text-primary-200 hover:text-white hover:bg-primary-800 px-3 rounded-lg transition-colors flex items-center gap-3">
-                    <i class="fa-solid fa-briefcase text-sm"></i>
+                <a href="<?= url('servicios') ?>" class="py-3 text-primary-200 hover:text-sky hover:bg-primary-800 px-3 rounded-lg transition-colors flex items-center gap-3">
+                    <i class="fa-solid fa-briefcase text-sm hover:text-sky"></i>
                     <span>Servicios</span>
                 </a>
-                <a href="<?= url('contactos') ?>" class="py-3 text-primary-200 hover:text-white hover:bg-primary-800 px-3 rounded-lg transition-colors flex items-center gap-3">
-                    <i class="fa-solid fa-address-book text-sm"></i>
+                <a href="<?= url('contactos') ?>" class="py-3 text-primary-200 hover:text-sky hover:bg-primary-800 px-3 rounded-lg transition-colors flex items-center gap-3">
+                    <i class="fa-solid fa-address-book text-sm hover:text-sky"></i>
                     <span>Contactos</span>
                 </a>
 
@@ -289,8 +289,8 @@ if (!empty($empresaData['whatsapp'])) {
                         <a href="<?= url('ranking') ?>" class="w-full text-center px-3 py-2 rounded-lg bg-primary-700/50 hover:bg-primary-600 text-sm font-semibold text-primary-200 hover:text-white transition">
                             <i class="fas fa-trophy text-xs"></i><span class="ml-1"> Más Votados</span>
                         </a>
-                        <a href="<?= url('productos/crear') ?>" class="w-full text-center px-3 py-2 rounded-lg bg-primary-400 text-white font-bold hover:bg-primary-300 text-sm transition">
-                            <i class="fas fa-plus-circle text-xs"></i>
+                        <a href="<?= url('productos/crear') ?>" class="w-full text-center px-3 py-2 rounded-lg gap-2 font-bold px-5 py-2.5 rounded-xl text-white bg-gradient-to-r from-[#00c8d7] to-primary-500 hover:from-primary-900 hover:to-[#00c8d7] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
+                            <i class="fa-solid fa-plus text-xs"></i>
                             <span class="ml-1"> Publicar Producto</span>
                         </a>
                     </div>
@@ -326,8 +326,8 @@ if (!empty($empresaData['whatsapp'])) {
                 <i class="fas fa-trophy text-xs"></i>
                 <span>Más Votados</span>
             </a>
-            <a href="<?= url('productos/crear') ?>" class="px-5 py-2 md:px-6 md:py-2.5 rounded-lg bg-primary-400 hover:bg-primary-300 text-white font-bold text-sm transition-all duration-200 flex items-center gap-2 shadow-md hover:shadow-lg">
-                <i class="fas fa-plus-circle text-xs"></i>
+            <a href="<?= url('productos/crear') ?>" class="px-5 py-2 md:px-6 md:py-2.5 rounded-lg inline-flex items-center gap-2 font-bold px-5 py-2.5 rounded-xl text-white bg-gradient-to-r from-[#00c8d7] to-primary-500 hover:from-primary-900 hover:to-[#00c8d7] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
+                <i class="fa-solid fa-plus text-xs"></i>
                 <span>Publicar Producto</span>
             </a>
         </div>
@@ -474,20 +474,20 @@ if (!empty($empresaData['whatsapp'])) {
             <div>
                 <h4 class="text-xs font-bold uppercase tracking-wider text-gray-300 mb-5 pb-2 border-b border-white/5 relative">
                     Navegación
-                    <span class="absolute bottom-[-1px] left-0 w-8 h-[2px] bg-primary-400 rounded-full"></span>
+                    <span class="absolute bottom-[-1px] left-0 w-8 h-[2px] bg-sky rounded-full"></span>
                 </h4>
                 <ul class="space-y-2.5">
                     <li><a href="<?= url('/') ?>" class="footer-link text-gray-400 hover:text-white text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-chevron-right text-[10px] text-primary-400"></i> Inicio
+                        <i class="fa-solid fa-chevron-right text-[10px] text-sky"></i> Inicio
                     </a></li>
                     <li><a href="<?= url('conocenos') ?>" class="footer-link text-gray-400 hover:text-white text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-chevron-right text-[10px] text-primary-400"></i> Conócenos
+                        <i class="fa-solid fa-chevron-right text-[10px] text-sky"></i> Conócenos
                     </a></li>
                     <li><a href="<?= url('servicios') ?>" class="footer-link text-gray-400 hover:text-white text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-chevron-right text-[10px] text-primary-400"></i> Servicios
+                        <i class="fa-solid fa-chevron-right text-[10px] text-sky"></i> Servicios
                     </a></li>
                     <li><a href="<?= url('contactos') ?>" class="footer-link text-gray-400 hover:text-white text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-chevron-right text-[10px] text-primary-400"></i> Contactos
+                        <i class="fa-solid fa-chevron-right text-[10px] text-sky"></i> Contactos
                     </a></li>
                 </ul>
             </div>
@@ -496,13 +496,13 @@ if (!empty($empresaData['whatsapp'])) {
             <div>
                 <h4 class="text-xs font-bold uppercase tracking-wider text-gray-300 mb-5 pb-2 border-b border-white/5 relative">
                     Contacto
-                    <span class="absolute bottom-[-1px] left-0 w-8 h-[2px] bg-primary-400 rounded-full"></span>
+                    <span class="absolute bottom-[-1px] left-0 w-8 h-[2px] bg-sky rounded-full"></span>
                 </h4>
                 <ul class="space-y-3">
                     <?php if (!empty($whatsappMostrar)): ?>
                         <li class="flex items-center gap-3 text-sm">
-                            <span class="w-7 h-7 rounded-full bg-primary-400/10 border border-primary-400/20 flex items-center justify-center text-primary-400 text-xs flex-shrink-0">
-                                <i class="fa-solid fa-phone"></i>
+                            <span class="w-8 h-8 rounded-xl bg-[#00eeff]/10 border border-[#00eeff]/20 flex items-center justify-center text-[#00eeff] flex-shrink-0">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
                             </span>
                             <a href="https://wa.me/<?= $whatsappNumero ?>" target="_blank" class="text-gray-400 hover:text-white transition-colors">
                                 <?= e($whatsappMostrar) ?>
@@ -511,8 +511,8 @@ if (!empty($empresaData['whatsapp'])) {
                     <?php endif; ?>
                     <?php if (!empty($empresaData['email_principal'])): ?>
                         <li class="flex items-center gap-3 text-sm">
-                            <span class="w-7 h-7 rounded-full bg-primary-400/10 border border-primary-400/20 flex items-center justify-center text-primary-400 text-xs flex-shrink-0">
-                                <i class="fa-solid fa-envelope"></i>
+                            <span class="w-8 h-8 rounded-xl bg-[#00eeff]/10 border border-[#00eeff]/20 flex items-center justify-center text-[#00eeff] flex-shrink-0">
+                              <i class="fa-solid fa-envelope text-[#00eeff]"></i>
                             </span>
                             <a href="mailto:<?= e($empresaData['email_principal']) ?>" class="text-gray-400 hover:text-white transition-colors">
                                 <?= e($empresaData['email_principal']) ?>
@@ -521,16 +521,16 @@ if (!empty($empresaData['whatsapp'])) {
                     <?php endif; ?>
                     <?php if (!empty($empresaData['direccion_textual'])): ?>
                         <li class="flex items-center gap-3 text-sm">
-                            <span class="w-7 h-7 rounded-full bg-primary-400/10 border border-primary-400/20 flex items-center justify-center text-primary-400 text-xs flex-shrink-0">
-                                <i class="fa-solid fa-location-dot"></i>
+                            <span class="w-8 h-8 rounded-xl bg-[#00eeff]/10 border border-[#00eeff]/20 flex items-center justify-center text-[#00eeff] flex-shrink-0">
+                               <i class="fa-solid fa-location-dot text-[#00eeff]"></i>
                             </span>
                             <span class="text-gray-400"><?= nl2br(e($empresaData['direccion_textual'])) ?></span>
                         </li>
                     <?php endif; ?>
                     <?php if (!empty($empresaData['enlace_gps'])): ?>
                         <li class="flex items-center gap-3 text-sm">
-                            <span class="w-7 h-7 rounded-full bg-primary-400/10 border border-primary-400/20 flex items-center justify-center text-primary-400 text-xs flex-shrink-0">
-                                <i class="fa-solid fa-map-pin"></i>
+                            <span class="w-8 h-8 rounded-xl bg-[#00eeff]/10 border border-[#00eeff]/20 flex items-center justify-center text-[#00eeff] flex-shrink-0">
+                               <i class="fa-solid fa-map-pin text-[#00eeff]"></i>
                             </span>
                             <a href="<?= e($empresaData['enlace_gps']) ?>" target="_blank" class="text-gray-400 hover:text-white transition-colors">
                                 Ver en Google Maps
@@ -555,7 +555,7 @@ if (!empty($empresaData['whatsapp'])) {
             </div>
             <div class="text-sm text-gray-500 flex items-center gap-1">
                 Desarrollado por 
-                <a href="#" onclick="verificarYRedirigir(event)" class="text-primary-400 hover:text-primary-300 transition-colors font-medium">
+                <a href="#" onclick="verificarYRedirigir(event)" class="text-[#00eeff] hover:text-primary-300 transition-colors font-medium">
                     B1t
                 </a>
             </div>

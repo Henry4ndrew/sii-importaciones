@@ -6,14 +6,12 @@ class ProductoController
 {
         public function index(): void
     {
-        echo '<!-- INICIO DE ProductoController::index() -->';
         view('productos.index', [
             'titulo' => 'Productos Recientes',
             'productos' => Producto::recientes(),
             'votados' => auth() ? Voto::productosVotadosPor(auth()['id']) : [],
             'mostrarPortada' => true, // Solo en el dashboard principal
         ]);
-        echo '<!-- FIN DE ProductoController::index() -->';
     }
 
     public function ranking(): void

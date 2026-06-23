@@ -135,14 +135,57 @@ if ($cleanPath === 'auth/restablecer') {
 // ============================================
 // 9. PÁGINA DE INICIO (RAÍZ)
 // ============================================
-// ============================================
-// SI ES LA RAÍZ, MOSTRAR LA PÁGINA DE INICIO
-// ============================================
 if ($cleanPath === '' || $cleanPath === 'index.php') {
     // Obtener portadas activas para el slider
     require_once __DIR__ . '/app/Models/Portada.php';
     $portadas = Portada::getActivas();
+
+    // ============================================
+    // OBTENER DATOS DE EMPRESA
+    // ============================================
+    $empresaData = null;
+    try {
+        $empresaPath = __DIR__ . '/app/Models/Empresa.php';
+        if (file_exists($empresaPath)) {
+            require_once $empresaPath;
+            if (class_exists('Empresa')) {
+                $empresaData = Empresa::get();
+            }
+        }
+    } catch (Exception $e) {
+        $empresaData = null;
+    }
     
+    if (!$empresaData || empty($empresaData)) {
+        $empresaData = [
+            'descripcion_corporativa' => 'Sistema de votación para importaciones desde China',
+            'email_principal' => '',
+            'direccion_textual' => '',
+            'enlace_gps' => '',
+            'facebook' => '',
+            'instagram' => '',
+            'tiktok' => '',
+            'youtube' => '',
+            'whatsapp' => '',
+        ];
+    }
+
+    // ============================================
+    // PROCESAR WHATSAPP - Agregar +591 si no existe
+    // ============================================
+    $whatsappNumero = '';
+    $whatsappMostrar = '';
+    if (!empty($empresaData['whatsapp'])) {
+        // Limpiar número (solo dígitos)
+        $whatsappNumero = preg_replace('/[^0-9]/', '', $empresaData['whatsapp']);
+        // Mostrar con +591 si no lo tiene
+        if (strpos($empresaData['whatsapp'], '+591') === 0) {
+            $whatsappMostrar = $empresaData['whatsapp'];
+        } else {
+            $whatsappMostrar = '+591 ' . $whatsappNumero;
+        }
+    }
+
     // Si no hay portadas, usar imágenes de respaldo
     if (empty($portadas)) {
         $portadas = [
@@ -165,14 +208,13 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
     }
     
     $slidesToShow = $portadas;
-    
     $titulo = 'Inicio - SII Importaciones';
     
     ob_start();
     ?>
-    
+
     <!-- ============================================ -->
-    <!-- HERO SLIDER - FULL WIDTH (FUERA DEL CONTENEDOR) -->
+    <!-- HERO SLIDER - FULL WIDTH                     -->
     <!-- ============================================ -->
     <div class="hero-section-full">
         <div class="hero-frame">
@@ -223,59 +265,206 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
     </div>
 
     <!-- ============================================ -->
-    <!-- CONTENIDO DE BIENVENIDA (DENTRO DEL CONTENEDOR) -->
+    <!-- TODOS LOS DATOS DE EMPRESA                   -->
     <!-- ============================================ -->
     <div class="max-w-6xl mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-xl shadow p-8 mb-6" style="border-top: 4px solid #2F5A8A;">
-                <h1 class="text-3xl font-extrabold mb-4" style="color: #12283D;">
-                    <?= auth() ? '¡Bienvenido de vuelta!' : 'Bienvenido a SII Importaciones' ?>
-                </h1>
-                <p class="text-slate-600 leading-relaxed text-lg">
-                    Sistema de votación para importaciones desde China. Comparte y vota por los mejores productos de Alibaba.
-                </p>
-            </div>
+        <div class="max-w-4xl mx-auto mt-6">
+            <div class="bg-primary-800/40 backdrop-blur-sm rounded-2xl border border-primary-700/30 p-6">
+                
+                <!-- Descripción Corporativa -->
+                <div class="text-center mb-6 pb-6 border-b border-primary-700/20">
+                    <p class="text-primary-200 text-sm md:text-base leading-relaxed max-w-3xl mx-auto">
+                        <?= e($empresaData['descripcion_corporativa'] ?? 'Sistema de votación para importaciones desde China') ?>
+                    </p>
+                </div>
 
-            <!-- Tarjetas de características -->
-            <div class="grid md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
-                    <div class="text-4xl mb-4">📦</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">Importación</h3>
-                    <p class="text-slate-600">Productos de alta calidad desde China con los mejores precios del mercado.</p>
-                </div>
-                <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
-                    <div class="text-4xl mb-4">⭐</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">Votación</h3>
-                    <p class="text-slate-600">Vota por tus productos favoritos y ayuda a otros a encontrar los mejores.</p>
-                </div>
-                <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
-                    <div class="text-4xl mb-4">🤝</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-2">Comunidad</h3>
-                    <p class="text-slate-600">Únete a nuestra comunidad de importadores y comparte tu experiencia.</p>
-                </div>
-            </div>
-
-            <!-- Sección de acceso -->
-            <?php if (auth()): ?>
-                <div id="acceso" class="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Explora los productos</h2>
-                    <p class="text-slate-600 mb-4">Descubre y vota por los mejores productos de Alibaba.</p>
-                    <div class="flex flex-wrap justify-center gap-4">
-                        <a href="<?= url('dashboard') ?>" class="inline-block text-white font-bold px-6 py-3 rounded-lg hover:opacity-90 transition" style="background: #2F5A8A;">
-                            📦 Ver Productos
+                <!-- Grid de datos de contacto -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    
+                    <!-- Email -->
+                    <?php if (!empty($empresaData['email_principal'])): ?>
+                    <div class="bg-primary-800/30 rounded-xl border border-primary-700/30 p-4 text-center hover:border-[#00eeff]/30 transition-all duration-300 group">
+                        <div class="flex items-center justify-center gap-2 text-[#00eeff] mb-1">
+                            <i class="fa-solid fa-envelope text-lg"></i>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-primary-300">Email</span>
+                        </div>
+                        <a href="mailto:<?= e($empresaData['email_principal']) ?>" 
+                           class="text-primary-200 hover:text-white text-sm transition-colors duration-200">
+                            <?= e($empresaData['email_principal']) ?>
                         </a>
-                        <a href="<?= url('productos/crear') ?>" class="inline-block bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-lg hover:bg-amber-400 transition">
-                            ➕ Publicar Producto
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- Dirección -->
+                    <?php if (!empty($empresaData['direccion_textual'])): ?>
+                    <div class="bg-primary-800/30 rounded-xl border border-primary-700/30 p-4 text-center hover:border-[#00eeff]/30 transition-all duration-300 group">
+                        <div class="flex items-center justify-center gap-2 text-[#00eeff] mb-1">
+                            <i class="fa-solid fa-location-dot text-lg"></i>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-primary-300">Dirección</span>
+                        </div>
+                        <p class="text-primary-200 text-sm">
+                            <?= nl2br(e($empresaData['direccion_textual'])) ?>
+                        </p>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- WhatsApp -->
+                    <?php if (!empty($whatsappMostrar)): ?>
+                    <div class="bg-primary-800/30 rounded-xl border border-primary-700/30 p-4 text-center hover:border-[#00eeff]/30 transition-all duration-300 group">
+                        <div class="flex items-center justify-center gap-2 text-[#00eeff] mb-1">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-primary-300">WhatsApp</span>
+                        </div>
+                        <a href="https://wa.me/<?= $whatsappNumero ?>" 
+                           target="_blank"
+                           class="text-primary-200 hover:text-white text-sm transition-colors duration-200">
+                            <?= e($whatsappMostrar) ?>
+                        </a>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- Enlace GPS -->
+                    <?php if (!empty($empresaData['enlace_gps'])): ?>
+                    <div class="bg-primary-800/30 rounded-xl border border-primary-700/30 p-4 text-center hover:border-[#00eeff]/30 transition-all duration-300 group">
+                        <div class="flex items-center justify-center gap-2 text-[#00eeff] mb-1">
+                            <i class="fa-solid fa-map-pin text-lg"></i>
+                            <span class="text-xs font-semibold uppercase tracking-wider text-primary-300">Ubicación</span>
+                        </div>
+                        <a href="<?= e($empresaData['enlace_gps']) ?>" 
+                           target="_blank" 
+                           class="text-primary-200 hover:text-white text-sm transition-colors duration-200 inline-flex items-center gap-1">
+                            Ver en Google Maps
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                    <?php endif; ?>
+
+                </div>
+
+                <!-- Redes Sociales -->
+                <?php if (!empty($empresaData['facebook']) || !empty($empresaData['instagram']) || !empty($empresaData['tiktok']) || !empty($empresaData['youtube'])): ?>
+                <div class="pt-6 border-t border-primary-700/20">
+                    <h4 class="text-center text-xs font-semibold uppercase tracking-wider text-primary-300 mb-4">
+                        <i class="fa-solid fa-share-nodes mr-2 text-[#00eeff]"></i>
+                        Síguenos en Redes Sociales
+                    </h4>
+                    <div class="flex flex-wrap items-center justify-center gap-4">
+                        <?php if (!empty($empresaData['facebook'])): ?>
+                            <a href="<?= e($empresaData['facebook']) ?>" 
+                               target="_blank" 
+                               class="w-11 h-11 rounded-xl flex items-center justify-center text-base text-white bg-primary-800/50 border border-primary-700/30 hover:-translate-y-1 transition-all duration-300 group hover:bg-[#1877F2]/20 hover:border-[#1877F2]/50 hover:text-[#1877F2]">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($empresaData['instagram'])): ?>
+                            <a href="<?= e($empresaData['instagram']) ?>" 
+                               target="_blank" 
+                               class="w-11 h-11 rounded-xl flex items-center justify-center text-base text-white bg-primary-800/50 border border-primary-700/30 hover:-translate-y-1 transition-all duration-300 group hover:bg-[#E1306C]/20 hover:border-[#E1306C]/50 hover:text-[#E1306C]">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($empresaData['tiktok'])): ?>
+                            <a href="<?= e($empresaData['tiktok']) ?>" 
+                               target="_blank" 
+                               class="w-11 h-11 rounded-xl flex items-center justify-center text-base text-white bg-primary-800/50 border border-primary-700/30 hover:-translate-y-1 transition-all duration-300 group hover:bg-white/10 hover:border-white/50 hover:text-white">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($empresaData['youtube'])): ?>
+                            <a href="<?= e($empresaData['youtube']) ?>" 
+                               target="_blank" 
+                               class="w-11 h-11 rounded-xl flex items-center justify-center text-base text-white bg-primary-800/50 border border-primary-700/30 hover:-translate-y-1 transition-all duration-300 group hover:bg-[#FF0000]/20 hover:border-[#FF0000]/50 hover:text-[#FF0000]">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($whatsappMostrar)): ?>
+                            <a href="https://wa.me/<?= $whatsappNumero ?>" 
+                               target="_blank" 
+                               class="w-11 h-11 rounded-xl flex items-center justify-center text-base text-white bg-primary-800/50 border border-primary-700/30 hover:-translate-y-1 transition-all duration-300 group hover:bg-[#25D366]/20 hover:border-[#25D366]/50 hover:text-[#25D366]">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECCIÓN DE ACCESO                           -->
+    <!-- ============================================ -->
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="max-w-4xl mx-auto mt-8">
+            <?php if (auth()): ?>
+            <div id="acceso" class="rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-primary-900/80 backdrop-blur-sm">
+
+                <div class="relative h-48 overflow-hidden">
+                    <img src="<?= url('public/img/portadaAlibaba.webp') ?>" alt="Portada Alibaba"
+                        class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary-900/90 via-primary-900/30 to-transparent"></div>
+                    <div class="absolute bottom-4 left-0 right-0 text-center">
+                        <span class="text-xs font-black tracking-widest text-[#00eeff] uppercase">Comunidad de importadores</span>
+                    </div>
+                </div>
+
+                <div class="p-6 text-center">
+                    <h2 class="text-2xl font-extrabold text-white mb-2 leading-tight">
+                        Explora los mejores<br>
+                        <span class="text-[#00eeff]">productos de Alibaba</span>
+                    </h2>
+                    <p class="text-primary-50/80 text-sm mb-6">
+                        Descubre, vota y publica los productos más interesantes de la comunidad.
+                    </p>
+
+                    <div class="w-12 h-0.5 bg-[#00eeff]/40 mx-auto mb-6 rounded-full"></div>
+
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <a href="<?= url('dashboard') ?>"
+                        class="inline-flex items-center gap-2 text-white font-bold px-5 py-2.5 rounded-xl border border-white/20 bg-primary-700/60 hover:bg-primary-600/80 transition-all duration-300">
+                            <i class="fa-solid fa-box text-[#00eeff]"></i>
+                            Ver Productos
+                        </a>
+                        <a href="<?= url('productos/crear') ?>"
+                        class="inline-flex items-center gap-2 font-bold px-5 py-2.5 rounded-xl text-white bg-gradient-to-r from-[#00c8d7] to-primary-500 hover:from-primary-900 hover:to-[#00c8d7] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
+                            <i class="fa-solid fa-plus"></i>
+                            Publicar Producto
                         </a>
                     </div>
                 </div>
+            </div>
             <?php else: ?>
-                <div id="acceso" class="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center scroll-mt-20">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Accede al Sistema</h2>
-                    <p class="text-slate-600 mb-4">Ingresa tu correo electrónico para comenzar a votar y publicar productos.</p>
-                    
+            <div id="acceso" class="rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-primary-900/80 backdrop-blur-sm scroll-mt-20">
+                <div class="relative h-48 overflow-hidden">
+                    <img src="<?= url('public/img/portadaAlibaba.webp') ?>" alt="Portada Alibaba"
+                        class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary-900/90 via-primary-900/30 to-transparent"></div>
+                    <div class="absolute bottom-4 left-0 right-0 text-center">
+                        <span class="text-xs font-black tracking-widest text-[#00eeff] uppercase">Bienvenido</span>
+                    </div>
+                </div>
+
+                <div class="px-6 pt-5 pb-4 text-center border-b border-white/10">
+                    <h2 class="text-2xl font-extrabold text-white leading-tight">
+                        Accede al<br>
+                        <span class="text-[#00eeff]">Sistema</span>
+                    </h2>
+                    <p class="text-primary-50/80 text-sm mt-2">
+                        Ingresa tu correo electrónico para comenzar a votar y publicar productos.
+                    </p>
+                </div>
+
+                <div class="p-6">
                     <?php if ($flash = getFlash()): ?>
-                        <div class="mb-4 rounded-lg px-4 py-3 text-sm font-semibold <?= $flash['tipo'] === 'exito' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' ?>">
+                        <div class="mb-4 rounded-xl px-4 py-3 text-sm font-semibold border
+                            <?= $flash['tipo'] === 'exito'
+                                ? 'bg-green-900/40 text-green-300 border-green-500/30'
+                                : 'bg-red-900/40 text-red-300 border-red-500/30' ?>">
                             <?= e($flash['mensaje']) ?>
                         </div>
                     <?php endif; ?>
@@ -283,28 +472,36 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
                     <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="max-w-md mx-auto space-y-4">
                         <div>
                             <input type="email" name="email" required
-                                   placeholder="tu@email.com"
-                                   class="w-full border border-slate-300 rounded-lg px-4 py-3 text-center focus:outline-none focus:ring-2 transition" 
-                                   style="border-color: #B8CCE3; outline-color: #2F5A8A;">
+                                placeholder="tu@email.com"
+                                class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-center placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#00eeff]/50 focus:border-[#00eeff]/50 transition-all duration-200">
                         </div>
-                        <button class="w-full text-white font-bold py-3 rounded-lg hover:opacity-90 transition" style="background: #2F5A8A;">
+                        <button class="w-full inline-flex items-center justify-center gap-2 font-bold py-3 rounded-xl text-white bg-gradient-to-r from-[#00eeff] to-primary-500 hover:from-primary-900 hover:to-[#00eeff] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
+                            <i class="fa-solid fa-right-to-bracket"></i>
                             Acceder
                         </button>
                     </form>
-                    
-                    <div class="mt-4 text-xs text-slate-400">
-                        <p>💡 Al ingresar tu correo, se creará automáticamente tu cuenta si no existe</p>
-                    </div>
-                    
-                    <div class="mt-6 pt-4 border-t border-amber-200">
-                        <a href="<?= url('auth/login') ?>" class="text-sm font-semibold hover:underline" style="color: #2F5A8A;">
-                            🔐 ¿Eres administrador? Inicia sesión aquí
+
+                    <div class="w-12 h-0.5 bg-[#00eeff]/40 mx-auto my-5 rounded-full"></div>
+
+                    <p class="text-center text-xs text-primary-50/50 flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-circle-info text-[#00eeff]/60"></i>
+                        Al ingresar tu correo, se creará automáticamente tu cuenta si no existe.
+                    </p>
+
+                    <div class="mt-5 pt-4 border-t border-white/10 text-center">
+                        <a href="<?= url('auth/login') ?>"
+                        class="inline-flex items-center gap-2 text-sm font-semibold text-primary-50/70 hover:text-[#00eeff] transition-colors duration-200">
+                            <i class="fa-solid fa-lock text-xs"></i>
+                            ¿Eres administrador? Inicia sesión aquí
                         </a>
                     </div>
                 </div>
+            </div>
             <?php endif; ?>
         </div>
     </div>
+
+    <!-- Script del Slider -->
     <script>
     (function(){
         var frame = document.querySelector('.hero-frame');
@@ -346,122 +543,6 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
         }
         autoStart();
     })();
-    </script>
-
-    <?php
-        $contenido = ob_get_clean();
-        require_once __DIR__ . '/resources/views/layout.php';
-        exit;
-    ?>
-
-        <!-- Tarjetas de características -->
-        <div class="grid md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
-                <div class="text-4xl mb-4">📦</div>
-                <h3 class="text-xl font-bold text-slate-800 mb-2">Importación</h3>
-                <p class="text-slate-600">Productos de alta calidad desde China con los mejores precios del mercado.</p>
-            </div>
-            <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
-                <div class="text-4xl mb-4">⭐</div>
-                <h3 class="text-xl font-bold text-slate-800 mb-2">Votación</h3>
-                <p class="text-slate-600">Vota por tus productos favoritos y ayuda a otros a encontrar los mejores.</p>
-            </div>
-            <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" style="border-top: 3px solid #2F5A8A;">
-                <div class="text-4xl mb-4">🤝</div>
-                <h3 class="text-xl font-bold text-slate-800 mb-2">Comunidad</h3>
-                <p class="text-slate-600">Únete a nuestra comunidad de importadores y comparte tu experiencia.</p>
-            </div>
-        </div>
-
-        <!-- Sección de acceso -->
-        <?php if (auth()): ?>
-            <div id="acceso" class="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-                <h2 class="text-2xl font-bold text-slate-800 mb-2">Explora los productos</h2>
-                <p class="text-slate-600 mb-4">Descubre y vota por los mejores productos de Alibaba.</p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="<?= url('dashboard') ?>" class="inline-block text-white font-bold px-6 py-3 rounded-lg hover:opacity-90 transition" style="background: #2F5A8A;">
-                        <i class="fas fa-box text-xs">
-                        </i><span class="ml-1"> Ver Productos</span>
-                    </a>
-                    <a href="<?= url('productos/crear') ?>" class="inline-block bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-lg hover:bg-amber-400 transition">
-                        <i class="fas fa-plus-circle text-xs"></i>
-                        <span class="ml-1"> Publicar Producto</span>
-                    </a>
-                </div>
-            </div>
-        <?php else: ?>
-            <div id="acceso" class="bg-amber-50 border border-amber-200 rounded-xl p-6 text-center scroll-mt-20">
-                <h2 class="text-2xl font-bold text-slate-800 mb-2">Accede al Sistema</h2>
-                <p class="text-slate-600 mb-4">Ingresa tu correo electrónico para comenzar a votar y publicar productos.</p>
-                
-                <?php if ($flash = getFlash()): ?>
-                    <div class="mb-4 rounded-lg px-4 py-3 text-sm font-semibold <?= $flash['tipo'] === 'exito' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-red-100 text-red-800 border border-red-300' ?>">
-                        <?= e($flash['mensaje']) ?>
-                    </div>
-                <?php endif; ?>
-
-                <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="max-w-md mx-auto space-y-4">
-                    <div>
-                        <input type="email" name="email" required
-                               placeholder="tu@email.com"
-                               class="w-full border border-slate-300 rounded-lg px-4 py-3 text-center focus:outline-none focus:ring-2 transition" 
-                               style="border-color: #B8CCE3; outline-color: #2F5A8A;">
-                    </div>
-                    <button class="w-full text-white font-bold py-3 rounded-lg hover:opacity-90 transition" style="background: #2F5A8A;">
-                        Acceder
-                    </button>
-                </form>
-                
-                <div class="mt-4 text-xs text-slate-400">
-                    <p>💡 Al ingresar tu correo, se creará automáticamente tu cuenta si no existe</p>
-                </div>
-                
-                <div class="mt-6 pt-4 border-t border-amber-200">
-                    <a href="<?= url('auth/login') ?>" class="text-sm font-semibold hover:underline" style="color: #2F5A8A;">
-                        🔐 ¿Eres administrador? Inicia sesión aquí
-                    </a>
-                </div>
-            </div>
-        <?php endif; ?>
-    </div>
-
-    <!-- ============================================ -->
-    <!-- SCRIPTS PARA EL SLIDER                        -->
-    <!-- ============================================ -->
-    <style>
-        /* Hero Slider */
-        .slide {
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .slide.active {
-            opacity: 1;
-        }
-        
-        /* Animación fadeIn */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-            animation: fadeIn 0.4s ease;
-        }
-    </style>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Hero Slider
-        const slides = document.querySelectorAll('.slide');
-        let current = 0;
-        
-        if (slides.length > 1) {
-            setInterval(() => {
-                slides[current].classList.remove('active');
-                current = (current + 1) % slides.length;
-                slides[current].classList.add('active');
-            }, 5000);
-        }
-    });
     </script>
 
     <?php
