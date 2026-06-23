@@ -338,6 +338,9 @@ if (!empty($empresaData['whatsapp'])) {
 <!-- ============================================ -->
 <!-- MENSAJE FLASH                                -->
 <!-- ============================================ -->
+<!-- ============================================ -->
+<!-- MENSAJE FLASH                                -->
+<!-- ============================================ -->
 <?php if ($flash = getFlash()): ?>
     <div id="flash-message" class="fixed top-24 right-6 z-[9999] max-w-sm w-full px-4 animate-slideInRight">
         <div class="rounded-2xl px-6 py-4 text-sm font-semibold shadow-2xl backdrop-blur-lg border flex items-center gap-3
@@ -396,6 +399,20 @@ if (!empty($empresaData['whatsapp'])) {
             }
         }, 4000);
     </script>
+<?php endif; ?>
+
+<!-- ============================================ -->
+<!-- BOTÓN WHATSAPP FLOTANTE                      -->
+<!-- ============================================ -->
+<?php if (!empty($whatsappNumero)): ?>
+    <a href="https://wa.me/<?= $whatsappNumero ?>" 
+       target="_blank"
+       class="fixed bottom-6 right-6 z-50 group">
+        <!-- ... resto del botón ... -->
+    </a>
+<?php endif; ?>
+
+
 <!-- ============================================ -->
 <!-- CONTENIDO PRINCIPAL                          -->
 <!-- ============================================ -->
@@ -545,25 +562,6 @@ if (!empty($empresaData['whatsapp'])) {
         </div>
     </div>
 </footer>
-
-<!-- ============================================ -->
-<!-- BOTÓN WHATSAPP FLOTANTE                      -->
-<!-- ============================================ -->
-<?php if (!empty($whatsappNumero)): ?>
-    <a href="https://wa.me/<?= $whatsappNumero ?>" 
-       target="_blank"
-       class="fixed bottom-6 right-6 z-50 group">
-        <div class="relative">
-            <span class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75"></span>
-            <div class="relative w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center shadow-2xl shadow-green-500/40 transition-all duration-300 hover:scale-110">
-                <i class="fab fa-whatsapp text-3xl text-white"></i>
-            </div>
-            <span class="absolute bottom-full right-0 mb-2 px-3 py-1.5 bg-primary-900 text-white text-xs font-medium rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg border border-primary-700">
-                <i class="fab fa-whatsapp mr-1 text-green-400"></i> Escríbenos
-            </span>
-        </div>
-    </a>
-<?php endif; ?>
 
 <!-- ============================================ -->
 <!-- SCRIPTS                                      -->

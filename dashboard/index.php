@@ -81,7 +81,12 @@ if (!$handler) {
     exit;
 }
 
-// Ejecutar el controlador
+echo '<!-- INICIO DEL DASHBOARD (ROUTER) -->';
+// ============================================
+// EJECUTAR EL CONTROLADOR
+// ============================================
 list($controller, $methodName) = $handler;
 $controllerInstance = new $controller();
 $controllerInstance->$methodName();
+
+echo '<!-- FIN DEL DASHBOARD (ROUTER) -->';

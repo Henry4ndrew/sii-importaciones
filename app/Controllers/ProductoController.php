@@ -4,13 +4,16 @@ require_once __DIR__ . '/../Helpers/Extractor.php';
 
 class ProductoController
 {
-    public function index(): void
+        public function index(): void
     {
+        echo '<!-- INICIO DE ProductoController::index() -->';
         view('productos.index', [
             'titulo' => 'Productos Recientes',
             'productos' => Producto::recientes(),
             'votados' => auth() ? Voto::productosVotadosPor(auth()['id']) : [],
+            'mostrarPortada' => true, // Solo en el dashboard principal
         ]);
+        echo '<!-- FIN DE ProductoController::index() -->';
     }
 
     public function ranking(): void
@@ -19,6 +22,7 @@ class ProductoController
             'titulo' => 'Productos Más Votados (10+ votos)',
             'productos' => Producto::masVotados(10),
             'votados' => auth() ? Voto::productosVotadosPor(auth()['id']) : [],
+            'mostrarPortada' => false, // No mostrar portada
         ]);
     }
 
@@ -29,8 +33,12 @@ class ProductoController
             redirect('login');
         }
 
-        view('productos.crear', ['titulo' => 'Publicar Nuevo Producto']);
+        view('productos.crear', [
+            'titulo' => 'Publicar Nuevo Producto',
+            'mostrarPortada' => false, // No mostrar portada
+        ]);
     }
+
 
     public function store(): void
     {
