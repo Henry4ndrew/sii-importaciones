@@ -1,0 +1,191 @@
+[23-Jun-2026 19:03:12 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:03:12 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:03:38 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:03:38 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:03:41 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:03:41 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:03:47 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:03:47 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:04:41 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:04:41 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:06:08 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:06:08 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:09:15 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:09:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:09:26 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:09:26 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:09:36 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:09:36 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:630
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 630
+[23-Jun-2026 19:16:45 UTC] PHP Parse error:  syntax error, unexpected token "<" in /home7/morelia/sii-importaciones.net/index.php on line 613
+[23-Jun-2026 19:17:17 UTC] PHP Parse error:  syntax error, unexpected token "<" in /home7/morelia/sii-importaciones.net/index.php on line 613
+[23-Jun-2026 19:17:26 UTC] PHP Parse error:  syntax error, unexpected token "<" in /home7/morelia/sii-importaciones.net/index.php on line 626
+[23-Jun-2026 19:17:49 UTC] PHP Parse error:  syntax error, unexpected token "<" in /home7/morelia/sii-importaciones.net/index.php on line 626
+[23-Jun-2026 19:18:39 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:18:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant BASE_URL already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 10
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant BASE_URL_FULL already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 21
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant SMTP_HOST already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 29
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant SMTP_USERNAME already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 30
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant SMTP_PASSWORD already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 31
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant SMTP_PORT already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 32
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant SMTP_SECURE already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 33
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant SMTP_FROM_EMAIL already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 34
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  Constant SMTP_FROM_NAME already defined in /home7/morelia/sii-importaciones.net/config/config.php on line 35
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:23:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:23:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:23:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:23:15 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/AdministradorController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 109
+[23-Jun-2026 19:23:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/AdministradorController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:109
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 109
+[23-Jun-2026 19:24:29 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "BASE_URL" in /home7/morelia/sii-importaciones.net/bootstrap/app.php:169
+Stack trace:
+#0 /home7/morelia/sii-importaciones.net/index.php(70): obtenerCleanPath()
+#1 {main}
+  thrown in /home7/morelia/sii-importaciones.net/bootstrap/app.php on line 169
+[23-Jun-2026 19:25:16 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "BASE_URL" in /home7/morelia/sii-importaciones.net/bootstrap/app.php:169
+Stack trace:
+#0 /home7/morelia/sii-importaciones.net/index.php(70): obtenerCleanPath()
+#1 {main}
+  thrown in /home7/morelia/sii-importaciones.net/bootstrap/app.php on line 169
+[23-Jun-2026 19:26:36 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:26:36 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:33 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:33 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:39 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:49 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:49 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:49 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:28:49 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/AdministradorController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 109
+[23-Jun-2026 19:28:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/AdministradorController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:109
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 109
+[23-Jun-2026 19:29:13 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:13 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:13 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:13 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:13 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:13 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:13 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/AdministradorController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 109
+[23-Jun-2026 19:29:13 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/AdministradorController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:109
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 109
+[23-Jun-2026 19:29:47 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:47 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:47 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:47 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:47 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:47 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:629
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 629
+[23-Jun-2026 19:29:47 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/AdministradorController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 109
+[23-Jun-2026 19:29:47 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/AdministradorController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:109
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 109
+[23-Jun-2026 19:45:24 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 595
+[23-Jun-2026 19:45:24 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:595
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 595
+[23-Jun-2026 19:45:28 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 595
+[23-Jun-2026 19:45:28 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:595
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 595
+[23-Jun-2026 19:49:42 UTC] PHP Warning:  require_once(/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php): Failed to open stream: No such file or directory in /home7/morelia/sii-importaciones.net/index.php on line 595
+[23-Jun-2026 19:49:42 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home7/morelia/sii-importaciones.net/app/controllers/HomeController.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home7/morelia/sii-importaciones.net/index.php:595
+Stack trace:
+#0 {main}
+  thrown in /home7/morelia/sii-importaciones.net/index.php on line 595
+[23-Jun-2026 20:19:10 UTC] Autoload: Clase 'PHPMailer\PHPMailer\PHPMailer' no encontrada
+[23-Jun-2026 20:19:10 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\PHPMailer" not found in /home7/morelia/sii-importaciones.net/app/controllers/RecuperacionController.php:157
+Stack trace:
+#0 /home7/morelia/sii-importaciones.net/app/controllers/RecuperacionController.php(58): RecuperacionController->enviarEmailRecuperacion()
+#1 /home7/morelia/sii-importaciones.net/bootstrap/app.php(69): RecuperacionController->solicitar()
+#2 /home7/morelia/sii-importaciones.net/index.php(29): procesarPost()
+#3 {main}
+  thrown in /home7/morelia/sii-importaciones.net/app/controllers/RecuperacionController.php on line 157

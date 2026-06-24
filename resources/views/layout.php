@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -404,7 +405,6 @@ if (!empty($empresaData['whatsapp'])) {
 <!-- ============================================ -->
 <!-- BOTÓN WHATSAPP FLOTANTE                      -->
 <!-- ============================================ -->
-
 <?php if (!empty($whatsappNumero)): ?>
 <style>
     .whatsapp-float-minimal {

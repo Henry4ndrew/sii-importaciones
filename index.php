@@ -1,44 +1,11 @@
 <?php
 session_start();
+// Mostrar errores para depuración
 
 // ============================================
 // 1. CARGAR AUTOLOADER DE COMPOSER
 // ============================================
-if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-    require_once __DIR__ . '/vendor/autoload.php';
-}
-
-// ============================================
-// 2. AUTOLOADER PARA CLASES DEL PROYECTO
-// ============================================
-spl_autoload_register(function ($class) {
-    // Clases con namespace App\
-    if (strpos($class, 'App\\') === 0) {
-        $file = __DIR__ . '/app/' . str_replace('\\', '/', substr($class, 4)) . '.php';
-    } else {
-        // Clases sin namespace
-        $paths = [
-            __DIR__ . '/app/controllers/',
-            __DIR__ . '/app/Models/',
-            __DIR__ . '/app/Helpers/',
-        ];
-        
-        foreach ($paths as $path) {
-            $file = $path . $class . '.php';
-            if (file_exists($file)) {
-                require $file;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    if (file_exists($file)) {
-        require $file;
-        return true;
-    }
-    return false;
-});
+require_once __DIR__ . '/app/autoload.php';
 
 // ============================================
 // 3. CARGAR CONFIGURACIÓN Y FUNCIONES
@@ -625,9 +592,6 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
                 
 
 
-
-
-
   <div class="w-screen relative left-1/2 -translate-x-1/2 overflow-hidden mt-6 -mb-6">
 
     <div class="relative h-[500px] md:h-[600px]">
@@ -658,6 +622,7 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
     </div>
 
 </div>
+
 
 
 

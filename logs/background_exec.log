@@ -1,9 +1,3 @@
 Completado
- 15:51:21] Ejecutado: '/opt/cpanel/ea-php82/root/usr/bin/php' '/home7/morelia/app.sii-importaciones.net/scripts/completar_producto.php' 23
+ 20:31:07] Ejecutado: '/opt/cpanel/ea-php82/root/usr/bin/php' '/home7/morelia/sii-importaciones.net/scripts/completar_producto.php' 29
 Completado
-[2026-06-20 18:00:03] Ejecutado: "C:\xampp\php\php.exe" "C:\xampp\htdocs\sii-importaciones\scripts\completar_producto.php" 20
-[2026-06-21 15:39:08] Ejecutado: "C:\xampp\php\php.exe" "C:\xampp\htdocs\sii-importaciones\scripts\completar_producto.php" 21
-[2026-06-22 01:36:54] Ejecutado: "C:\xampp\php\php.exe" "C:\xampp\htdocs\sii-importaciones\scripts\completar_producto.php" 22
-[2026-06-22 01:43:50] Ejecutado: "C:\xampp\php\php.exe" "C:\xampp\htdocs\sii-importaciones\scripts\completar_producto.php" 23
-[2026-06-23 01:56:59] Ejecutado: "C:\xampp\php\php.exe" "C:\xampp\htdocs\sii-importaciones\scripts\completar_producto.php" 24
-[2026-06-23 14:21:18] Ejecutado: "C:\xampp\php\php.exe" "C:\xampp\htdocs\sii-importaciones\scripts\completar_producto.php" 26

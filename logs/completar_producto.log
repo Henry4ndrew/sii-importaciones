@@ -88,3 +88,57 @@
 [2026-06-23 14:21:22] ✅ Producto 26 actualizado exitosamente
 [2026-06-23 14:21:22] === FIN completar_producto.php ===
 
+[2026-06-23 20:08:32] === INICIO completar_producto.php ===
+[2026-06-23 20:08:32] ID recibido: 27
+[2026-06-23 20:08:32] Producto encontrado: ID 27, URL: https://www.alibaba.com/product-detail/POPOWER-600W-1000W-Battery-Powered-Solar_1601101361226.html?spm=a2700.product_home_fy25.just_for_you.24.2ce21061VzN9aH&priceId=df9e0e9470e9466abf4ecc1481a203be
+[2026-06-23 20:08:32] Intento 1 de 3
+[2026-06-23 20:08:32] === INICIO completar_producto.php ===
+[2026-06-23 20:08:32] ID recibido: 27
+[2026-06-23 20:08:32] Producto encontrado: ID 27, URL: https://www.alibaba.com/product-detail/POPOWER-600W-1000W-Battery-Powered-Solar_1601101361226.html?spm=a2700.product_home_fy25.just_for_you.24.2ce21061VzN9aH&priceId=df9e0e9470e9466abf4ecc1481a203be
+[2026-06-23 20:08:32] Intento 1 de 3
+[2026-06-23 20:08:34] Extracción completada en 1.91s
+[2026-06-23 20:08:34] Resultado - Imagen: OK, Precio: OK
+[2026-06-23 20:08:34] ✅ Producto 27 actualizado exitosamente
+[2026-06-23 20:08:34] === FIN completar_producto.php ===
+
+[2026-06-23 20:08:34] Extracción completada en 2.62s
+[2026-06-23 20:08:34] Resultado - Imagen: OK, Precio: OK
+[2026-06-23 20:08:34] ✅ Producto 27 actualizado exitosamente
+[2026-06-23 20:08:34] === FIN completar_producto.php ===
+
+[2026-06-23 20:29:22] === INICIO completar_producto.php ===
+[2026-06-23 20:29:22] ID recibido: 28
+[2026-06-23 20:29:22] Producto encontrado: ID 28, URL: https://sale.alibaba.com/p/dlg3sslnu/index.html?spm=a2700.product_home_fy25.klf.1_1&wx_navbar_transparent=true&path=/p/dlg3sslnu/index.html&disableScrollTopWhenClick&isNewHomePage=true&topOfferIds=10000041081270&topOfferId=10000041081270&categoryId=100007305&waterfallTopOfferIds=10000041081270
+[2026-06-23 20:29:22] Intento 1 de 3
+[2026-06-23 20:29:22] === INICIO completar_producto.php ===
+[2026-06-23 20:29:22] ID recibido: 28
+[2026-06-23 20:29:22] Producto encontrado: ID 28, URL: https://sale.alibaba.com/p/dlg3sslnu/index.html?spm=a2700.product_home_fy25.klf.1_1&wx_navbar_transparent=true&path=/p/dlg3sslnu/index.html&disableScrollTopWhenClick&isNewHomePage=true&topOfferIds=10000041081270&topOfferId=10000041081270&categoryId=100007305&waterfallTopOfferIds=10000041081270
+[2026-06-23 20:29:22] Intento 1 de 3
+[2026-06-23 20:29:23] Extracción completada en 0.8s
+[2026-06-23 20:29:23] Resultado - Imagen: OK, Precio: OK
+[2026-06-23 20:29:23] ✅ Producto 28 actualizado exitosamente
+[2026-06-23 20:29:23] === FIN completar_producto.php ===
+
+[2026-06-23 20:29:23] Extracción completada en 0.9s
+[2026-06-23 20:29:23] Resultado - Imagen: OK, Precio: OK
+[2026-06-23 20:29:23] ✅ Producto 28 actualizado exitosamente
+[2026-06-23 20:29:23] === FIN completar_producto.php ===
+
+[2026-06-23 20:31:07] === INICIO completar_producto.php ===
+[2026-06-23 20:31:07] ID recibido: 29
+[2026-06-23 20:31:07] === INICIO completar_producto.php ===
+[2026-06-23 20:31:07] ID recibido: 29
+[2026-06-23 20:31:07] Producto encontrado: ID 29, URL: https://www.alibaba.com/product-detail/Multifunction-Forage-Crusher-Machine-for-Wet_10000041081270.html?spm=a27aq.30226274.4314857580.2.94514621QnisY0
+[2026-06-23 20:31:07] Intento 1 de 3
+[2026-06-23 20:31:07] Producto encontrado: ID 29, URL: https://www.alibaba.com/product-detail/Multifunction-Forage-Crusher-Machine-for-Wet_10000041081270.html?spm=a27aq.30226274.4314857580.2.94514621QnisY0
+[2026-06-23 20:31:07] Intento 1 de 3
+[2026-06-23 20:31:08] Extracción completada en 1.32s
+[2026-06-23 20:31:08] Resultado - Imagen: OK, Precio: OK
+[2026-06-23 20:31:08] ✅ Producto 29 actualizado exitosamente
+[2026-06-23 20:31:08] === FIN completar_producto.php ===
+
+[2026-06-23 20:31:08] Extracción completada en 1.36s
+[2026-06-23 20:31:08] Resultado - Imagen: OK, Precio: OK
+[2026-06-23 20:31:08] ✅ Producto 29 actualizado exitosamente
+[2026-06-23 20:31:08] === FIN completar_producto.php ===
+

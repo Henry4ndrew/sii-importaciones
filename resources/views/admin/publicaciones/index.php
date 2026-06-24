@@ -1,4 +1,5 @@
 <div class="bg-white rounded-xl shadow overflow-hidden">
+    //AQUI AGREGAR LA SECCION DE CONFIGURACION PARA EL LOGIN DE USUARIOS
     <div class="px-6 py-4 border-b border-slate-200 flex items-center justify-between flex-wrap gap-3">
         <h2 class="text-xl font-bold text-slate-800">
             <i class="fas fa-newspaper mr-2 text-primary-500"></i> Gestión de Publicaciones
