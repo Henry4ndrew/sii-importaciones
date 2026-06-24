@@ -53,12 +53,7 @@ public function index(): void
         ]);
     }
 
-    /**
-     * Guardar nuevo administrador
-     */
-/**
- * Guardar nuevo administrador
- */
+
 /**
  * Guardar nuevo administrador
  */

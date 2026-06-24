@@ -40,6 +40,7 @@ return [
     // ============================================
     'GET /admin/dashboard' => ['AdministradorController', 'dashboard'],
     'GET /admin/usuarios'  => ['AdministradorController', 'usuarios'],
+    'GET /admin/usuarios/eliminar' => ['AdministradorController', 'eliminarUsuario'],
 
     // ============================================
     // RUTAS DE ADMINISTRADORES (AdminController - CRUD)

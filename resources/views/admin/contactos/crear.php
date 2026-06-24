@@ -19,21 +19,21 @@
             <div>
                 <label class="block text-sm font-bold text-slate-700 mb-1">Ciudad <span class="text-red-500">*</span></label>
                 <input type="text" name="ciudad" required
-                       placeholder="Ej: Lima - Perú"
+                       placeholder="Ej: CHUQUISACA"
                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
             </div>
 
             <div>
                 <label class="block text-sm font-bold text-slate-700 mb-1">Teléfono <span class="text-red-500">*</span></label>
                 <input type="text" name="telefono" required
-                       placeholder="Ej: +51 999 999 999"
+                       placeholder="Ej: 76543210"
                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
             </div>
 
             <div>
                 <label class="block text-sm font-bold text-slate-700 mb-1">Correo electrónico <span class="text-red-500">*</span></label>
                 <input type="email" name="correo" required
-                       placeholder="contacto@correo.com"
+                       placeholder="contacto@gmail.com"
                        class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition">
             </div>
 

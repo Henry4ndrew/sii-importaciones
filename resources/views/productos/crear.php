@@ -29,7 +29,7 @@ $bookmarklet = str_replace('__CAPTURAR__', $captureUrl, $js);
                 <input type="url" name="url" required placeholder="https://www.alibaba.com/product-detail/..."
                        class="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent transition-all duration-200">
             </div>
-            <button  class="w-full px-4 py-3 rounded-xl font-bold text-white flex items-center justify-center gap-2 bg-gradient-to-r from-[#00eeff] to-primary-500 hover:from-primary-900 hover:to-[#00eeff] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
+            <button class="w-full px-4 py-3 rounded-xl font-bold text-white flex items-center justify-center gap-2 bg-gradient-to-r from-[#00eeff] to-primary-500 hover:from-primary-900 hover:to-[#00eeff] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
                 <i class="fas fa-cloud-arrow-down text-sm"></i>
                 <span>Extraer y Publicar Producto</span>
             </button>

@@ -116,7 +116,7 @@
                 <!-- WhatsApp -->
                 <div class="md:col-span-2">
                     <label class="block text-sm font-bold text-slate-700 mb-1">
-                        <i class="fab fa-whatsapp mr-2 text-green-600"></i> WhatsApp
+                        <i class="fab fa-whatsapp mr-2 text-green-600"></i> WhatsApp (Para el botón flotante del sitio web)
                     </label>
                     <div class="flex items-center gap-2">
                         <span class="bg-slate-100 border border-slate-300 rounded-lg px-4 py-2 text-slate-600 font-semibold text-sm whitespace-nowrap">

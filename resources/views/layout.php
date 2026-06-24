@@ -404,12 +404,67 @@ if (!empty($empresaData['whatsapp'])) {
 <!-- ============================================ -->
 <!-- BOTÓN WHATSAPP FLOTANTE                      -->
 <!-- ============================================ -->
+
 <?php if (!empty($whatsappNumero)): ?>
-    <a href="https://wa.me/<?= $whatsappNumero ?>" 
-       target="_blank"
-       class="fixed bottom-6 right-6 z-50 group">
-        <!-- ... resto del botón ... -->
-    </a>
+<style>
+    .whatsapp-float-minimal {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #25D366;
+        color: white;
+        text-decoration: none;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+        transition: all 0.3s ease;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .whatsapp-float-minimal:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+        color: white;
+    }
+
+    .whatsapp-float-minimal i {
+        font-size: 32px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .whatsapp-float-minimal {
+            width: 54px;
+            height: 54px;
+            bottom: 16px;
+            right: 16px;
+        }
+        .whatsapp-float-minimal i {
+            font-size: 28px;
+        }
+    }
+</style>
+
+<a href="https://wa.me/<?= $whatsappNumero ?>?text=<?= urlencode('¡Hola! Me gustaría obtener información sobre SII Importaciones.') ?>" 
+   target="_blank" 
+   class="whatsapp-float-minimal"
+   aria-label="Contactar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
 <?php endif; ?>
 
 

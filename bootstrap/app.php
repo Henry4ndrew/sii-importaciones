@@ -208,7 +208,10 @@ function esRutaAdmin(string $path): bool
     // Definir las rutas admin directamente aquí
     $adminRoutes = [
         'admin/dashboard',
+        //USUARIOS
         'admin/usuarios',
+        'admin/usuarios/eliminar',
+        //ADMINISTRADORES
         'admin/administradores',
         'admin/administradores/crear',
         'admin/administradores/editar',

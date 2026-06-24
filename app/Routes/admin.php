@@ -11,10 +11,17 @@ $adminRoutes = [
         'controller' => 'AdministradorController',
         'action' => 'dashboard',
     ],
+    
+    //Usuarios
     'admin/usuarios' => [
         'controller' => 'AdministradorController',
         'action' => 'usuarios',
     ],
+    'admin/usuarios/eliminar' => [  // <-- NUEVA RUTA
+        'controller' => 'AdministradorController',
+        'action' => 'eliminarUsuario',
+    ],
+
     'admin/administradores' => [
         'controller' => 'AdminController',
         'action' => 'index',

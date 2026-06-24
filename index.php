@@ -331,7 +331,7 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
 
 
 <!-- ============================================ -->
-<!-- CONTACTO - SECCIÓN MEJORADA                  -->
+<!-- CONTACTO - SECCIÓN MEJORADA CON CENTRADO    -->
 <!-- ============================================ -->
 <div class="w-screen relative left-1/2 -translate-x-1/2 px-4 py-16 bg-gradient-to-b from-primary-900/80 via-primary-800/60 to-primary-900/80 backdrop-blur-sm border-y border-white/5">
 
@@ -351,69 +351,118 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
             <div class="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#00c8d7] to-transparent mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <!-- Grid de datos de contacto -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+        <?php
+        // Contar cuántos elementos de contacto hay disponibles
+        $contactItems = [];
+        
+        // Email
+        if (!empty($empresaData['email_principal'])) {
+            $contactItems[] = [
+                'tipo' => 'email',
+                'icono' => 'fa-solid fa-envelope',
+                'color' => '#00c8d7',
+                'bg_color' => 'from-[#00c8d7]/5',
+                'border_color' => 'hover:border-[#00c8d7]/50',
+                'label' => 'Email',
+                'valor' => $empresaData['email_principal'],
+                'href' => 'mailto:' . $empresaData['email_principal'],
+                'target' => '',
+                'rel' => ''
+            ];
+        }
+        
+        // Dirección
+        if (!empty($empresaData['direccion_textual'])) {
+            $contactItems[] = [
+                'tipo' => 'direccion',
+                'icono' => 'fa-solid fa-location-dot',
+                'color' => '#00c8d7',
+                'bg_color' => 'from-[#00c8d7]/5',
+                'border_color' => 'hover:border-[#00c8d7]/50',
+                'label' => 'Dirección',
+                'valor' => nl2br(e($empresaData['direccion_textual'])),
+                'href' => '',
+                'target' => '',
+                'rel' => ''
+            ];
+        }
+        
+        // WhatsApp
+        if (!empty($whatsappMostrar)) {
+            $contactItems[] = [
+                'tipo' => 'whatsapp',
+                'icono' => 'fa-brands fa-whatsapp',
+                'color' => '#25D366',
+                'bg_color' => 'from-[#25D366]/5',
+                'border_color' => 'hover:border-[#25D366]/50',
+                'label' => 'WhatsApp',
+                'valor' => e($whatsappMostrar),
+                'href' => 'https://wa.me/' . $whatsappNumero,
+                'target' => '_blank',
+                'rel' => 'noopener noreferrer'
+            ];
+        }
+        
+        // Google Maps
+        if (!empty($empresaData['enlace_gps'])) {
+            $contactItems[] = [
+                'tipo' => 'mapa',
+                'icono' => 'fa-solid fa-map-pin',
+                'color' => '#00c8d7',
+                'bg_color' => 'from-[#00c8d7]/5',
+                'border_color' => 'hover:border-[#00c8d7]/50',
+                'label' => 'Ubicación',
+                'valor' => 'Ver en Google Maps <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"></i>',
+                'href' => e($empresaData['enlace_gps']),
+                'target' => '_blank',
+                'rel' => 'noopener noreferrer'
+            ];
+        }
+        
+        $totalItems = count($contactItems);
+        ?>
 
-            <!-- Email -->
-            <?php if (!empty($empresaData['email_principal'])): ?>
-            <a href="mailto:<?= e($empresaData['email_principal']) ?>"
-               class="group relative bg-primary-800/40 rounded-2xl border border-white/10 p-6 text-center hover:border-[#00c8d7]/50 hover:bg-primary-800/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#00c8d7]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="w-14 h-14 rounded-xl bg-[#00c8d7]/10 border border-[#00c8d7]/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-solid fa-envelope text-[#00c8d7] text-xl"></i>
+        <!-- Grid dinámico con centrado -->
+        <div class="flex flex-wrap justify-center gap-5 mb-10">
+            <?php foreach ($contactItems as $index => $item): 
+                // Determinar el ancho según la cantidad de elementos
+                $widthClass = 'w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)]';
+                
+                if ($totalItems === 1) {
+                    $widthClass = 'w-full sm:w-[400px]';
+                } elseif ($totalItems === 2) {
+                    $widthClass = 'w-full sm:w-[calc(50%-10px)] lg:w-[calc(50%-10px)] max-w-[400px]';
+                } elseif ($totalItems === 3) {
+                    $widthClass = 'w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.33%-15px)] max-w-[350px]';
+                }
+            ?>
+                <?php if (!empty($item['href'])): ?>
+                <a href="<?= $item['href'] ?>" 
+                   target="<?= $item['target'] ?>" 
+                   rel="<?= $item['rel'] ?>"
+                   class="group <?= $widthClass ?> relative bg-primary-800/40 rounded-2xl border border-white/10 p-6 text-center <?= $item['border_color'] ?> hover:bg-primary-800/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden">
+                <?php else: ?>
+                <div class="group <?= $widthClass ?> relative bg-primary-800/40 rounded-2xl border border-white/10 p-6 text-center <?= $item['border_color'] ?> hover:bg-primary-800/60 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                <?php endif; ?>
+                    
+                    <div class="absolute inset-0 bg-gradient-to-b <?= $item['bg_color'] ?> to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    <div class="w-14 h-14 rounded-xl bg-[<?= $item['color'] ?>]/10 border border-[<?= $item['color'] ?>]/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                        <i class="<?= $item['icono'] ?> text-[<?= $item['color'] ?>] text-xl"></i>
+                    </div>
+                    
+                    <p class="text-[10px] font-black uppercase tracking-widest text-primary-400 mb-1"><?= $item['label'] ?></p>
+                    
+                    <p class="text-primary-200 group-hover:text-white text-sm transition-colors duration-200 break-all">
+                        <?= $item['valor'] ?>
+                    </p>
+                    
+                <?php if (!empty($item['href'])): ?>
+                </a>
+                <?php else: ?>
                 </div>
-                <p class="text-[10px] font-black uppercase tracking-widest text-primary-400 mb-1">Email</p>
-                <p class="text-primary-200 group-hover:text-white text-sm transition-colors duration-200 break-all">
-                    <?= e($empresaData['email_principal']) ?>
-                </p>
-            </a>
-            <?php endif; ?>
-
-            <!-- Dirección -->
-            <?php if (!empty($empresaData['direccion_textual'])): ?>
-            <div class="group relative bg-primary-800/40 rounded-2xl border border-white/10 p-6 text-center hover:border-[#00c8d7]/50 hover:bg-primary-800/60 hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#00c8d7]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="w-14 h-14 rounded-xl bg-[#00c8d7]/10 border border-[#00c8d7]/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-solid fa-location-dot text-[#00c8d7] text-xl"></i>
-                </div>
-                <p class="text-[10px] font-black uppercase tracking-widest text-primary-400 mb-1">Dirección</p>
-                <p class="text-primary-200 text-sm leading-relaxed">
-                    <?= nl2br(e($empresaData['direccion_textual'])) ?>
-                </p>
-            </div>
-            <?php endif; ?>
-
-            <!-- WhatsApp -->
-            <?php if (!empty($whatsappMostrar)): ?>
-            <a href="https://wa.me/<?= $whatsappNumero ?>" target="_blank"
-               class="group relative bg-primary-800/40 rounded-2xl border border-white/10 p-6 text-center hover:border-[#25D366]/50 hover:bg-primary-800/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#25D366]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="w-14 h-14 rounded-xl bg-[#25D366]/10 border border-[#25D366]/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-brands fa-whatsapp text-[#25D366] text-2xl"></i>
-                </div>
-                <p class="text-[10px] font-black uppercase tracking-widest text-primary-400 mb-1">WhatsApp</p>
-                <p class="text-primary-200 group-hover:text-white text-sm transition-colors duration-200">
-                    <?= e($whatsappMostrar) ?>
-                </p>
-            </a>
-            <?php endif; ?>
-
-            <!-- Google Maps -->
-            <?php if (!empty($empresaData['enlace_gps'])): ?>
-            <a href="<?= e($empresaData['enlace_gps']) ?>" target="_blank" rel="noopener noreferrer"
-               class="group relative bg-primary-800/40 rounded-2xl border border-white/10 p-6 text-center hover:border-[#00c8d7]/50 hover:bg-primary-800/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#00c8d7]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="w-14 h-14 rounded-xl bg-[#00c8d7]/10 border border-[#00c8d7]/20 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-solid fa-map-pin text-[#00c8d7] text-xl"></i>
-                </div>
-                <p class="text-[10px] font-black uppercase tracking-widest text-primary-400 mb-1">Ubicación</p>
-                <p class="text-primary-200 group-hover:text-white text-sm transition-colors duration-200 inline-flex items-center justify-center gap-1">
-                    Ver en Google Maps
-                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"></i>
-                </p>
-            </a>
-            <?php endif; ?>
-
+                <?php endif; ?>
+            <?php endforeach; ?>
         </div>
 
         <!-- Redes Sociales -->

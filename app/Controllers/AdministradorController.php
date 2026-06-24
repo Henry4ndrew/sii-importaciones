@@ -197,4 +197,49 @@ class AdministradorController
         $stmt = db()->query('SELECT * FROM usuarios ORDER BY created_at DESC');
         return $stmt->fetchAll();
     }
+
+
+
+    /**
+     * Eliminar un usuario
+     */
+    public function eliminarUsuario(): void
+    {
+        // Verificar que sea administrador
+        if (!isset($_SESSION['administrador'])) {
+            header('Location: ' . url('auth/login'));
+            exit;
+        }
+
+        $id = (int) ($_GET['id'] ?? 0);
+        
+        if ($id <= 0) {
+            flash('error', 'ID de usuario inválido.');
+            header('Location: ' . url('admin/usuarios'));
+            exit;
+        }
+
+        try {
+            // Primero verificar si el usuario existe
+            $stmt = db()->prepare('SELECT * FROM usuarios WHERE id = ?');
+            $stmt->execute([$id]);
+            $usuario = $stmt->fetch();
+
+            if (!$usuario) {
+                flash('error', 'El usuario no existe.');
+                header('Location: ' . url('admin/usuarios'));
+                exit;
+            }
+
+            $stmt = db()->prepare('DELETE FROM usuarios WHERE id = ?');
+            $stmt->execute([$id]);
+
+            flash('exito', 'Usuario eliminado exitosamente.');
+        } catch (PDOException $e) {
+            flash('error', 'Error al eliminar el usuario: ' . $e->getMessage());
+        }
+
+        header('Location: ' . url('admin/usuarios'));
+        exit;
+    }
 }

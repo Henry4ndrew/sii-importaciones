@@ -28,9 +28,11 @@
                             <td class="px-6 py-4 text-sm text-slate-600"><?= e($usuario['email']) ?></td>
                             <td class="px-6 py-4 text-sm text-slate-500"><?= date('d/m/Y H:i', strtotime($usuario['created_at'])) ?></td>
                             <td class="px-6 py-4 text-sm">
-                                <button onclick="if(confirm('¿Eliminar este usuario?')) { alert('Función en desarrollo'); }" class="text-red-600 hover:text-red-800">
+                                <a href="<?= url('admin/usuarios/eliminar') ?>?id=<?= $usuario['id'] ?>" 
+                                   onclick="return confirm('¿Estás seguro de eliminar este usuario? Se eliminarán también todos sus productos y votos.')" 
+                                   class="text-red-600 hover:text-red-800 transition">
                                     <i class="fas fa-trash"></i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
