@@ -1,9 +1,6 @@
-# WILLS IMPORT — Sistema de Votación de Productos
+# SII IMPORTACIONES — Sistema de Votación de Productos
 
-Sistema de votación comunitaria para importaciones desde China, inspirado en
-https://sistemadevotacionwills.blogspot.com/
-
-Hecho en **PHP puro con estructura tipo Laravel**, **MySQL (phpMyAdmin)** y **Tailwind CSS por CDN**.
+Sistema de votación comunitaria para importaciones desde China hecho en **PHP puro con estructura tipo Laravel**, **MySQL (phpMyAdmin)** y **Tailwind CSS por CDN**.
 
 ## Funcionalidades
 
@@ -58,68 +55,66 @@ function db(): PDO
                 ]
             );
         } catch (PDOException $e) {
+            // Si falla, mostrar error amigable
             die('Error de conexión a la base de datos. Por favor, verifica la configuración.');
         }
     }
 
     return $pdo;
 }
-?>
 
 ## Datos globales
 Ruta: config/config.php
 <?php
 
 // ============================================
-// DEFINIR BASE_URL - DEBE IR ANTES DEL RETURN
+// PREVENIR DEFINICIÓN MÚLTIPLE DE CONSTANTES
 // ============================================
 
-// Cambia según entorno:
-// Local:   define('BASE_URL', '/sii-importaciones');
-// Producción: define('BASE_URL', '');
+// ============================================
+// DEFINIR BASE_URL
+// ============================================
 if (!defined('BASE_URL')) {
-    define('BASE_URL', '/sii-importaciones');
+    // Detectar automáticamente el entorno
+    $is_local = strpos($_SERVER['HTTP_HOST'] ?? '', 'localhost') !== false || 
+                strpos($_SERVER['HTTP_HOST'] ?? '', '127.0.0.1') !== false;
+
+    if ($is_local) {
+        define('BASE_URL', '/sii-importaciones');
+    } else {
+        define('BASE_URL', ''); // Vacío en producción
+    }
 }
 
 // ============================================
-// DEFINIR BASE_URL_FULL - PARA URLs ABSOLUTAS (EMAILS)
+// DEFINIR BASE_URL_FULL
 // ============================================
+if (!defined('BASE_URL_FULL')) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
-// Detectar el host automáticamente
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-
-// Para producción (dominio real)
-if (strpos($host, 'dominio.com') !== false) {
-    define('BASE_URL_FULL', 'https://dominio.com');
-} else {
-    // Para local (localhost)
-    define('BASE_URL_FULL', 'http://localhost' . BASE_URL);
+    if ($is_local ?? false) {
+        define('BASE_URL_FULL', $protocol . $host . BASE_URL);
+    } else {
+        define('BASE_URL_FULL', 'https://tudominio.com');
+    }
 }
 
 // ============================================
 // CONFIGURACIÓN DE CORREO (SMTP)
 // ============================================
-define('SMTP_HOST', 'mail.dominio.com');
-define('SMTP_USERNAME', 'usuario@dominio.com');
-define('SMTP_PASSWORD', 'contrasenaEmailDelDominio');
-define('SMTP_PORT', 3DigitosDeCpanel);
-define('SMTP_SECURE', 'ssl');
-define('SMTP_FROM_EMAIL', 'usuario@dominio.com');
-define('SMTP_FROM_NAME', 'Dominio Nombre');
+if (!defined('SMTP_HOST')) define('SMTP_HOST', 'mail.tudominio.com');
+if (!defined('SMTP_USERNAME')) define('SMTP_USERNAME', 'usuario@tudominio.com');
+if (!defined('SMTP_PASSWORD')) define('SMTP_PASSWORD', 'contrasenaGmailCorporativo');
+if (!defined('SMTP_PORT')) define('SMTP_PORT', 465);
+if (!defined('SMTP_SECURE')) define('SMTP_SECURE', 'ssl');
+if (!defined('SMTP_FROM_EMAIL')) define('SMTP_FROM_EMAIL', 'usuario@tudominio.com');
+if (!defined('SMTP_FROM_NAME')) define('SMTP_FROM_NAME', 'Nombre visible Correo');
 
-
-
-// Configuración general del sistema (Extraer productos de Alibaba)
+// Configuración general del sistema
 return [
-    // Clave de ScraperAPI
-    'scraper_api_key' => 'tuClaveScrapperAPI',
-
-    // Ruta del PHP de línea de comandos
-    'php_cli' => 'C:\\xampp\\php\\php.exe', 
-    // 'php_cli' => '/opt/cpanel/ea-php82/root/usr/bin/php', // CPANEL PHP 8.2
-
-    // Configuración de correo
+    'scraper_api_key' => 'clave numerica scraper',
+    'php_cli' => '/opt/cpanel/ea-php82/root/usr/bin/php', //ruta para php 8.2
     'mail' => [
         'host' => SMTP_HOST,
         'username' => SMTP_USERNAME,
