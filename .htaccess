@@ -26,7 +26,8 @@
     # ============================================
     # RUTAS DEL PANEL ADMINISTRATIVO
     # ============================================
-    RewriteRule ^admin/(.*)$ index.php [L]
+    # Redirigir TODAS las rutas admin a index.php
+    RewriteRule ^admin(/.*)?$ index.php [L]
     
     # ============================================
     # RUTAS DEL DASHBOARD
@@ -39,6 +40,13 @@
     RewriteRule ^votar$ dashboard/index.php [L]
     RewriteRule ^logout$ dashboard/index.php [L]
     RewriteRule ^login$ dashboard/index.php [L]
+    
+    # ============================================
+    # REGLA PARA RUTAS NO ENCONTRADAS
+    # ============================================
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
     
 </IfModule>
 

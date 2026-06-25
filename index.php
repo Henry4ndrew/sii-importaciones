@@ -526,66 +526,107 @@ if ($cleanPath === '' || $cleanPath === 'index.php') {
                     </div>
                 </div>
             </div>
-            <?php else: ?>
-            <div id="acceso" class="rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-primary-900/80 backdrop-blur-sm scroll-mt-20">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="<?= url('public/img/portadaAlibaba.webp') ?>" alt="Portada Alibaba"
-                        class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary-900/90 via-primary-900/30 to-transparent"></div>
-                    <div class="absolute bottom-4 left-0 right-0 text-center">
-                        <span class="text-xs font-black tracking-widest text-[#00eeff] uppercase">Bienvenido</span>
-                    </div>
+
+
+
+
+
+
+
+
+<?php else: ?>
+<div id="acceso" class="rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-primary-900/80 backdrop-blur-sm scroll-mt-20">
+    <div class="relative h-48 overflow-hidden">
+        <img src="<?= url('public/img/portadaAlibaba.webp') ?>" alt="Portada Alibaba"
+            class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-primary-900/90 via-primary-900/30 to-transparent"></div>
+        <div class="absolute bottom-4 left-0 right-0 text-center">
+            <span class="text-xs font-black tracking-widest text-[#00eeff] uppercase">Bienvenido</span>
+        </div>
+    </div>
+
+    <div class="px-6 pt-5 pb-4 text-center border-b border-white/10">
+        <h2 class="text-2xl font-extrabold text-white leading-tight">
+            Accede al<br>
+            <span class="text-[#00eeff]">Sistema</span>
+        </h2>
+        <p class="text-primary-50/80 text-sm mt-2">
+            Ingresa tu correo electrónico para comenzar a votar y publicar productos.
+        </p>
+    </div>
+
+    <div class="p-6">
+        <?php if ($flash = getFlash()): ?>
+            <div class="mb-4 rounded-xl px-4 py-3 text-sm font-semibold border
+                <?= $flash['tipo'] === 'exito'
+                    ? 'bg-green-900/40 text-green-300 border-green-500/30'
+                    : 'bg-red-900/40 text-red-300 border-red-500/30' ?>">
+                <?= e($flash['mensaje']) ?>
+            </div>
+        <?php endif; ?>
+
+        <?php
+        // ============================================
+        // VERIFICAR CONFIGURACIÓN DEL LOGIN
+        // ============================================
+        require_once __DIR__ . '/app/Models/ConfiguracionLogin.php';
+        $configLogin = ConfiguracionLogin::getConfig();
+        $loginHabilitado = $configLogin['login_habilitado'] ?? true;
+        $mensajeLogin = $configLogin['mensaje'] ?? 'El sistema de acceso para usuarios se encuentra temporalmente deshabilitado.';
+        ?>
+
+        <?php if ($loginHabilitado): ?>
+            <!-- Login habilitado - Mostrar formulario -->
+            <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="max-w-md mx-auto space-y-4">
+                <div>
+                    <input type="email" name="email" required
+                        placeholder="tu@email.com"
+                        class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-center placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#00eeff]/50 focus:border-[#00eeff]/50 transition-all duration-200">
                 </div>
+                <button class="w-full inline-flex items-center justify-center gap-2 font-bold py-3 rounded-xl text-white bg-gradient-to-r from-[#00eeff] to-primary-500 hover:from-primary-900 hover:to-[#00eeff] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Acceder
+                </button>
+            </form>
 
-                <div class="px-6 pt-5 pb-4 text-center border-b border-white/10">
-                    <h2 class="text-2xl font-extrabold text-white leading-tight">
-                        Accede al<br>
-                        <span class="text-[#00eeff]">Sistema</span>
-                    </h2>
-                    <p class="text-primary-50/80 text-sm mt-2">
-                        Ingresa tu correo electrónico para comenzar a votar y publicar productos.
-                    </p>
-                </div>
+            <div class="w-12 h-0.5 bg-[#00eeff]/40 mx-auto my-5 rounded-full"></div>
 
-                <div class="p-6">
-                    <?php if ($flash = getFlash()): ?>
-                        <div class="mb-4 rounded-xl px-4 py-3 text-sm font-semibold border
-                            <?= $flash['tipo'] === 'exito'
-                                ? 'bg-green-900/40 text-green-300 border-green-500/30'
-                                : 'bg-red-900/40 text-red-300 border-red-500/30' ?>">
-                            <?= e($flash['mensaje']) ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="max-w-md mx-auto space-y-4">
-                        <div>
-                            <input type="email" name="email" required
-                                placeholder="tu@email.com"
-                                class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white text-center placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#00eeff]/50 focus:border-[#00eeff]/50 transition-all duration-200">
-                        </div>
-                        <button class="w-full inline-flex items-center justify-center gap-2 font-bold py-3 rounded-xl text-white bg-gradient-to-r from-[#00eeff] to-primary-500 hover:from-primary-900 hover:to-[#00eeff] transition-all duration-300 ease-in-out [text-shadow:0_1px_4px_rgba(0,0,0,0.4)]">
-                            <i class="fa-solid fa-right-to-bracket"></i>
-                            Acceder
-                        </button>
-                    </form>
-
-                    <div class="w-12 h-0.5 bg-[#00eeff]/40 mx-auto my-5 rounded-full"></div>
-
-                    <p class="text-center text-xs text-primary-50/50 flex items-center justify-center gap-1">
-                        <i class="fa-solid fa-circle-info text-[#00eeff]/60"></i>
-                        Al ingresar tu correo, se creará automáticamente tu cuenta si no existe.
-                    </p>
-
-                    <div class="mt-5 pt-4 border-t border-white/10 text-center">
-                        <a href="<?= url('auth/login') ?>"
-                        class="inline-flex items-center gap-2 text-sm font-semibold text-primary-50/70 hover:text-[#00eeff] transition-colors duration-200">
-                            <i class="fa-solid fa-lock text-xs"></i>
-                            ¿Eres administrador? Inicia sesión aquí
-                        </a>
+            <p class="text-center text-xs text-primary-50/50 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-circle-info text-[#00eeff]/60"></i>
+                Al ingresar tu correo, se creará automáticamente tu cuenta si no existe.
+            </p>
+        <?php else: ?>
+            <!-- Login deshabilitado - Solo mostrar mensaje -->
+            <div class="max-w-md mx-auto">
+                <div class="bg-amber-900/30 border border-amber-500/30 rounded-xl px-6 py-5 text-center">
+                    <div class="flex items-center justify-center gap-2 mb-3">
+                        <i class="fas fa-lock text-amber-400 text-xl"></i>
+                        <span class="text-amber-400 font-semibold text-sm">Acceso Deshabilitado</span>
                     </div>
+                    <p class="text-primary-50/80 text-sm leading-relaxed">
+                        <?= e($mensajeLogin) ?>
+                    </p>
                 </div>
             </div>
-            <?php endif; ?>
+            
+            <div class="w-12 h-0.5 bg-[#00eeff]/40 mx-auto my-5 rounded-full"></div>
+            
+            <p class="text-center text-xs text-primary-50/50 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-clock text-amber-400/60"></i>
+                El acceso se encuentra temporalmente deshabilitado
+            </p>
+        <?php endif; ?>
+
+        <div class="mt-5 pt-4 border-t border-white/10 text-center">
+            <a href="<?= url('auth/login') ?>"
+            class="inline-flex items-center gap-2 text-sm font-semibold text-primary-50/70 hover:text-[#00eeff] transition-colors duration-200">
+                <i class="fa-solid fa-lock text-xs"></i>
+                ¿Eres administrador? Inicia sesión aquí
+            </a>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
         </div>
     </div>
 

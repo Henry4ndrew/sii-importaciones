@@ -52,5 +52,13 @@ return [
     'POST /admin/administradores/actualizar' => ['AdminController', 'update'],
     'GET /admin/administradores/eliminar' => ['AdminController', 'delete'],
 
- 
+
+    // ============================================
+    // RUTAS DE PUBLICACIONES (PublicacionController)
+    // ============================================
+    'GET /admin/publicaciones' => ['PublicacionController', 'index'],
+    'GET /admin/publicaciones/ver' => ['PublicacionController', 'ver'],
+    'GET /admin/publicaciones/eliminar' => ['PublicacionController', 'delete'],
+    'POST /admin/publicaciones/configuracion/actualizar' => ['PublicacionController', 'actualizarConfiguracionLogin'], // NUEVA RUTA
+    
 ];

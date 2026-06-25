@@ -12,6 +12,12 @@ class PublicacionController
             exit;
         }
 
+
+        // Obtener configuración del login
+        require_once __DIR__ . '/../Models/ConfiguracionLogin.php';
+        $configLogin = ConfiguracionLogin::getConfig();
+
+
         // Obtener filtros
         $filtroVotos = $_GET['votos'] ?? 'todos';
         $filtroFecha = $_GET['fecha'] ?? 'todos';
@@ -85,9 +91,46 @@ class PublicacionController
             'activePage' => 'publicaciones',
             'filtroVotos' => $filtroVotos,
             'filtroFecha' => $filtroFecha,
-            'busqueda' => $busqueda
+            'busqueda' => $busqueda,
+            'configLogin' => $configLogin
         ]);
     }
+
+
+    /**
+     * Actualizar configuración del login
+     */
+    public function actualizarConfiguracionLogin(): void
+    {
+        if (!isset($_SESSION['administrador'])) {
+            header('Location: ' . url('auth/login'));
+            exit;
+        }
+
+        require_once __DIR__ . '/../Models/ConfiguracionLogin.php';
+
+        // El campo hidden siempre envía 0, el checkbox envía 1 cuando está marcado
+        $habilitado = isset($_POST['login_habilitado']) && $_POST['login_habilitado'] == 1;
+        
+        $mensaje = trim($_POST['mensaje'] ?? 'El sistema de acceso para usuarios se encuentra temporalmente deshabilitado. Por favor, intenta más tarde.');
+        
+        if (empty($mensaje)) {
+            $mensaje = 'El sistema de acceso para usuarios se encuentra temporalmente deshabilitado. Por favor, intenta más tarde.';
+        }
+        
+        $resultado = ConfiguracionLogin::actualizar($habilitado, $mensaje);
+        
+        if ($resultado) {
+            $estado = $habilitado ? 'habilitado' : 'deshabilitado';
+            flash('exito', "Configuración del login actualizada exitosamente. El acceso de usuarios está $estado.");
+        } else {
+            flash('error', 'Error al actualizar la configuración del login.');
+        }
+        
+        header('Location: ' . url('admin/publicaciones'));
+        exit;
+    }
+
 
     /**
      * Ver detalle de una publicación

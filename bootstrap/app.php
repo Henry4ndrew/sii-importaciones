@@ -53,7 +53,10 @@ function detectarTipoPost(): ?string
     if (isset($_POST['descripcion_corporativa']) || isset($_POST['email_principal'])) {
         return 'crud_empresa';
     }
-        
+    // DETECTAR CONFIGURACIÓN DEL LOGIN
+    if (isset($_POST['login_habilitado']) && isset($_POST['mensaje'])) {
+        return 'configuracion_login';
+    }
     return null;
 }
 
@@ -153,6 +156,12 @@ function procesarPost(string $tipo): void
                 $controller->update();
             }
             break;
+        //CONFIGURACION LOGIN    
+        case 'configuracion_login':
+            require_once __DIR__ . '/../app/controllers/PublicacionController.php';
+            $controller = new PublicacionController();
+            $controller->actualizarConfiguracionLogin();
+            break;
         //
     }
     
@@ -251,6 +260,7 @@ function esRutaAdmin(string $path): bool
         'admin/publicaciones',
         'admin/publicaciones/ver',
         'admin/publicaciones/eliminar',
+        'admin/publicaciones/configuracion/actualizar', 
         //CONÓCENOS
         'admin/conocenos',
         'admin/conocenos/actualizar',
